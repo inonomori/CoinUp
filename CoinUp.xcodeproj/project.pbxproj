@@ -1,0 +1,306 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		683050351819FE5500BCEFE1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 683050341819FE5500BCEFE1 /* UIKit.framework */; };
+		683050371819FE5500BCEFE1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 683050361819FE5500BCEFE1 /* Foundation.framework */; };
+		683050391819FE5500BCEFE1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 683050381819FE5500BCEFE1 /* CoreGraphics.framework */; };
+		6830503F1819FE5500BCEFE1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6830503D1819FE5500BCEFE1 /* InfoPlist.strings */; };
+		683050411819FE5500BCEFE1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 683050401819FE5500BCEFE1 /* main.m */; };
+		683050451819FE5500BCEFE1 /* NRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 683050441819FE5500BCEFE1 /* NRAppDelegate.m */; };
+		683050471819FE5500BCEFE1 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 683050461819FE5500BCEFE1 /* Default.png */; };
+		683050491819FE5500BCEFE1 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 683050481819FE5500BCEFE1 /* Default@2x.png */; };
+		6830504B1819FE5500BCEFE1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6830504A1819FE5500BCEFE1 /* Default-568h@2x.png */; };
+		6830504E1819FE5500BCEFE1 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6830504C1819FE5500BCEFE1 /* MainStoryboard.storyboard */; };
+		683050511819FE5500BCEFE1 /* NRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 683050501819FE5500BCEFE1 /* NRViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		683050311819FE5500BCEFE1 /* CoinUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		683050341819FE5500BCEFE1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		683050361819FE5500BCEFE1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		683050381819FE5500BCEFE1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		6830503C1819FE5500BCEFE1 /* CoinUp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CoinUp-Info.plist"; sourceTree = "<group>"; };
+		6830503E1819FE5500BCEFE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		683050401819FE5500BCEFE1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		683050421819FE5500BCEFE1 /* CoinUp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CoinUp-Prefix.pch"; sourceTree = "<group>"; };
+		683050431819FE5500BCEFE1 /* NRAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NRAppDelegate.h; sourceTree = "<group>"; };
+		683050441819FE5500BCEFE1 /* NRAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NRAppDelegate.m; sourceTree = "<group>"; };
+		683050461819FE5500BCEFE1 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		683050481819FE5500BCEFE1 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		6830504A1819FE5500BCEFE1 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		6830504D1819FE5500BCEFE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		6830504F1819FE5500BCEFE1 /* NRViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NRViewController.h; sourceTree = "<group>"; };
+		683050501819FE5500BCEFE1 /* NRViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NRViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6830502E1819FE5500BCEFE1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				683050351819FE5500BCEFE1 /* UIKit.framework in Frameworks */,
+				683050371819FE5500BCEFE1 /* Foundation.framework in Frameworks */,
+				683050391819FE5500BCEFE1 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		683050281819FE5500BCEFE1 = {
+			isa = PBXGroup;
+			children = (
+				6830503A1819FE5500BCEFE1 /* CoinUp */,
+				683050331819FE5500BCEFE1 /* Frameworks */,
+				683050321819FE5500BCEFE1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		683050321819FE5500BCEFE1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				683050311819FE5500BCEFE1 /* CoinUp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		683050331819FE5500BCEFE1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				683050341819FE5500BCEFE1 /* UIKit.framework */,
+				683050361819FE5500BCEFE1 /* Foundation.framework */,
+				683050381819FE5500BCEFE1 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6830503A1819FE5500BCEFE1 /* CoinUp */ = {
+			isa = PBXGroup;
+			children = (
+				683050431819FE5500BCEFE1 /* NRAppDelegate.h */,
+				683050441819FE5500BCEFE1 /* NRAppDelegate.m */,
+				6830504C1819FE5500BCEFE1 /* MainStoryboard.storyboard */,
+				6830504F1819FE5500BCEFE1 /* NRViewController.h */,
+				683050501819FE5500BCEFE1 /* NRViewController.m */,
+				6830503B1819FE5500BCEFE1 /* Supporting Files */,
+			);
+			path = CoinUp;
+			sourceTree = "<group>";
+		};
+		6830503B1819FE5500BCEFE1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6830503C1819FE5500BCEFE1 /* CoinUp-Info.plist */,
+				6830503D1819FE5500BCEFE1 /* InfoPlist.strings */,
+				683050401819FE5500BCEFE1 /* main.m */,
+				683050421819FE5500BCEFE1 /* CoinUp-Prefix.pch */,
+				683050461819FE5500BCEFE1 /* Default.png */,
+				683050481819FE5500BCEFE1 /* Default@2x.png */,
+				6830504A1819FE5500BCEFE1 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		683050301819FE5500BCEFE1 /* CoinUp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 683050541819FE5500BCEFE1 /* Build configuration list for PBXNativeTarget "CoinUp" */;
+			buildPhases = (
+				6830502D1819FE5500BCEFE1 /* Sources */,
+				6830502E1819FE5500BCEFE1 /* Frameworks */,
+				6830502F1819FE5500BCEFE1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CoinUp;
+			productName = CoinUp;
+			productReference = 683050311819FE5500BCEFE1 /* CoinUp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		683050291819FE5500BCEFE1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = NR;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = Nonomori;
+			};
+			buildConfigurationList = 6830502C1819FE5500BCEFE1 /* Build configuration list for PBXProject "CoinUp" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 683050281819FE5500BCEFE1;
+			productRefGroup = 683050321819FE5500BCEFE1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				683050301819FE5500BCEFE1 /* CoinUp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6830502F1819FE5500BCEFE1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6830503F1819FE5500BCEFE1 /* InfoPlist.strings in Resources */,
+				683050471819FE5500BCEFE1 /* Default.png in Resources */,
+				683050491819FE5500BCEFE1 /* Default@2x.png in Resources */,
+				6830504B1819FE5500BCEFE1 /* Default-568h@2x.png in Resources */,
+				6830504E1819FE5500BCEFE1 /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6830502D1819FE5500BCEFE1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				683050411819FE5500BCEFE1 /* main.m in Sources */,
+				683050451819FE5500BCEFE1 /* NRAppDelegate.m in Sources */,
+				683050511819FE5500BCEFE1 /* NRViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		6830503D1819FE5500BCEFE1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6830503E1819FE5500BCEFE1 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		6830504C1819FE5500BCEFE1 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6830504D1819FE5500BCEFE1 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		683050521819FE5500BCEFE1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		683050531819FE5500BCEFE1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		683050551819FE5500BCEFE1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CoinUp/CoinUp-Prefix.pch";
+				INFOPLIST_FILE = "CoinUp/CoinUp-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		683050561819FE5500BCEFE1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CoinUp/CoinUp-Prefix.pch";
+				INFOPLIST_FILE = "CoinUp/CoinUp-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6830502C1819FE5500BCEFE1 /* Build configuration list for PBXProject "CoinUp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				683050521819FE5500BCEFE1 /* Debug */,
+				683050531819FE5500BCEFE1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		683050541819FE5500BCEFE1 /* Build configuration list for PBXNativeTarget "CoinUp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				683050551819FE5500BCEFE1 /* Debug */,
+				683050561819FE5500BCEFE1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 683050291819FE5500BCEFE1 /* Project object */;
+}
