@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NRCoinUpBoard.h"
 
-@interface NRViewController : UIViewController
+
+@interface NRViewController : UIViewController<NRCoinUpBoard>
+
 
 @end

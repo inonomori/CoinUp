@@ -18,6 +18,15 @@
 		6830504B1819FE5500BCEFE1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6830504A1819FE5500BCEFE1 /* Default-568h@2x.png */; };
 		6830504E1819FE5500BCEFE1 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6830504C1819FE5500BCEFE1 /* MainStoryboard.storyboard */; };
 		683050511819FE5500BCEFE1 /* NRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 683050501819FE5500BCEFE1 /* NRViewController.m */; };
+		683050591819FE8B00BCEFE1 /* NROKCoinTicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 683050581819FE8B00BCEFE1 /* NROKCoinTicker.m */; };
+		6830505E1819FEE100BCEFE1 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6830505D1819FEE100BCEFE1 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		68305061181A068E00BCEFE1 /* NRBTCTicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 68305060181A068E00BCEFE1 /* NRBTCTicker.m */; };
+		68305064181A06D700BCEFE1 /* NRFXBTCTicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 68305063181A06D700BCEFE1 /* NRFXBTCTicker.m */; };
+		68305068181A3C9100BCEFE1 /* ToolBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 68305067181A3C9100BCEFE1 /* ToolBox.m */; };
+		6830506B181A795600BCEFE1 /* NRBTCTRADETicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6830506A181A795600BCEFE1 /* NRBTCTRADETicker.m */; };
+		6830506E181AAC0300BCEFE1 /* NRMTGOXTicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6830506D181AAC0300BCEFE1 /* NRMTGOXTicker.m */; };
+		68305071181AB0E400BCEFE1 /* NRBITSTAMPTicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 68305070181AB0E300BCEFE1 /* NRBITSTAMPTicker.m */; };
+		68305074181AB82E00BCEFE1 /* NRCHBTCTicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 68305073181AB82D00BCEFE1 /* NRCHBTCTicker.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +46,25 @@
 		6830504D1819FE5500BCEFE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		6830504F1819FE5500BCEFE1 /* NRViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NRViewController.h; sourceTree = "<group>"; };
 		683050501819FE5500BCEFE1 /* NRViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NRViewController.m; sourceTree = "<group>"; };
+		683050571819FE8B00BCEFE1 /* NROKCoinTicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NROKCoinTicker.h; sourceTree = "<group>"; };
+		683050581819FE8B00BCEFE1 /* NROKCoinTicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NROKCoinTicker.m; sourceTree = "<group>"; };
+		6830505C1819FEE100BCEFE1 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		6830505D1819FEE100BCEFE1 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		6830505F181A068E00BCEFE1 /* NRBTCTicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRBTCTicker.h; sourceTree = "<group>"; };
+		68305060181A068E00BCEFE1 /* NRBTCTicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRBTCTicker.m; sourceTree = "<group>"; };
+		68305062181A06D700BCEFE1 /* NRFXBTCTicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRFXBTCTicker.h; sourceTree = "<group>"; };
+		68305063181A06D700BCEFE1 /* NRFXBTCTicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRFXBTCTicker.m; sourceTree = "<group>"; };
+		68305065181A0C9500BCEFE1 /* NRCoinUpBoard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NRCoinUpBoard.h; sourceTree = "<group>"; };
+		68305066181A3C9100BCEFE1 /* ToolBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolBox.h; sourceTree = "<group>"; };
+		68305067181A3C9100BCEFE1 /* ToolBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolBox.m; sourceTree = "<group>"; };
+		68305069181A795600BCEFE1 /* NRBTCTRADETicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRBTCTRADETicker.h; sourceTree = "<group>"; };
+		6830506A181A795600BCEFE1 /* NRBTCTRADETicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRBTCTRADETicker.m; sourceTree = "<group>"; };
+		6830506C181AAC0300BCEFE1 /* NRMTGOXTicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRMTGOXTicker.h; sourceTree = "<group>"; };
+		6830506D181AAC0300BCEFE1 /* NRMTGOXTicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRMTGOXTicker.m; sourceTree = "<group>"; };
+		6830506F181AB0E300BCEFE1 /* NRBITSTAMPTicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRBITSTAMPTicker.h; sourceTree = "<group>"; };
+		68305070181AB0E300BCEFE1 /* NRBITSTAMPTicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRBITSTAMPTicker.m; sourceTree = "<group>"; };
+		68305072181AB82D00BCEFE1 /* NRCHBTCTicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRCHBTCTicker.h; sourceTree = "<group>"; };
+		68305073181AB82D00BCEFE1 /* NRCHBTCTicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRCHBTCTicker.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +84,7 @@
 		683050281819FE5500BCEFE1 = {
 			isa = PBXGroup;
 			children = (
+				6830505A1819FE9900BCEFE1 /* Libraries */,
 				6830503A1819FE5500BCEFE1 /* CoinUp */,
 				683050331819FE5500BCEFE1 /* Frameworks */,
 				683050321819FE5500BCEFE1 /* Products */,
@@ -83,6 +112,23 @@
 		6830503A1819FE5500BCEFE1 /* CoinUp */ = {
 			isa = PBXGroup;
 			children = (
+				68305066181A3C9100BCEFE1 /* ToolBox.h */,
+				68305067181A3C9100BCEFE1 /* ToolBox.m */,
+				68305065181A0C9500BCEFE1 /* NRCoinUpBoard.h */,
+				68305072181AB82D00BCEFE1 /* NRCHBTCTicker.h */,
+				68305073181AB82D00BCEFE1 /* NRCHBTCTicker.m */,
+				6830506F181AB0E300BCEFE1 /* NRBITSTAMPTicker.h */,
+				68305070181AB0E300BCEFE1 /* NRBITSTAMPTicker.m */,
+				6830506C181AAC0300BCEFE1 /* NRMTGOXTicker.h */,
+				6830506D181AAC0300BCEFE1 /* NRMTGOXTicker.m */,
+				68305069181A795600BCEFE1 /* NRBTCTRADETicker.h */,
+				6830506A181A795600BCEFE1 /* NRBTCTRADETicker.m */,
+				68305062181A06D700BCEFE1 /* NRFXBTCTicker.h */,
+				68305063181A06D700BCEFE1 /* NRFXBTCTicker.m */,
+				683050571819FE8B00BCEFE1 /* NROKCoinTicker.h */,
+				683050581819FE8B00BCEFE1 /* NROKCoinTicker.m */,
+				6830505F181A068E00BCEFE1 /* NRBTCTicker.h */,
+				68305060181A068E00BCEFE1 /* NRBTCTicker.m */,
 				683050431819FE5500BCEFE1 /* NRAppDelegate.h */,
 				683050441819FE5500BCEFE1 /* NRAppDelegate.m */,
 				6830504C1819FE5500BCEFE1 /* MainStoryboard.storyboard */,
@@ -105,6 +151,24 @@
 				6830504A1819FE5500BCEFE1 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6830505A1819FE9900BCEFE1 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				6830505B1819FEE100BCEFE1 /* JSONKit */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		6830505B1819FEE100BCEFE1 /* JSONKit */ = {
+			isa = PBXGroup;
+			children = (
+				6830505C1819FEE100BCEFE1 /* JSONKit.h */,
+				6830505D1819FEE100BCEFE1 /* JSONKit.m */,
+			);
+			name = JSONKit;
+			path = CoinUp/Libraries/JSONKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,6 +241,15 @@
 				683050411819FE5500BCEFE1 /* main.m in Sources */,
 				683050451819FE5500BCEFE1 /* NRAppDelegate.m in Sources */,
 				683050511819FE5500BCEFE1 /* NRViewController.m in Sources */,
+				683050591819FE8B00BCEFE1 /* NROKCoinTicker.m in Sources */,
+				6830505E1819FEE100BCEFE1 /* JSONKit.m in Sources */,
+				68305061181A068E00BCEFE1 /* NRBTCTicker.m in Sources */,
+				68305064181A06D700BCEFE1 /* NRFXBTCTicker.m in Sources */,
+				68305068181A3C9100BCEFE1 /* ToolBox.m in Sources */,
+				6830506B181A795600BCEFE1 /* NRBTCTRADETicker.m in Sources */,
+				6830506E181AAC0300BCEFE1 /* NRMTGOXTicker.m in Sources */,
+				68305071181AB0E400BCEFE1 /* NRBITSTAMPTicker.m in Sources */,
+				68305074181AB82E00BCEFE1 /* NRCHBTCTicker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +337,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoinUp/CoinUp-Prefix.pch";
 				INFOPLIST_FILE = "CoinUp/CoinUp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -275,6 +349,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoinUp/CoinUp-Prefix.pch";
 				INFOPLIST_FILE = "CoinUp/CoinUp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -299,6 +374,7 @@
 				683050561819FE5500BCEFE1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
