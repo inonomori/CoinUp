@@ -16,6 +16,7 @@ typedef NS_ENUM(NSInteger, COINPLATFORMTYPE) {
     MTGOX = 4,
     BITSTAMP = 5,
     CHBTC = 6,
+    BTCCHINA = 7,
 };
 
 @protocol NRCoinUpBoard <NSObject>

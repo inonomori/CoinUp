@@ -17,6 +17,7 @@
 #import "NRMTGOXTicker.h"
 #import "NRBITSTAMPTicker.h"
 #import "NRCHBTCTicker.h"
+#import "NRBTCCHINATicker.h"
 #import "ToolBox.h"
 
 @interface NRViewController ()
@@ -28,12 +29,14 @@
 @property (weak, nonatomic) IBOutlet UIView *cover_MTGOX;
 @property (weak, nonatomic) IBOutlet UIView *cover_BITSTAMP;
 @property (weak, nonatomic) IBOutlet UIView *cover_CHBTC;
+@property (weak, nonatomic) IBOutlet UIView *cover_BTCCHINA;
 @property (weak, nonatomic) IBOutlet UILabel *LastLabel_FXBTC;
 @property (weak, nonatomic) IBOutlet UILabel *LastLabel_OKCOIN;
 @property (weak, nonatomic) IBOutlet UILabel *LastLabel_BTCTRADE;
 @property (weak, nonatomic) IBOutlet UILabel *LastLabel_MTGOX;
 @property (weak, nonatomic) IBOutlet UILabel *LastLabel_BITSTAMP;
 @property (weak, nonatomic) IBOutlet UILabel *LastLabel_CHBTC;
+@property (weak, nonatomic) IBOutlet UILabel *LastLabel_BTCCHINA;
 @property (weak, nonatomic) IBOutlet UIView *InfoWindow;
 @property (weak, nonatomic) IBOutlet UILabel *buy1PriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *sell1PriceLabel;
@@ -84,6 +87,11 @@
     NRCHBTCTicker *CHBTCTicker = [[NRCHBTCTicker alloc] init];
     CHBTCTicker.delegate = self;
     [CHBTCTicker start];
+    
+    NRBTCCHINATicker *BTCChinaTicker = [[NRBTCCHINATicker alloc] init];
+    BTCChinaTicker.delegate = self;
+    [BTCChinaTicker start];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -206,6 +214,8 @@
     [self setLastLabel_BITSTAMP:nil];
     [self setCover_CHBTC:nil];
     [self setLastLabel_CHBTC:nil];
+    [self setCover_BTCCHINA:nil];
+    [self setLastLabel_BTCCHINA:nil];
     [super viewDidUnload];
 }
 @end
