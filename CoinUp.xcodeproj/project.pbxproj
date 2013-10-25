@@ -28,6 +28,8 @@
 		68305071181AB0E400BCEFE1 /* NRBITSTAMPTicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 68305070181AB0E300BCEFE1 /* NRBITSTAMPTicker.m */; };
 		68305074181AB82E00BCEFE1 /* NRCHBTCTicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 68305073181AB82D00BCEFE1 /* NRCHBTCTicker.m */; };
 		685B6401181AC02600BA0A3A /* NRBTCCHINATicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 685B6400181AC02600BA0A3A /* NRBTCCHINATicker.m */; };
+		685B6404181AC7BD00BA0A3A /* NRHUOBITicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 685B6403181AC7BD00BA0A3A /* NRHUOBITicker.m */; };
+		685B6407181ACA2500BA0A3A /* NRBTC100Ticker.m in Sources */ = {isa = PBXBuildFile; fileRef = 685B6406181ACA2500BA0A3A /* NRBTC100Ticker.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +70,10 @@
 		685B63FC181AC00100BA0A3A /* NRCHBTCTicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRCHBTCTicker.h; sourceTree = "<group>"; };
 		685B63FF181AC02600BA0A3A /* NRBTCCHINATicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRBTCCHINATicker.h; sourceTree = "<group>"; };
 		685B6400181AC02600BA0A3A /* NRBTCCHINATicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRBTCCHINATicker.m; sourceTree = "<group>"; };
+		685B6402181AC7BD00BA0A3A /* NRHUOBITicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRHUOBITicker.h; sourceTree = "<group>"; };
+		685B6403181AC7BD00BA0A3A /* NRHUOBITicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRHUOBITicker.m; sourceTree = "<group>"; };
+		685B6405181ACA2500BA0A3A /* NRBTC100Ticker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRBTC100Ticker.h; sourceTree = "<group>"; };
+		685B6406181ACA2500BA0A3A /* NRBTC100Ticker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRBTC100Ticker.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +126,10 @@
 				68305065181A0C9500BCEFE1 /* NRCoinUpBoard.h */,
 				6830505F181A068E00BCEFE1 /* NRBTCTicker.h */,
 				68305060181A068E00BCEFE1 /* NRBTCTicker.m */,
+				685B6405181ACA2500BA0A3A /* NRBTC100Ticker.h */,
+				685B6406181ACA2500BA0A3A /* NRBTC100Ticker.m */,
+				685B6402181AC7BD00BA0A3A /* NRHUOBITicker.h */,
+				685B6403181AC7BD00BA0A3A /* NRHUOBITicker.m */,
 				685B63FF181AC02600BA0A3A /* NRBTCCHINATicker.h */,
 				685B6400181AC02600BA0A3A /* NRBTCCHINATicker.m */,
 				685B63FC181AC00100BA0A3A /* NRCHBTCTicker.h */,
@@ -256,6 +266,8 @@
 				68305071181AB0E400BCEFE1 /* NRBITSTAMPTicker.m in Sources */,
 				68305074181AB82E00BCEFE1 /* NRCHBTCTicker.m in Sources */,
 				685B6401181AC02600BA0A3A /* NRBTCCHINATicker.m in Sources */,
+				685B6404181AC7BD00BA0A3A /* NRHUOBITicker.m in Sources */,
+				685B6407181ACA2500BA0A3A /* NRBTC100Ticker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

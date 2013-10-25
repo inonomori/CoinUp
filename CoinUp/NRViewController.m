@@ -18,10 +18,13 @@
 #import "NRBITSTAMPTicker.h"
 #import "NRCHBTCTicker.h"
 #import "NRBTCCHINATicker.h"
+#import "NRHUOBITicker.h"
+#import "NRBTC100Ticker.h"
 #import "ToolBox.h"
 
 @interface NRViewController ()
 
+@property (weak, nonatomic) IBOutlet UIView *baseView;
 @property (weak, nonatomic) IBOutlet UIView *CoverView;
 @property (weak, nonatomic) IBOutlet UIView *cover_FXBTC;
 @property (weak, nonatomic) IBOutlet UIView *cover_OKCOIN;
@@ -30,6 +33,8 @@
 @property (weak, nonatomic) IBOutlet UIView *cover_BITSTAMP;
 @property (weak, nonatomic) IBOutlet UIView *cover_CHBTC;
 @property (weak, nonatomic) IBOutlet UIView *cover_BTCCHINA;
+@property (weak, nonatomic) IBOutlet UIView *cover_HUOBI;
+@property (weak, nonatomic) IBOutlet UIView *cover_BTC100;
 @property (weak, nonatomic) IBOutlet UILabel *LastLabel_FXBTC;
 @property (weak, nonatomic) IBOutlet UILabel *LastLabel_OKCOIN;
 @property (weak, nonatomic) IBOutlet UILabel *LastLabel_BTCTRADE;
@@ -37,6 +42,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *LastLabel_BITSTAMP;
 @property (weak, nonatomic) IBOutlet UILabel *LastLabel_CHBTC;
 @property (weak, nonatomic) IBOutlet UILabel *LastLabel_BTCCHINA;
+@property (weak, nonatomic) IBOutlet UILabel *LastLabel_HUOBI;
+@property (weak, nonatomic) IBOutlet UILabel *LastLabel_BTC100;
 @property (weak, nonatomic) IBOutlet UIView *InfoWindow;
 @property (weak, nonatomic) IBOutlet UILabel *buy1PriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *sell1PriceLabel;
@@ -91,6 +98,15 @@
     NRBTCCHINATicker *BTCChinaTicker = [[NRBTCCHINATicker alloc] init];
     BTCChinaTicker.delegate = self;
     [BTCChinaTicker start];
+    
+    NRHUOBITicker *HuoBiTicker = [[NRHUOBITicker alloc] init];
+    HuoBiTicker.delegate = self;
+    [HuoBiTicker start];
+    
+    NRBTC100Ticker *btc100Ticker = [[NRBTC100Ticker alloc] init];
+    btc100Ticker.delegate = self;
+    [btc100Ticker start];
+
 
 }
 
@@ -147,7 +163,7 @@
 {
     CGRect frame = self.InfoWindow.frame;
     self.platformType = sender.tag;
-
+    
     if (self.CoverView.hidden)
     {
         self.CoverView.frame = [sender superview].frame;
@@ -174,6 +190,7 @@
                          animations:^
          {
              self.InfoWindow.frame = frame;
+             self.baseView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT-120);
          }
                          completion:nil
          ];
@@ -200,6 +217,7 @@
                      animations:^
      {
          self.InfoWindow.frame = frame;
+         self.baseView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
      }
                      completion:nil
      ];
@@ -216,6 +234,11 @@
     [self setLastLabel_CHBTC:nil];
     [self setCover_BTCCHINA:nil];
     [self setLastLabel_BTCCHINA:nil];
+    [self setCover_HUOBI:nil];
+    [self setLastLabel_HUOBI:nil];
+    [self setCover_BTC100:nil];
+    [self setLastLabel_BTC100:nil];
+    [self setBaseView:nil];
     [super viewDidUnload];
 }
 @end

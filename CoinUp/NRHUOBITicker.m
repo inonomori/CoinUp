@@ -1,20 +1,20 @@
 //
-//  NRFXBTCTicker.m
+//  NRHUOBITicker.m
 //  CoinUp
 //
 //  Created by Zhefu Wang on 13-10-25.
 //  Copyright (c) 2013年 Nonomori. All rights reserved.
 //
 
-#import "NRBTCTRADETicker.h"
+#import "NRHUOBITicker.h"
 #import "JSONKit.h"
 
-#define URL @"http://www.btc123.com/e/interfaces/tickers.php?type=btctradeTicker"
-#define PLATFORMNAME @"BTCTRADE"
+#define URL @"http://www.btc123.com/e/interfaces/tickers.php?type=huobiTicker"
+#define PLATFORMNAME @"HUOBI"
 
-@implementation NRBTCTRADETicker
+@implementation NRHUOBITicker
 
-- (NRBTCTRADETicker*)init
+- (NRHUOBITicker*)init
 {
     [self addObserver:self
            forKeyPath:@"last"
@@ -42,7 +42,6 @@
               context:NULL];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateInfoWindow) name:@"InfoWindowUpdate" object:nil];
 
-    
     return self;
 }
 
@@ -54,15 +53,15 @@
 - (void)update:(id)userInfo
 {
     __block NSData *jsonData;
-    __weak NRBTCTRADETicker *weakSelf = self;
+    __weak NRHUOBITicker* weakSelf = self;
     
-    dispatch_queue_t downloadQueue = dispatch_queue_create("DownloadQueue", NULL);
+    dispatch_queue_t downloadQueue = dispatch_queue_create("Queue", NULL);
 	dispatch_async(downloadQueue, ^{
         jsonData = [NSData dataWithContentsOfURL:[NSURL URLWithString:URL]];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (jsonData)
             {
-                NSDictionary *jsonObject = [[[JSONDecoder alloc] init] objectWithData:jsonData];
+                NSDictionary *jsonObject = [[[[JSONDecoder alloc] init] objectWithData:jsonData] objectForKey:@"ticker"];
                 weakSelf.last = [jsonObject[@"last"] doubleValue];
                 weakSelf.high = [jsonObject[@"high"] doubleValue];
                 weakSelf.low = [jsonObject[@"low"] doubleValue];
@@ -81,7 +80,7 @@
             }
         });
 	});
-	dispatch_release(downloadQueue);    
+	dispatch_release(downloadQueue);
 }
 
 - (void)start
@@ -114,18 +113,13 @@
     }
     else
     {
-//        if ([[self valueForKey:keyPath] doubleValue] != UNAVAILABLE)
-//        {
-            [self updateInfoWindow];
-//        }
-//        else
-//            [self.delegate setInfoWindowForHigh:@"N/A" Low:@"N/A" Ask:@"N/A" Bid:@"N/A" Vol:@"N/A"];
+        [self updateInfoWindow];
     }
 }
 
 - (void)updateInfoWindow
 {
-    if ([self.delegate currentPlatformType] == BTCTRADE)
+    if ([self.delegate currentPlatformType] == HUOBI)
     {
         if (self.low == UNAVAILABLE || self.high == UNAVAILABLE || self.ask == UNAVAILABLE || self.bid == UNAVAILABLE || self.vol == UNAVAILABLE)
         {

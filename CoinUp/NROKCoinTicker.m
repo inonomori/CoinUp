@@ -9,7 +9,7 @@
 #import "NROKCoinTicker.h"
 #import "JSONKit.h"
 
-#define URL @"http://www.okcoin.com/api/ticker.do"
+#define URL @"http://www.btc123.com/e/interfaces/tickers.php?type=okcoinTicker"
 #define PLATFORMNAME @"OKCOIN"
 
 @implementation NROKCoinTicker
@@ -47,29 +47,35 @@
 
 - (void)update:(id)userInfo
 {
+    __block NSData *jsonData;
+    __weak NROKCoinTicker *weakSelf = self;
     dispatch_queue_t downloadQueue = dispatch_queue_create("DownloadQueue", NULL);
 	
     dispatch_async(downloadQueue, ^{
-        NSData *jsonData = [NSData dataWithContentsOfURL:[NSURL URLWithString:URL]];
-        if (jsonData)
-        {
-            NSDictionary *jsonObject = [[[[JSONDecoder alloc] init] objectWithData:jsonData] objectForKey:@"ticker"];
-            //        self.last = [jsonObject[@"last_rate"] doubleValue];
-            //        self.high = [jsonObject[@"high"] doubleValue];
-            //        self.low = [jsonObject[@"low"] doubleValue];
-            //        self.vol = [jsonObject[@"vol"] doubleValue];
-            //        self.ask = [jsonObject[@"ask"] doubleValue];
-            //        self.bid = [jsonObject[@"bid"] doubleValue];
-        }
-        else
-        {
-            self.last = UNAVAILABLE;
-            self.high = UNAVAILABLE;
-            self.low = UNAVAILABLE;
-            self.vol = UNAVAILABLE;
-            self.ask = UNAVAILABLE;
-            self.bid = UNAVAILABLE;
-        }
+        jsonData = [NSData dataWithContentsOfURL:[NSURL URLWithString:URL]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (jsonData)
+            {
+                NSDictionary *jsonObject = [[[[JSONDecoder alloc] init] objectWithData:jsonData] objectForKey:@"ticker"];
+                weakSelf.last = [jsonObject[@"last"] doubleValue];
+                weakSelf.high = [jsonObject[@"high"] doubleValue];
+                weakSelf.low = [jsonObject[@"low"] doubleValue];
+                weakSelf.vol = [jsonObject[@"vol"] doubleValue];
+                weakSelf.ask = [jsonObject[@"sell"] doubleValue];
+                weakSelf.bid = [jsonObject[@"buy"] doubleValue];
+            }
+            else
+            {
+                weakSelf.last = UNAVAILABLE;
+                weakSelf.high = UNAVAILABLE;
+                weakSelf.low = UNAVAILABLE;
+                weakSelf.vol = UNAVAILABLE;
+                weakSelf.ask = UNAVAILABLE;
+                weakSelf.bid = UNAVAILABLE;
+            }
+        });
+
 	});
 	dispatch_release(downloadQueue);
 }
@@ -103,14 +109,7 @@
         else{}
     }
     else
-    {
-//        if ([[self valueForKey:keyPath] doubleValue] != UNAVAILABLE)
-//        {
-            [self updateInfoWindow];
-//        }
-//        else
-//            [self.delegate setInfoWindowForHigh:@"N/A" Low:@"N/A" Ask:@"N/A" Bid:@"N/A" Vol:@"N/A"];
-    }
+        [self updateInfoWindow];
 }
 
 - (void)updateInfoWindow
