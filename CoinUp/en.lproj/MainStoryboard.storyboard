@@ -382,8 +382,6 @@
         <class className="NRViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NRViewController.h"/>
             <relationships>
-                <relationship kind="action" name="ButtonTouched:" candidateClass="UIButton"/>
-                <relationship kind="action" name="InfoWindowSwipeDownGestureHandler:" candidateClass="UISwipeGestureRecognizer"/>
                 <relationship kind="outlet" name="CoverView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="InfoWindow" candidateClass="UIView"/>
                 <relationship kind="outlet" name="LastLabel_BITSTAMP" candidateClass="UILabel"/>
