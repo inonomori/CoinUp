@@ -7,15 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		682DB7C7181B98450021F509 /* NRUITradeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 682DB7C6181B98450021F509 /* NRUITradeTableViewCell.m */; };
 		683050351819FE5500BCEFE1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 683050341819FE5500BCEFE1 /* UIKit.framework */; };
 		683050371819FE5500BCEFE1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 683050361819FE5500BCEFE1 /* Foundation.framework */; };
 		683050391819FE5500BCEFE1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 683050381819FE5500BCEFE1 /* CoreGraphics.framework */; };
 		6830503F1819FE5500BCEFE1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6830503D1819FE5500BCEFE1 /* InfoPlist.strings */; };
 		683050411819FE5500BCEFE1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 683050401819FE5500BCEFE1 /* main.m */; };
 		683050451819FE5500BCEFE1 /* NRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 683050441819FE5500BCEFE1 /* NRAppDelegate.m */; };
-		683050471819FE5500BCEFE1 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 683050461819FE5500BCEFE1 /* Default.png */; };
-		683050491819FE5500BCEFE1 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 683050481819FE5500BCEFE1 /* Default@2x.png */; };
-		6830504B1819FE5500BCEFE1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6830504A1819FE5500BCEFE1 /* Default-568h@2x.png */; };
 		6830504E1819FE5500BCEFE1 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6830504C1819FE5500BCEFE1 /* MainStoryboard.storyboard */; };
 		683050511819FE5500BCEFE1 /* NRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 683050501819FE5500BCEFE1 /* NRViewController.m */; };
 		683050591819FE8B00BCEFE1 /* NROKCoinTicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 683050581819FE8B00BCEFE1 /* NROKCoinTicker.m */; };
@@ -27,12 +25,27 @@
 		6830506E181AAC0300BCEFE1 /* NRMTGOXTicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6830506D181AAC0300BCEFE1 /* NRMTGOXTicker.m */; };
 		68305071181AB0E400BCEFE1 /* NRBITSTAMPTicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 68305070181AB0E300BCEFE1 /* NRBITSTAMPTicker.m */; };
 		68305074181AB82E00BCEFE1 /* NRCHBTCTicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 68305073181AB82D00BCEFE1 /* NRCHBTCTicker.m */; };
+		68464CFE181B52C100E446E7 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 68464CF6181B52C100E446E7 /* Icon-72.png */; };
+		68464CFF181B52C100E446E7 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68464CF7181B52C100E446E7 /* Icon-72@2x.png */; };
+		68464D00181B52C100E446E7 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 68464CF8181B52C100E446E7 /* Icon-Small-50.png */; };
+		68464D01181B52C100E446E7 /* Icon-Small-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68464CF9181B52C100E446E7 /* Icon-Small-50@2x.png */; };
+		68464D02181B52C100E446E7 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 68464CFA181B52C100E446E7 /* Icon-Small.png */; };
+		68464D03181B52C100E446E7 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68464CFB181B52C100E446E7 /* Icon-Small@2x.png */; };
+		68464D07181B52E200E446E7 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68464D06181B52E200E446E7 /* Icon@2x.png */; };
+		68464D09181B52EC00E446E7 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 68464D08181B52EC00E446E7 /* Icon.png */; };
+		68464D0B181B538D00E446E7 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 68464D0A181B538D00E446E7 /* Default.png */; };
+		68464D0D181B53F700E446E7 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68464D0C181B53F700E446E7 /* Default@2x.png */; };
+		68464D0F181B548D00E446E7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68464D0E181B548D00E446E7 /* Default-568h@2x.png */; };
 		685B6401181AC02600BA0A3A /* NRBTCCHINATicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 685B6400181AC02600BA0A3A /* NRBTCCHINATicker.m */; };
 		685B6404181AC7BD00BA0A3A /* NRHUOBITicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 685B6403181AC7BD00BA0A3A /* NRHUOBITicker.m */; };
 		685B6407181ACA2500BA0A3A /* NRBTC100Ticker.m in Sources */ = {isa = PBXBuildFile; fileRef = 685B6406181ACA2500BA0A3A /* NRBTC100Ticker.m */; };
+		68FE9D38181CB4D200B1A2CB /* upArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 68FE9D36181CB4D200B1A2CB /* upArrow.png */; };
+		68FE9D39181CB4D200B1A2CB /* upArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68FE9D37181CB4D200B1A2CB /* upArrow@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		682DB7C5181B98450021F509 /* NRUITradeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRUITradeTableViewCell.h; sourceTree = "<group>"; };
+		682DB7C6181B98450021F509 /* NRUITradeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRUITradeTableViewCell.m; sourceTree = "<group>"; };
 		683050311819FE5500BCEFE1 /* CoinUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		683050341819FE5500BCEFE1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		683050361819FE5500BCEFE1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -49,31 +62,46 @@
 		6830504D1819FE5500BCEFE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		6830504F1819FE5500BCEFE1 /* NRViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NRViewController.h; sourceTree = "<group>"; };
 		683050501819FE5500BCEFE1 /* NRViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NRViewController.m; sourceTree = "<group>"; };
-		683050571819FE8B00BCEFE1 /* NROKCoinTicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NROKCoinTicker.h; sourceTree = "<group>"; };
-		683050581819FE8B00BCEFE1 /* NROKCoinTicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NROKCoinTicker.m; sourceTree = "<group>"; };
+		683050571819FE8B00BCEFE1 /* NROKCoinTicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NROKCoinTicker.h; path = CoinUp/NROKCoinTicker.h; sourceTree = "<group>"; };
+		683050581819FE8B00BCEFE1 /* NROKCoinTicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NROKCoinTicker.m; path = CoinUp/NROKCoinTicker.m; sourceTree = "<group>"; };
 		6830505C1819FEE100BCEFE1 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		6830505D1819FEE100BCEFE1 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
-		6830505F181A068E00BCEFE1 /* NRBTCTicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRBTCTicker.h; sourceTree = "<group>"; };
-		68305060181A068E00BCEFE1 /* NRBTCTicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRBTCTicker.m; sourceTree = "<group>"; };
-		68305062181A06D700BCEFE1 /* NRFXBTCTicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRFXBTCTicker.h; sourceTree = "<group>"; };
-		68305063181A06D700BCEFE1 /* NRFXBTCTicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRFXBTCTicker.m; sourceTree = "<group>"; };
+		6830505F181A068E00BCEFE1 /* NRBTCTicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NRBTCTicker.h; path = CoinUp/NRBTCTicker.h; sourceTree = "<group>"; };
+		68305060181A068E00BCEFE1 /* NRBTCTicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NRBTCTicker.m; path = CoinUp/NRBTCTicker.m; sourceTree = "<group>"; };
+		68305062181A06D700BCEFE1 /* NRFXBTCTicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NRFXBTCTicker.h; path = CoinUp/NRFXBTCTicker.h; sourceTree = "<group>"; };
+		68305063181A06D700BCEFE1 /* NRFXBTCTicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NRFXBTCTicker.m; path = CoinUp/NRFXBTCTicker.m; sourceTree = "<group>"; };
 		68305065181A0C9500BCEFE1 /* NRCoinUpBoard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NRCoinUpBoard.h; sourceTree = "<group>"; };
 		68305066181A3C9100BCEFE1 /* ToolBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolBox.h; sourceTree = "<group>"; };
 		68305067181A3C9100BCEFE1 /* ToolBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolBox.m; sourceTree = "<group>"; };
-		68305069181A795600BCEFE1 /* NRBTCTRADETicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRBTCTRADETicker.h; sourceTree = "<group>"; };
-		6830506A181A795600BCEFE1 /* NRBTCTRADETicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRBTCTRADETicker.m; sourceTree = "<group>"; };
-		6830506C181AAC0300BCEFE1 /* NRMTGOXTicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRMTGOXTicker.h; sourceTree = "<group>"; };
-		6830506D181AAC0300BCEFE1 /* NRMTGOXTicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRMTGOXTicker.m; sourceTree = "<group>"; };
-		6830506F181AB0E300BCEFE1 /* NRBITSTAMPTicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRBITSTAMPTicker.h; sourceTree = "<group>"; };
-		68305070181AB0E300BCEFE1 /* NRBITSTAMPTicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRBITSTAMPTicker.m; sourceTree = "<group>"; };
-		68305073181AB82D00BCEFE1 /* NRCHBTCTicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRCHBTCTicker.m; sourceTree = "<group>"; };
-		685B63FC181AC00100BA0A3A /* NRCHBTCTicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRCHBTCTicker.h; sourceTree = "<group>"; };
-		685B63FF181AC02600BA0A3A /* NRBTCCHINATicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRBTCCHINATicker.h; sourceTree = "<group>"; };
-		685B6400181AC02600BA0A3A /* NRBTCCHINATicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRBTCCHINATicker.m; sourceTree = "<group>"; };
-		685B6402181AC7BD00BA0A3A /* NRHUOBITicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRHUOBITicker.h; sourceTree = "<group>"; };
-		685B6403181AC7BD00BA0A3A /* NRHUOBITicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRHUOBITicker.m; sourceTree = "<group>"; };
-		685B6405181ACA2500BA0A3A /* NRBTC100Ticker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRBTC100Ticker.h; sourceTree = "<group>"; };
-		685B6406181ACA2500BA0A3A /* NRBTC100Ticker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRBTC100Ticker.m; sourceTree = "<group>"; };
+		68305069181A795600BCEFE1 /* NRBTCTRADETicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NRBTCTRADETicker.h; path = CoinUp/NRBTCTRADETicker.h; sourceTree = "<group>"; };
+		6830506A181A795600BCEFE1 /* NRBTCTRADETicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NRBTCTRADETicker.m; path = CoinUp/NRBTCTRADETicker.m; sourceTree = "<group>"; };
+		6830506C181AAC0300BCEFE1 /* NRMTGOXTicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NRMTGOXTicker.h; path = CoinUp/NRMTGOXTicker.h; sourceTree = "<group>"; };
+		6830506D181AAC0300BCEFE1 /* NRMTGOXTicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NRMTGOXTicker.m; path = CoinUp/NRMTGOXTicker.m; sourceTree = "<group>"; };
+		6830506F181AB0E300BCEFE1 /* NRBITSTAMPTicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NRBITSTAMPTicker.h; path = CoinUp/NRBITSTAMPTicker.h; sourceTree = "<group>"; };
+		68305070181AB0E300BCEFE1 /* NRBITSTAMPTicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NRBITSTAMPTicker.m; path = CoinUp/NRBITSTAMPTicker.m; sourceTree = "<group>"; };
+		68305073181AB82D00BCEFE1 /* NRCHBTCTicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NRCHBTCTicker.m; path = CoinUp/NRCHBTCTicker.m; sourceTree = "<group>"; };
+		68464CF6181B52C100E446E7 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		68464CF7181B52C100E446E7 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		68464CF8181B52C100E446E7 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
+		68464CF9181B52C100E446E7 /* Icon-Small-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50@2x.png"; sourceTree = "<group>"; };
+		68464CFA181B52C100E446E7 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		68464CFB181B52C100E446E7 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		68464CFC181B52C100E446E7 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		68464CFD181B52C100E446E7 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		68464D06181B52E200E446E7 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		68464D08181B52EC00E446E7 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		68464D0A181B538D00E446E7 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		68464D0C181B53F700E446E7 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		68464D0E181B548D00E446E7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		685B63FC181AC00100BA0A3A /* NRCHBTCTicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NRCHBTCTicker.h; path = CoinUp/NRCHBTCTicker.h; sourceTree = "<group>"; };
+		685B63FF181AC02600BA0A3A /* NRBTCCHINATicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NRBTCCHINATicker.h; path = CoinUp/NRBTCCHINATicker.h; sourceTree = "<group>"; };
+		685B6400181AC02600BA0A3A /* NRBTCCHINATicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NRBTCCHINATicker.m; path = CoinUp/NRBTCCHINATicker.m; sourceTree = "<group>"; };
+		685B6402181AC7BD00BA0A3A /* NRHUOBITicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NRHUOBITicker.h; path = CoinUp/NRHUOBITicker.h; sourceTree = "<group>"; };
+		685B6403181AC7BD00BA0A3A /* NRHUOBITicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NRHUOBITicker.m; path = CoinUp/NRHUOBITicker.m; sourceTree = "<group>"; };
+		685B6405181ACA2500BA0A3A /* NRBTC100Ticker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NRBTC100Ticker.h; path = CoinUp/NRBTC100Ticker.h; sourceTree = "<group>"; };
+		685B6406181ACA2500BA0A3A /* NRBTC100Ticker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NRBTC100Ticker.m; path = CoinUp/NRBTC100Ticker.m; sourceTree = "<group>"; };
+		68FE9D36181CB4D200B1A2CB /* upArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = upArrow.png; path = UI/upArrow.png; sourceTree = "<group>"; };
+		68FE9D37181CB4D200B1A2CB /* upArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "upArrow@2x.png"; path = "UI/upArrow@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,10 +118,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		682DB7C4181B947B0021F509 /* Ticker */ = {
+			isa = PBXGroup;
+			children = (
+				6830505F181A068E00BCEFE1 /* NRBTCTicker.h */,
+				68305060181A068E00BCEFE1 /* NRBTCTicker.m */,
+				685B6405181ACA2500BA0A3A /* NRBTC100Ticker.h */,
+				685B6406181ACA2500BA0A3A /* NRBTC100Ticker.m */,
+				685B6402181AC7BD00BA0A3A /* NRHUOBITicker.h */,
+				685B6403181AC7BD00BA0A3A /* NRHUOBITicker.m */,
+				685B63FF181AC02600BA0A3A /* NRBTCCHINATicker.h */,
+				685B6400181AC02600BA0A3A /* NRBTCCHINATicker.m */,
+				685B63FC181AC00100BA0A3A /* NRCHBTCTicker.h */,
+				68305073181AB82D00BCEFE1 /* NRCHBTCTicker.m */,
+				6830506F181AB0E300BCEFE1 /* NRBITSTAMPTicker.h */,
+				68305070181AB0E300BCEFE1 /* NRBITSTAMPTicker.m */,
+				6830506C181AAC0300BCEFE1 /* NRMTGOXTicker.h */,
+				6830506D181AAC0300BCEFE1 /* NRMTGOXTicker.m */,
+				68305069181A795600BCEFE1 /* NRBTCTRADETicker.h */,
+				6830506A181A795600BCEFE1 /* NRBTCTRADETicker.m */,
+				68305062181A06D700BCEFE1 /* NRFXBTCTicker.h */,
+				68305063181A06D700BCEFE1 /* NRFXBTCTicker.m */,
+				683050571819FE8B00BCEFE1 /* NROKCoinTicker.h */,
+				683050581819FE8B00BCEFE1 /* NROKCoinTicker.m */,
+			);
+			name = Ticker;
+			sourceTree = "<group>";
+		};
 		683050281819FE5500BCEFE1 = {
 			isa = PBXGroup;
 			children = (
+				68464D0E181B548D00E446E7 /* Default-568h@2x.png */,
+				68464D0C181B53F700E446E7 /* Default@2x.png */,
+				68464D0A181B538D00E446E7 /* Default.png */,
+				68464D08181B52EC00E446E7 /* Icon.png */,
+				68464D06181B52E200E446E7 /* Icon@2x.png */,
 				6830505A1819FE9900BCEFE1 /* Libraries */,
+				682DB7C4181B947B0021F509 /* Ticker */,
 				6830503A1819FE5500BCEFE1 /* CoinUp */,
 				683050331819FE5500BCEFE1 /* Frameworks */,
 				683050321819FE5500BCEFE1 /* Products */,
@@ -124,29 +185,11 @@
 				68305066181A3C9100BCEFE1 /* ToolBox.h */,
 				68305067181A3C9100BCEFE1 /* ToolBox.m */,
 				68305065181A0C9500BCEFE1 /* NRCoinUpBoard.h */,
-				6830505F181A068E00BCEFE1 /* NRBTCTicker.h */,
-				68305060181A068E00BCEFE1 /* NRBTCTicker.m */,
-				685B6405181ACA2500BA0A3A /* NRBTC100Ticker.h */,
-				685B6406181ACA2500BA0A3A /* NRBTC100Ticker.m */,
-				685B6402181AC7BD00BA0A3A /* NRHUOBITicker.h */,
-				685B6403181AC7BD00BA0A3A /* NRHUOBITicker.m */,
-				685B63FF181AC02600BA0A3A /* NRBTCCHINATicker.h */,
-				685B6400181AC02600BA0A3A /* NRBTCCHINATicker.m */,
-				685B63FC181AC00100BA0A3A /* NRCHBTCTicker.h */,
-				68305073181AB82D00BCEFE1 /* NRCHBTCTicker.m */,
-				6830506F181AB0E300BCEFE1 /* NRBITSTAMPTicker.h */,
-				68305070181AB0E300BCEFE1 /* NRBITSTAMPTicker.m */,
-				6830506C181AAC0300BCEFE1 /* NRMTGOXTicker.h */,
-				6830506D181AAC0300BCEFE1 /* NRMTGOXTicker.m */,
-				68305069181A795600BCEFE1 /* NRBTCTRADETicker.h */,
-				6830506A181A795600BCEFE1 /* NRBTCTRADETicker.m */,
-				68305062181A06D700BCEFE1 /* NRFXBTCTicker.h */,
-				68305063181A06D700BCEFE1 /* NRFXBTCTicker.m */,
-				683050571819FE8B00BCEFE1 /* NROKCoinTicker.h */,
-				683050581819FE8B00BCEFE1 /* NROKCoinTicker.m */,
 				683050431819FE5500BCEFE1 /* NRAppDelegate.h */,
 				683050441819FE5500BCEFE1 /* NRAppDelegate.m */,
 				6830504C1819FE5500BCEFE1 /* MainStoryboard.storyboard */,
+				682DB7C5181B98450021F509 /* NRUITradeTableViewCell.h */,
+				682DB7C6181B98450021F509 /* NRUITradeTableViewCell.m */,
 				6830504F1819FE5500BCEFE1 /* NRViewController.h */,
 				683050501819FE5500BCEFE1 /* NRViewController.m */,
 				6830503B1819FE5500BCEFE1 /* Supporting Files */,
@@ -157,6 +200,15 @@
 		6830503B1819FE5500BCEFE1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				68FE9D35181CB4C800B1A2CB /* UI */,
+				68464CF6181B52C100E446E7 /* Icon-72.png */,
+				68464CF7181B52C100E446E7 /* Icon-72@2x.png */,
+				68464CF8181B52C100E446E7 /* Icon-Small-50.png */,
+				68464CF9181B52C100E446E7 /* Icon-Small-50@2x.png */,
+				68464CFA181B52C100E446E7 /* Icon-Small.png */,
+				68464CFB181B52C100E446E7 /* Icon-Small@2x.png */,
+				68464CFC181B52C100E446E7 /* Icon.png */,
+				68464CFD181B52C100E446E7 /* Icon@2x.png */,
 				6830503C1819FE5500BCEFE1 /* CoinUp-Info.plist */,
 				6830503D1819FE5500BCEFE1 /* InfoPlist.strings */,
 				683050401819FE5500BCEFE1 /* main.m */,
@@ -184,6 +236,15 @@
 			);
 			name = JSONKit;
 			path = CoinUp/Libraries/JSONKit;
+			sourceTree = "<group>";
+		};
+		68FE9D35181CB4C800B1A2CB /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				68FE9D36181CB4D200B1A2CB /* upArrow.png */,
+				68FE9D37181CB4D200B1A2CB /* upArrow@2x.png */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,10 +300,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				6830503F1819FE5500BCEFE1 /* InfoPlist.strings in Resources */,
-				683050471819FE5500BCEFE1 /* Default.png in Resources */,
-				683050491819FE5500BCEFE1 /* Default@2x.png in Resources */,
-				6830504B1819FE5500BCEFE1 /* Default-568h@2x.png in Resources */,
 				6830504E1819FE5500BCEFE1 /* MainStoryboard.storyboard in Resources */,
+				68FE9D39181CB4D200B1A2CB /* upArrow@2x.png in Resources */,
+				68464CFE181B52C100E446E7 /* Icon-72.png in Resources */,
+				68464CFF181B52C100E446E7 /* Icon-72@2x.png in Resources */,
+				68464D00181B52C100E446E7 /* Icon-Small-50.png in Resources */,
+				68464D01181B52C100E446E7 /* Icon-Small-50@2x.png in Resources */,
+				68464D02181B52C100E446E7 /* Icon-Small.png in Resources */,
+				68464D03181B52C100E446E7 /* Icon-Small@2x.png in Resources */,
+				68464D07181B52E200E446E7 /* Icon@2x.png in Resources */,
+				68464D09181B52EC00E446E7 /* Icon.png in Resources */,
+				68464D0B181B538D00E446E7 /* Default.png in Resources */,
+				68464D0D181B53F700E446E7 /* Default@2x.png in Resources */,
+				68FE9D38181CB4D200B1A2CB /* upArrow.png in Resources */,
+				68464D0F181B548D00E446E7 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +339,7 @@
 				685B6401181AC02600BA0A3A /* NRBTCCHINATicker.m in Sources */,
 				685B6404181AC7BD00BA0A3A /* NRHUOBITicker.m in Sources */,
 				685B6407181ACA2500BA0A3A /* NRBTC100Ticker.m in Sources */,
+				682DB7C7181B98450021F509 /* NRUITradeTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +408,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -344,6 +417,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -352,6 +427,8 @@
 		683050551819FE5500BCEFE1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoinUp/CoinUp-Prefix.pch";
 				INFOPLIST_FILE = "CoinUp/CoinUp-Info.plist";
@@ -364,11 +441,15 @@
 		683050561819FE5500BCEFE1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoinUp/CoinUp-Prefix.pch";
 				INFOPLIST_FILE = "CoinUp/CoinUp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

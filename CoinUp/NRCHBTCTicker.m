@@ -10,7 +10,9 @@
 #import "JSONKit.h"
 
 #define URL @"http://www.chbtc.com/data/ticker"
+#define TRADE_URL @"http://www.chbtc.com/data/trades"
 #define PLATFORMNAME @"CHBTC"
+#define PLATFORMTYPE CHBTC
 
 @implementation NRCHBTCTicker
 
@@ -40,6 +42,10 @@
            forKeyPath:@"bid"
               options:(NSKeyValueObservingOptionOld)
               context:NULL];
+    [self addObserver:self
+           forKeyPath:@"tradeArray"
+              options:NSKeyValueObservingOptionOld
+              context:NULL];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateInfoWindow) name:@"InfoWindowUpdate" object:nil];
 
     return self;
@@ -53,6 +59,7 @@
 - (void)update:(id)userInfo
 {
     __block NSData *jsonData;
+    __block NSData *TradeJsonData;
     __weak NRCHBTCTicker* weakSelf = self;
     
     dispatch_queue_t downloadQueue = dispatch_queue_create("Queue", NULL);
@@ -78,6 +85,17 @@
                 weakSelf.ask = UNAVAILABLE;
                 weakSelf.bid = UNAVAILABLE;
             }
+            
+            TradeJsonData = [NSData dataWithContentsOfURL:[NSURL URLWithString:TRADE_URL]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (TradeJsonData)
+                {
+                    NSArray* jsonResultArray = [[[JSONDecoder alloc] init] objectWithData:TradeJsonData];
+                    [self tradeArrayParser:jsonResultArray];
+                }
+                else
+                    self.tradeArray = nil;
+            });
         });
 	});
 	dispatch_release(downloadQueue);
@@ -86,7 +104,7 @@
 - (void)start
 {
     [self update:nil];
-    [NSTimer scheduledTimerWithTimeInterval:5
+    [NSTimer scheduledTimerWithTimeInterval:WAITINGTIME
                                      target:self
                                    selector:@selector(update:)
                                    userInfo:nil
@@ -111,15 +129,18 @@
             [self.delegate flashColorInGreen:YES ForName:PLATFORMNAME];
         else{}
     }
-    else
-    {
+    else if (![keyPath isEqualToString:@"tradeArray"])
         [self updateInfoWindow];
+    else //tradeArray
+    {
+        if ([self.delegate currentPlatformType] == PLATFORMTYPE)
+            [self.delegate setTradeArrayAndReloadTableView:self.tradeArray];
     }
 }
 
 - (void)updateInfoWindow
 {
-    if ([self.delegate currentPlatformType] == CHBTC)
+    if ([self.delegate currentPlatformType] == PLATFORMTYPE)
     {
         if (self.low == UNAVAILABLE || self.high == UNAVAILABLE || self.ask == UNAVAILABLE || self.bid == UNAVAILABLE || self.vol == UNAVAILABLE)
         {
@@ -129,6 +150,7 @@
         {
             [self.delegate setInfoWindowForHigh:[NSString stringWithFormat:@"¥%.2f",self.high] Low:[NSString stringWithFormat:@"¥%.2f",self.low] Ask:[NSString stringWithFormat:@"¥%.2f",self.ask] Bid:[NSString stringWithFormat:@"¥%.2f",self.bid] Vol:[NSString stringWithFormat:@"฿%.2f",self.vol]];
         }
+        [self.delegate setTradeArrayAndReloadTableView:self.tradeArray];
     }
 }
 

@@ -21,9 +21,11 @@
 #import "NRHUOBITicker.h"
 #import "NRBTC100Ticker.h"
 #import "ToolBox.h"
+#import "NRUITradeTableViewCell.h"
 
 @interface NRViewController ()
 
+@property (nonatomic, strong) NSArray *tradeArray;
 @property (weak, nonatomic) IBOutlet UIView *baseView;
 @property (weak, nonatomic) IBOutlet UIView *CoverView;
 @property (weak, nonatomic) IBOutlet UIView *cover_FXBTC;
@@ -51,13 +53,23 @@
 @property (weak, nonatomic) IBOutlet UILabel *lowPriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *volLabel;
 @property (nonatomic) COINPLATFORMTYPE platformType;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIImageView *upArrow;
 
 // look upper, it is a penis
 
 @end
 
-
 @implementation NRViewController
+
+//@synthesize tradeArray = _tradeArray;
+
+- (NSArray*)tradeArray
+{
+    if (_tradeArray == nil)
+        _tradeArray = [NSArray array];
+    return _tradeArray;
+}
 
 - (void)viewDidLoad
 {
@@ -158,9 +170,16 @@
     self.volLabel.text = vol;
 }
 
+- (void)setTradeArrayAndReloadTableView:(NSArray *)tradeArray
+{
+    self.tradeArray = tradeArray;
+    [self.tableView reloadData];
+}
 
 - (IBAction)ButtonTouched:(UIButton *)sender
 {
+    self.tradeArray = nil;
+    [self.tableView reloadData];
     CGRect frame = self.InfoWindow.frame;
     self.platformType = sender.tag;
     
@@ -180,7 +199,8 @@
                          completion:nil
          ];
     }
-    
+    NSLog(@"%f",SCREENHEIGHT);
+
     if (frame.origin.y == SCREENHEIGHT)
     {
         frame.origin.y -= 110;
@@ -190,7 +210,7 @@
                          animations:^
          {
              self.InfoWindow.frame = frame;
-             self.baseView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT-120);
+             self.baseView.frame = (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))?CGRectMake(0, 20, SCREENWIDTH, SCREENHEIGHT-140):CGRectMake(0,0,SCREENWIDTH,SCREENHEIGHT-120);
          }
                          completion:nil
          ];
@@ -201,7 +221,40 @@
 
 - (IBAction)InfoWindowSwipeDownGestureHandler:(UISwipeGestureRecognizer *)sender
 {
-    [self dismissInfoWindow];
+    if (self.InfoWindow.frame.origin.y == 0)
+    {
+        CGRect frame = self.InfoWindow.frame;
+        frame.origin.y = SCREENHEIGHT-110;
+        [UIView animateWithDuration:0.3
+                              delay:0
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^{
+                             self.InfoWindow.frame = frame;
+                             self.upArrow.alpha = 1;
+                         }
+                         completion:nil
+         ];
+    }
+    else
+        [self dismissInfoWindow];
+}
+
+- (IBAction)InfoWindowSwipeUpGestureHandler:(UISwipeGestureRecognizer *)sender
+{
+    CGRect frame = self.InfoWindow.frame;
+    if (frame.origin.y != 0)
+    {
+        frame.origin.y = 0;
+        [UIView animateWithDuration:0.3
+                              delay:0
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^{
+                             self.InfoWindow.frame = frame;
+                             self.upArrow.alpha = 0;
+                         }
+                         completion:nil
+         ];
+    }
 }
 
 - (void)dismissInfoWindow
@@ -217,11 +270,54 @@
                      animations:^
      {
          self.InfoWindow.frame = frame;
-         self.baseView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
+         self.baseView.frame = (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))?CGRectMake(0, 20, SCREENWIDTH, SCREENHEIGHT-20):CGRectMake(0,0,SCREENWIDTH,SCREENHEIGHT);;
      }
                      completion:nil
      ];
 }
+
+#pragma mark - Table view data source
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.tradeArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"TradeCell";
+    NRUITradeTableViewCell *cell = (NRUITradeTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    cell.priceLabel.text = [NSString stringWithFormat:@"%.2f",[self.tradeArray[indexPath.row][@"price"] doubleValue]];
+    cell.volLabel.text = [NSString stringWithFormat:@"%.3f",[self.tradeArray[indexPath.row][@"amount"] doubleValue]];
+    NSString *t = self.tradeArray[indexPath.row][@"date"];
+    
+    NSDate *d = [NSDate dateWithTimeIntervalSince1970:[t doubleValue]];
+    NSDateFormatter *formateter = [[NSDateFormatter alloc] init];
+    [formateter setDateFormat:@"HH:mm:ss"];
+    NSString *time = [formateter stringFromDate:d];
+    cell.timeStampLabel.text = time;
+    if ([self.tradeArray[indexPath.row][@"type"] isEqualToString:@"buy"])
+    {
+        cell.priceLabel.textColor = [UIColor redColor];
+        //cell.backgroundView.backgroundColor = [UIColor redColor];
+    }
+    else if ([self.tradeArray[indexPath.row][@"type"] isEqualToString:@"sell"])
+        cell.priceLabel.textColor = [UIColor greenColor];
+    else
+        cell.priceLabel.textColor = [UIColor blackColor];
+
+    return cell;
+}
+
+#pragma mark - Table view delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+}
+
 
 - (void)viewDidUnload {
     [self setCover_BTCTRADE:nil];
@@ -239,6 +335,7 @@
     [self setCover_BTC100:nil];
     [self setLastLabel_BTC100:nil];
     [self setBaseView:nil];
+    [self setTableView:nil];
     [super viewDidUnload];
 }
 @end

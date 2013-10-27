@@ -27,5 +27,6 @@ typedef NS_ENUM(NSInteger, COINPLATFORMTYPE) {
 - (void)flashColorInGreen:(BOOL)isGreen ForName:(NSString*)Name;
 - (COINPLATFORMTYPE)currentPlatformType;
 - (void)setInfoWindowForHigh:(NSString*)high Low:(NSString*)low Ask:(NSString*)ask Bid:(NSString*)bid Vol:(NSString*)vol;
+- (void)setTradeArrayAndReloadTableView:(NSArray*)array;
 
 @end

@@ -10,7 +10,9 @@
 #import "JSONKit.h"
 
 #define URL @"http://www.btc123.com/e/interfaces/tickers.php?type=btctradeTicker"
+#define TRADE_URL @"http://www.btctrade.com/btc_trades"
 #define PLATFORMNAME @"BTCTRADE"
+#define PLATFORMTYPE BTCTRADE
 
 @implementation NRBTCTRADETicker
 
@@ -40,6 +42,10 @@
            forKeyPath:@"bid"
               options:(NSKeyValueObservingOptionOld)
               context:NULL];
+    [self addObserver:self
+           forKeyPath:@"tradeArray"
+              options:NSKeyValueObservingOptionOld
+              context:NULL];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateInfoWindow) name:@"InfoWindowUpdate" object:nil];
 
     
@@ -54,6 +60,7 @@
 - (void)update:(id)userInfo
 {
     __block NSData *jsonData;
+    __block NSData *TradeJsonData;
     __weak NRBTCTRADETicker *weakSelf = self;
     
     dispatch_queue_t downloadQueue = dispatch_queue_create("DownloadQueue", NULL);
@@ -79,15 +86,37 @@
                 weakSelf.ask = UNAVAILABLE;
                 weakSelf.bid = UNAVAILABLE;
             }
+            
+            TradeJsonData = [NSData dataWithContentsOfURL:[NSURL URLWithString:TRADE_URL]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (TradeJsonData)
+                {
+                    NSArray* jsonResultArray = [[[JSONDecoder alloc] init] objectWithData:TradeJsonData];
+                    [self tradeArrayParser:jsonResultArray];
+                }
+                else
+                    self.tradeArray = nil;
+            });
+
         });
 	});
 	dispatch_release(downloadQueue);    
 }
 
+- (void)tradeArrayParser:(NSArray*)array
+{
+    NSMutableArray *resultMutableArray = [NSMutableArray arrayWithCapacity:100];
+    for (NSDictionary *item in array)
+    {
+        [resultMutableArray addObject:@{@"date":item[@"date"],@"price":item[@"price"],@"amount":item[@"amount"],@"type":item[@"type"]}];
+    }
+    self.tradeArray = [resultMutableArray copy];    
+}
+
 - (void)start
 {
     [self update:nil];
-    [NSTimer scheduledTimerWithTimeInterval:5
+    [NSTimer scheduledTimerWithTimeInterval:WAITINGTIME
                                      target:self
                                    selector:@selector(update:)
                                    userInfo:nil
@@ -112,20 +141,18 @@
             [self.delegate flashColorInGreen:YES ForName:PLATFORMNAME];
         else{}
     }
-    else
+    else if (![keyPath isEqualToString:@"tradeArray"])
+        [self updateInfoWindow];
+    else //tradeArray
     {
-//        if ([[self valueForKey:keyPath] doubleValue] != UNAVAILABLE)
-//        {
-            [self updateInfoWindow];
-//        }
-//        else
-//            [self.delegate setInfoWindowForHigh:@"N/A" Low:@"N/A" Ask:@"N/A" Bid:@"N/A" Vol:@"N/A"];
+        if ([self.delegate currentPlatformType] == PLATFORMTYPE)
+            [self.delegate setTradeArrayAndReloadTableView:self.tradeArray];
     }
 }
 
 - (void)updateInfoWindow
 {
-    if ([self.delegate currentPlatformType] == BTCTRADE)
+    if ([self.delegate currentPlatformType] == PLATFORMTYPE)
     {
         if (self.low == UNAVAILABLE || self.high == UNAVAILABLE || self.ask == UNAVAILABLE || self.bid == UNAVAILABLE || self.vol == UNAVAILABLE)
         {

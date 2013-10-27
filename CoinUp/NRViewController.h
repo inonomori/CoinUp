@@ -10,7 +10,7 @@
 #import "NRCoinUpBoard.h"
 
 
-@interface NRViewController : UIViewController<NRCoinUpBoard>
+@interface NRViewController : UIViewController<NRCoinUpBoard,UITableViewDataSource,UITableViewDelegate>
 
 
 @end

@@ -10,6 +10,7 @@
 #import "NRCoinUpBoard.h"
 
 #define UNAVAILABLE 0
+#define WAITINGTIME 10
 
 @interface NRBTCTicker : NSObject
 
@@ -20,6 +21,10 @@
 @property (nonatomic) double ask;
 @property (nonatomic) double bid;
 
+@property (nonatomic, strong) NSArray *tradeArray;
+
 @property (nonatomic, weak) id<NRCoinUpBoard> delegate;
+
+- (void)tradeArrayParser:(NSArray*)array;
 
 @end
