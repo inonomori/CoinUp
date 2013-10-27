@@ -10,7 +10,7 @@
 #import "JSONKit.h"
 
 #define URL @"http://www.btc123.com/e/interfaces/tickers.php?type=btctradeTicker"
-#define TRADE_URL @"http://www.btctrade.com/btc_trades"
+#define TRADE_URL @"http://info.btc123.com/lib/jsonProxyEx.php?type=btctradeTrades"
 #define PLATFORMNAME @"BTCTRADE"
 #define PLATFORMTYPE BTCTRADE
 
@@ -86,31 +86,21 @@
                 weakSelf.ask = UNAVAILABLE;
                 weakSelf.bid = UNAVAILABLE;
             }
-            
-            TradeJsonData = [NSData dataWithContentsOfURL:[NSURL URLWithString:TRADE_URL]];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (TradeJsonData)
-                {
-                    NSArray* jsonResultArray = [[[JSONDecoder alloc] init] objectWithData:TradeJsonData];
-                    [self tradeArrayParser:jsonResultArray];
-                }
-                else
-                    self.tradeArray = nil;
-            });
-
         });
+        TradeJsonData = [NSData dataWithContentsOfURL:[NSURL URLWithString:TRADE_URL]];
+        //            dispatch_async(dispatch_get_main_queue(), ^{
+        if (TradeJsonData)
+        {
+            NSArray* jsonResultArray = [[[JSONDecoder alloc] init] objectWithData:TradeJsonData];
+            [self tradeArrayParser:jsonResultArray];
+        }
+        else
+            [self tradeArrayParser:nil];
+        //            });
+        
+        
 	});
-	dispatch_release(downloadQueue);    
-}
-
-- (void)tradeArrayParser:(NSArray*)array
-{
-    NSMutableArray *resultMutableArray = [NSMutableArray arrayWithCapacity:100];
-    for (NSDictionary *item in array)
-    {
-        [resultMutableArray addObject:@{@"date":item[@"date"],@"price":item[@"price"],@"amount":item[@"amount"],@"type":item[@"type"]}];
-    }
-    self.tradeArray = [resultMutableArray copy];    
+	dispatch_release(downloadQueue);
 }
 
 - (void)start
@@ -162,6 +152,7 @@
         {
             [self.delegate setInfoWindowForHigh:[NSString stringWithFormat:@"¥%.2f",self.high] Low:[NSString stringWithFormat:@"¥%.2f",self.low] Ask:[NSString stringWithFormat:@"¥%.2f",self.ask] Bid:[NSString stringWithFormat:@"¥%.2f",self.bid] Vol:[NSString stringWithFormat:@"฿%.2f",self.vol]];
         }
+        [self.delegate setTradeArrayAndReloadTableView:self.tradeArray];
     }
 }
 

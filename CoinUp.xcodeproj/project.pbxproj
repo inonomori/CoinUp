@@ -39,6 +39,8 @@
 		685B6401181AC02600BA0A3A /* NRBTCCHINATicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 685B6400181AC02600BA0A3A /* NRBTCCHINATicker.m */; };
 		685B6404181AC7BD00BA0A3A /* NRHUOBITicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 685B6403181AC7BD00BA0A3A /* NRHUOBITicker.m */; };
 		685B6407181ACA2500BA0A3A /* NRBTC100Ticker.m in Sources */ = {isa = PBXBuildFile; fileRef = 685B6406181ACA2500BA0A3A /* NRBTC100Ticker.m */; };
+		6886308A181CE925003DAF5D /* icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68863089181CE925003DAF5D /* icon-60@2x.png */; };
+		6886308C181CE995003DAF5D /* icon-Small40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6886308B181CE995003DAF5D /* icon-Small40@2x.png */; };
 		68FE9D38181CB4D200B1A2CB /* upArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 68FE9D36181CB4D200B1A2CB /* upArrow.png */; };
 		68FE9D39181CB4D200B1A2CB /* upArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68FE9D37181CB4D200B1A2CB /* upArrow@2x.png */; };
 /* End PBXBuildFile section */
@@ -100,6 +102,8 @@
 		685B6403181AC7BD00BA0A3A /* NRHUOBITicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NRHUOBITicker.m; path = CoinUp/NRHUOBITicker.m; sourceTree = "<group>"; };
 		685B6405181ACA2500BA0A3A /* NRBTC100Ticker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NRBTC100Ticker.h; path = CoinUp/NRBTC100Ticker.h; sourceTree = "<group>"; };
 		685B6406181ACA2500BA0A3A /* NRBTC100Ticker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NRBTC100Ticker.m; path = CoinUp/NRBTC100Ticker.m; sourceTree = "<group>"; };
+		68863089181CE925003DAF5D /* icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-60@2x.png"; sourceTree = "<group>"; };
+		6886308B181CE995003DAF5D /* icon-Small40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-Small40@2x.png"; sourceTree = "<group>"; };
 		68FE9D36181CB4D200B1A2CB /* upArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = upArrow.png; path = UI/upArrow.png; sourceTree = "<group>"; };
 		68FE9D37181CB4D200B1A2CB /* upArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "upArrow@2x.png"; path = "UI/upArrow@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -201,12 +205,14 @@
 			isa = PBXGroup;
 			children = (
 				68FE9D35181CB4C800B1A2CB /* UI */,
+				68863089181CE925003DAF5D /* icon-60@2x.png */,
 				68464CF6181B52C100E446E7 /* Icon-72.png */,
 				68464CF7181B52C100E446E7 /* Icon-72@2x.png */,
 				68464CF8181B52C100E446E7 /* Icon-Small-50.png */,
 				68464CF9181B52C100E446E7 /* Icon-Small-50@2x.png */,
 				68464CFA181B52C100E446E7 /* Icon-Small.png */,
 				68464CFB181B52C100E446E7 /* Icon-Small@2x.png */,
+				6886308B181CE995003DAF5D /* icon-Small40@2x.png */,
 				68464CFC181B52C100E446E7 /* Icon.png */,
 				68464CFD181B52C100E446E7 /* Icon@2x.png */,
 				6830503C1819FE5500BCEFE1 /* CoinUp-Info.plist */,
@@ -276,6 +282,11 @@
 				CLASSPREFIX = NR;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = Nonomori;
+				TargetAttributes = {
+					683050301819FE5500BCEFE1 = {
+						DevelopmentTeam = 268U84W7J3;
+					};
+				};
 			};
 			buildConfigurationList = 6830502C1819FE5500BCEFE1 /* Build configuration list for PBXProject "CoinUp" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -306,8 +317,10 @@
 				68464CFF181B52C100E446E7 /* Icon-72@2x.png in Resources */,
 				68464D00181B52C100E446E7 /* Icon-Small-50.png in Resources */,
 				68464D01181B52C100E446E7 /* Icon-Small-50@2x.png in Resources */,
+				6886308A181CE925003DAF5D /* icon-60@2x.png in Resources */,
 				68464D02181B52C100E446E7 /* Icon-Small.png in Resources */,
 				68464D03181B52C100E446E7 /* Icon-Small@2x.png in Resources */,
+				6886308C181CE995003DAF5D /* icon-Small40@2x.png in Resources */,
 				68464D07181B52E200E446E7 /* Icon@2x.png in Resources */,
 				68464D09181B52EC00E446E7 /* Icon.png in Resources */,
 				68464D0B181B538D00E446E7 /* Default.png in Resources */,
@@ -377,6 +390,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -408,8 +422,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -427,13 +441,14 @@
 		683050551819FE5500BCEFE1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoinUp/CoinUp-Prefix.pch";
 				INFOPLIST_FILE = "CoinUp/CoinUp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -441,8 +456,8 @@
 		683050561819FE5500BCEFE1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoinUp/CoinUp-Prefix.pch";
 				INFOPLIST_FILE = "CoinUp/CoinUp-Info.plist";

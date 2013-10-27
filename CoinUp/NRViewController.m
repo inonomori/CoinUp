@@ -290,7 +290,21 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"TradeCell";
-    NRUITradeTableViewCell *cell = (NRUITradeTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    NRUITradeTableViewCell *cell;
+    if (SYSTEM_VERSION_LESS_THAN(@"6.0"))
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[NRUITradeTableViewCell alloc]
+                    initWithStyle:UITableViewCellStyleDefault
+                    reuseIdentifier:CellIdentifier];
+        }
+    }
+    else
+    {
+        cell = (NRUITradeTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    }
+    
     cell.priceLabel.text = [NSString stringWithFormat:@"%.2f",[self.tradeArray[indexPath.row][@"price"] doubleValue]];
     cell.volLabel.text = [NSString stringWithFormat:@"%.3f",[self.tradeArray[indexPath.row][@"amount"] doubleValue]];
     NSString *t = self.tradeArray[indexPath.row][@"date"];

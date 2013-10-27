@@ -93,30 +93,40 @@
         });
         
         TradeJsonData = [NSData dataWithContentsOfURL:[NSURL URLWithString:TRADE_URL]];
-        dispatch_async(dispatch_get_main_queue(), ^{
+//        dispatch_async(dispatch_get_main_queue(), ^{
             if (TradeJsonData)
             {
                 NSArray* jsonResultArray = [[[[JSONDecoder alloc] init] objectWithData:TradeJsonData] objectForKey:@"datas"];
                 [self tradeArrayParser:jsonResultArray];
             }
             else
-                self.tradeArray = nil;
-        });	});
+                [self tradeArrayParser:nil];
+//        });
+    });
 	dispatch_release(downloadQueue);
 }
 
 - (void)tradeArrayParser:(NSArray*)array
 {
-    NSMutableArray *resultMutableArray = [NSMutableArray arrayWithCapacity:100];
-    for (NSDictionary*item in array)
+    if (array == nil)
     {
-//    for (int i = array.count-1; i>=0; --i)
-//    {
-        //NSDictionary *item = array[i];
-        NSString *type = [item[@"type"] isEqualToString:@"bid"]?@"sell":@"buy";
-        [resultMutableArray addObject:@{@"date":item[@"date"],@"price":item[@"rate"],@"amount":item[@"vol"],@"type":type}];
+        self.tradeArray = nil;
+        return;
     }
-    self.tradeArray = [resultMutableArray copy];
+    
+    dispatch_queue_t downloadQueue = dispatch_queue_create("Queue", NULL);
+	dispatch_async(downloadQueue, ^{
+        NSMutableArray *resultMutableArray = [NSMutableArray arrayWithCapacity:100];
+        for (NSDictionary*item in array)
+        {
+            NSString *type = [item[@"type"] isEqualToString:@"bid"]?@"sell":@"buy";
+            [resultMutableArray addObject:@{@"date":item[@"date"],@"price":item[@"rate"],@"amount":item[@"vol"],@"type":type}];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.tradeArray = [resultMutableArray copy];
+        });
+    });
+    dispatch_release(downloadQueue);
 }
 
 - (void)start

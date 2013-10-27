@@ -86,18 +86,17 @@
                 weakSelf.ask = UNAVAILABLE;
                 weakSelf.bid = UNAVAILABLE;
             }
-            
-            TradeJsonData = [NSData dataWithContentsOfURL:[NSURL URLWithString:TRADE_URL]];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (TradeJsonData)
-                {
-                    NSArray* jsonResultArray = [[[JSONDecoder alloc] init] objectWithData:TradeJsonData];
-                    [self tradeArrayParser:jsonResultArray];
-                }
-                else
-                    self.tradeArray = nil;
-            });
         });
+        TradeJsonData = [NSData dataWithContentsOfURL:[NSURL URLWithString:TRADE_URL]];
+        //            dispatch_async(dispatch_get_main_queue(), ^{
+        if (TradeJsonData)
+        {
+            NSArray* jsonResultArray = [[[JSONDecoder alloc] init] objectWithData:TradeJsonData];
+            [self tradeArrayParser:jsonResultArray];
+        }
+        else
+            [self tradeArrayParser:nil];
+        //            });
 	});
 	dispatch_release(downloadQueue);
 }
@@ -114,6 +113,14 @@
 
 - (void)tradeArrayParser:(NSArray*)array
 {
+    if (array == nil)
+    {
+        self.tradeArray = nil;
+        return;
+    }
+    
+    dispatch_queue_t downloadQueue = dispatch_queue_create("Queue", NULL);
+	dispatch_async(downloadQueue, ^{
     NSMutableArray *resultMutableArray = [NSMutableArray arrayWithCapacity:100];
     for (int i = array.count-1; i>=0; --i)
     {
@@ -122,7 +129,10 @@
         [resultMutableArray addObject:@{@"date":item[@"date"],@"price":item[@"price"],@"amount":item[@"amount"],@"type":type}];
         
     }
-    self.tradeArray = [resultMutableArray copy];
+        dispatch_async(dispatch_get_main_queue(), ^{    self.tradeArray = [resultMutableArray copy];
+        });
+    });
+    dispatch_release(downloadQueue);
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
