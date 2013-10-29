@@ -41,6 +41,7 @@
 		685B6407181ACA2500BA0A3A /* NRBTC100Ticker.m in Sources */ = {isa = PBXBuildFile; fileRef = 685B6406181ACA2500BA0A3A /* NRBTC100Ticker.m */; };
 		6886308A181CE925003DAF5D /* icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68863089181CE925003DAF5D /* icon-60@2x.png */; };
 		6886308C181CE995003DAF5D /* icon-Small40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6886308B181CE995003DAF5D /* icon-Small40@2x.png */; };
+		68A7CF76181FA0140097E809 /* NRUIDepthTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A7CF75181FA0140097E809 /* NRUIDepthTableViewCell.m */; };
 		68FE9D38181CB4D200B1A2CB /* upArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 68FE9D36181CB4D200B1A2CB /* upArrow.png */; };
 		68FE9D39181CB4D200B1A2CB /* upArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68FE9D37181CB4D200B1A2CB /* upArrow@2x.png */; };
 /* End PBXBuildFile section */
@@ -104,6 +105,8 @@
 		685B6406181ACA2500BA0A3A /* NRBTC100Ticker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NRBTC100Ticker.m; path = CoinUp/NRBTC100Ticker.m; sourceTree = "<group>"; };
 		68863089181CE925003DAF5D /* icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-60@2x.png"; sourceTree = "<group>"; };
 		6886308B181CE995003DAF5D /* icon-Small40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-Small40@2x.png"; sourceTree = "<group>"; };
+		68A7CF74181FA0140097E809 /* NRUIDepthTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRUIDepthTableViewCell.h; sourceTree = "<group>"; };
+		68A7CF75181FA0140097E809 /* NRUIDepthTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRUIDepthTableViewCell.m; sourceTree = "<group>"; };
 		68FE9D36181CB4D200B1A2CB /* upArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = upArrow.png; path = UI/upArrow.png; sourceTree = "<group>"; };
 		68FE9D37181CB4D200B1A2CB /* upArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "upArrow@2x.png"; path = "UI/upArrow@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -192,10 +195,12 @@
 				683050431819FE5500BCEFE1 /* NRAppDelegate.h */,
 				683050441819FE5500BCEFE1 /* NRAppDelegate.m */,
 				6830504C1819FE5500BCEFE1 /* MainStoryboard.storyboard */,
-				682DB7C5181B98450021F509 /* NRUITradeTableViewCell.h */,
-				682DB7C6181B98450021F509 /* NRUITradeTableViewCell.m */,
 				6830504F1819FE5500BCEFE1 /* NRViewController.h */,
 				683050501819FE5500BCEFE1 /* NRViewController.m */,
+				682DB7C5181B98450021F509 /* NRUITradeTableViewCell.h */,
+				682DB7C6181B98450021F509 /* NRUITradeTableViewCell.m */,
+				68A7CF74181FA0140097E809 /* NRUIDepthTableViewCell.h */,
+				68A7CF75181FA0140097E809 /* NRUIDepthTableViewCell.m */,
 				6830503B1819FE5500BCEFE1 /* Supporting Files */,
 			);
 			path = CoinUp;
@@ -337,6 +342,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68A7CF76181FA0140097E809 /* NRUIDepthTableViewCell.m in Sources */,
 				683050411819FE5500BCEFE1 /* main.m in Sources */,
 				683050451819FE5500BCEFE1 /* NRAppDelegate.m in Sources */,
 				683050511819FE5500BCEFE1 /* NRViewController.m in Sources */,

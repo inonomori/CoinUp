@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "NRCoinUpBoard.h"
 
+#define STRING(x) #x
+#define NAME(x) @STRING(x)
+#define TYPE(x) x
+
 #define UNAVAILABLE 0
 #define WAITINGTIME 10
 
@@ -22,9 +26,11 @@
 @property (nonatomic) double bid;
 
 @property (nonatomic, strong) NSArray *tradeArray;
+@property (nonatomic, strong) NSArray *depthArray;
 
 @property (nonatomic, weak) id<NRCoinUpBoard> delegate;
 
 - (void)tradeArrayParser:(NSArray*)array;
+- (void)depthJsonParser:(NSDictionary*)dic;
 
 @end

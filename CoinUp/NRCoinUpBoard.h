@@ -28,5 +28,6 @@ typedef NS_ENUM(NSInteger, COINPLATFORMTYPE) {
 - (COINPLATFORMTYPE)currentPlatformType;
 - (void)setInfoWindowForHigh:(NSString*)high Low:(NSString*)low Ask:(NSString*)ask Bid:(NSString*)bid Vol:(NSString*)vol;
 - (void)setTradeArrayAndReloadTableView:(NSArray*)array;
+- (void)setDepthArrayAndReloadTableView:(NSArray *)depthArray;
 
 @end

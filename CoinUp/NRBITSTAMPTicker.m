@@ -9,10 +9,10 @@
 #import "NRBITSTAMPTicker.h"
 #import "JSONKit.h"
 
-#define URL @"https://www.bitstamp.net/api/ticker/"
+#define TICKER_URL @"https://www.bitstamp.net/api/ticker/"
 #define TRADE_URL @"https://www.bitstamp.net/api/transactions/"
-#define PLATFORMNAME @"BITSTAMP"
-#define PLATFORMTYPE BITSTAMP
+#define DEPTH_URL @"https://www.bitstamp.net/api/order_book/"
+#define PLATFORM BITSTAMP
 
 @implementation NRBitStampTicker
 
@@ -46,8 +46,12 @@
            forKeyPath:@"tradeArray"
               options:NSKeyValueObservingOptionOld
               context:NULL];
+    [self addObserver:self
+           forKeyPath:@"depthArray"
+              options:NSKeyValueObservingOptionOld
+              context:NULL];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateInfoWindow) name:@"InfoWindowUpdate" object:nil];
-
+    
     
     return self;
 }
@@ -61,11 +65,12 @@
 {
     __block NSData *jsonData;
     __block NSData *TradeJsonData;
+    __block NSData *DepthJsonData;
     __weak NRBitStampTicker* weakSelf = self;
     
     dispatch_queue_t downloadQueue = dispatch_queue_create("Queue", NULL);
 	dispatch_async(downloadQueue, ^{
-        jsonData = [NSData dataWithContentsOfURL:[NSURL URLWithString:URL]];
+        jsonData = [NSData dataWithContentsOfURL:[NSURL URLWithString:TICKER_URL]];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (jsonData)
             {
@@ -87,8 +92,8 @@
                 weakSelf.bid = UNAVAILABLE;
             }
         });
+        
         TradeJsonData = [NSData dataWithContentsOfURL:[NSURL URLWithString:TRADE_URL]];
-        //            dispatch_async(dispatch_get_main_queue(), ^{
         if (TradeJsonData)
         {
             NSArray* jsonResultArray = [[[JSONDecoder alloc] init] objectWithData:TradeJsonData];
@@ -96,7 +101,15 @@
         }
         else
             [self tradeArrayParser:nil];
-        //            });
+        
+        DepthJsonData = [NSData dataWithContentsOfURL:[NSURL URLWithString:DEPTH_URL]];
+        if (DepthJsonData)
+        {
+            NSDictionary *jsonResult = [[[JSONDecoder alloc] init] objectWithData:DepthJsonData];
+            [self depthJsonParser:jsonResult];
+        }
+        else
+            [self depthJsonParser:nil];
         
 	});
 	dispatch_release(downloadQueue);
@@ -127,6 +140,32 @@
     dispatch_release(downloadQueue);
 }
 
+- (void)depthJsonParser:(NSDictionary*)dic
+{
+    if (dic == nil)
+    {
+        self.depthArray = nil;
+        return;
+    }
+    
+    dispatch_queue_t downloadQueue = dispatch_queue_create("Queue", NULL);
+	dispatch_async(downloadQueue, ^{
+        
+        NSArray *askArray = dic[@"asks"];
+        NSArray *bidArray = dic[@"bids"];
+        NSMutableArray *resultMutableArray = [NSMutableArray arrayWithCapacity:50];
+        NSInteger count = (askArray.count > bidArray.count)?bidArray.count:askArray.count;
+        for (int i = 0; i < count; ++i)
+        {
+            [resultMutableArray addObject:@{@"ask":askArray[i],@"bid":bidArray[i]}];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.depthArray = [resultMutableArray copy];
+        });
+    });
+    dispatch_release(downloadQueue);
+}
+
 - (void)start
 {
     [self update:nil];
@@ -145,28 +184,34 @@
     if ([keyPath isEqual:@"last"])
     {
         if (self.last != UNAVAILABLE)
-            [self.delegate updateLabel:[NSString stringWithFormat:@"$%.2f",self.last] ForName:PLATFORMNAME];
+            [self.delegate updateLabel:[NSString stringWithFormat:@"$%.2f",self.last] ForName:NAME(PLATFORM)];
         else
-            [self.delegate updateLabel:@"N/A" ForName:PLATFORMNAME];
+            [self.delegate updateLabel:@"N/A" ForName:NAME(PLATFORM)];
         
         if ([change[@"old"] doubleValue] > self.last)
-            [self.delegate flashColorInGreen:NO ForName:PLATFORMNAME];
+            [self.delegate flashColorInGreen:NO ForName:NAME(PLATFORM)];
         else if ([change[@"old"] doubleValue] < self.last)
-            [self.delegate flashColorInGreen:YES ForName:PLATFORMNAME];
+            [self.delegate flashColorInGreen:YES ForName:NAME(PLATFORM)];
         else{}
     }
-    else if (![keyPath isEqualToString:@"tradeArray"])
+    else if (![keyPath isEqualToString:@"tradeArray"] || ![keyPath isEqualToString:@"depthArray"])
         [self updateInfoWindow];
-    else //tradeArray
+    else //depth or trade
     {
-        if ([self.delegate currentPlatformType] == PLATFORMTYPE)
-            [self.delegate setTradeArrayAndReloadTableView:self.tradeArray];
+        if ([self.delegate currentPlatformType] == TYPE(PLATFORM))
+        {
+            if ([keyPath isEqualToString:@"tradeArray"])
+                [self.delegate setTradeArrayAndReloadTableView:self.tradeArray];
+            else
+                [self.delegate setDepthArrayAndReloadTableView:self.depthArray];
+            
+        }
     }
 }
 
 - (void)updateInfoWindow
 {
-    if ([self.delegate currentPlatformType] == PLATFORMTYPE)
+    if ([self.delegate currentPlatformType] == TYPE(PLATFORM))
     {
         if (self.low == UNAVAILABLE || self.high == UNAVAILABLE || self.ask == UNAVAILABLE || self.bid == UNAVAILABLE || self.vol == UNAVAILABLE)
         {
@@ -177,6 +222,7 @@
             [self.delegate setInfoWindowForHigh:[NSString stringWithFormat:@"$%.2f",self.high] Low:[NSString stringWithFormat:@"$%.2f",self.low] Ask:[NSString stringWithFormat:@"$%.2f",self.ask] Bid:[NSString stringWithFormat:@"$%.2f",self.bid] Vol:[NSString stringWithFormat:@"฿%.2f",self.vol]];
         }
         [self.delegate setTradeArrayAndReloadTableView:self.tradeArray];
+        [self.delegate setDepthArrayAndReloadTableView:self.depthArray];
     }
 }
 

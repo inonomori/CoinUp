@@ -22,10 +22,13 @@
 #import "NRBTC100Ticker.h"
 #import "ToolBox.h"
 #import "NRUITradeTableViewCell.h"
+#import "NRUIDepthTableViewCell.h"
 
 @interface NRViewController ()
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollViewInfoWindow;
 @property (nonatomic, strong) NSArray *tradeArray;
+@property (nonatomic, strong) NSArray *depthArray;
 @property (weak, nonatomic) IBOutlet UIView *baseView;
 @property (weak, nonatomic) IBOutlet UIView *CoverView;
 @property (weak, nonatomic) IBOutlet UIView *cover_FXBTC;
@@ -54,15 +57,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *volLabel;
 @property (nonatomic) COINPLATFORMTYPE platformType;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UITableView *depthTableView;
 @property (weak, nonatomic) IBOutlet UIImageView *upArrow;
-
-// look upper, it is a penis
 
 @end
 
 @implementation NRViewController
-
-//@synthesize tradeArray = _tradeArray;
 
 - (NSArray*)tradeArray
 {
@@ -128,6 +128,12 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.scrollViewInfoWindow.contentSize = CGSizeMake(SCREENWIDTH*2, self.scrollViewInfoWindow.frame.size.height);
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -176,6 +182,13 @@
     [self.tableView reloadData];
 }
 
+- (void)setDepthArrayAndReloadTableView:(NSArray *)depthArray
+{
+    self.depthArray = depthArray;
+    [self.depthTableView reloadData];
+}
+
+#pragma mark - InfoWindow Control
 - (IBAction)ButtonTouched:(UIButton *)sender
 {
     self.tradeArray = nil;
@@ -276,6 +289,12 @@
      ];
 }
 
+- (IBAction)SegmentControlValueChanged:(UISegmentedControl *)sender
+{
+    CGRect rect = CGRectMake(SCREENWIDTH*sender.selectedSegmentIndex, 0, SCREENWIDTH, sender.frame.size.height);
+    [self.scrollViewInfoWindow scrollRectToVisible:rect animated:YES];
+}
+
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -284,54 +303,83 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.tradeArray.count;
+    if (tableView.tag == 0)
+        return self.tradeArray.count;
+    else
+        return self.depthArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"TradeCell";
-    NRUITradeTableViewCell *cell;
-    if (SYSTEM_VERSION_LESS_THAN(@"6.0"))
+    if (tableView.tag == 0)
     {
-        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            cell = [[NRUITradeTableViewCell alloc]
-                    initWithStyle:UITableViewCellStyleDefault
-                    reuseIdentifier:CellIdentifier];
+        static NSString *CellIdentifier = @"TradeCell";
+        NRUITradeTableViewCell *cell;
+        if (SYSTEM_VERSION_LESS_THAN(@"6.0"))
+        {
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil) {
+                cell = [[NRUITradeTableViewCell alloc]
+                        initWithStyle:UITableViewCellStyleDefault
+                        reuseIdentifier:CellIdentifier];
+            }
         }
+        else
+        {
+            cell = (NRUITradeTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+        }
+        
+        cell.priceLabel.text = [NSString stringWithFormat:@"%.2f",[self.tradeArray[indexPath.row][@"price"] doubleValue]];
+        cell.volLabel.text = [NSString stringWithFormat:@"%.3f",[self.tradeArray[indexPath.row][@"amount"] doubleValue]];
+        NSString *t = self.tradeArray[indexPath.row][@"date"];
+        
+        NSDate *d = [NSDate dateWithTimeIntervalSince1970:[t doubleValue]];
+        NSDateFormatter *formateter = [[NSDateFormatter alloc] init];
+        [formateter setDateFormat:@"HH:mm:ss"];
+        NSString *time = [formateter stringFromDate:d];
+        cell.timeStampLabel.text = time;
+        if ([self.tradeArray[indexPath.row][@"type"] isEqualToString:@"buy"])
+            cell.priceLabel.textColor = [UIColor redColor];
+        else if ([self.tradeArray[indexPath.row][@"type"] isEqualToString:@"sell"])
+            cell.priceLabel.textColor = [UIColor greenColor];
+        else
+            cell.priceLabel.textColor = [UIColor blackColor];
+        return cell;
     }
     else
     {
-        cell = (NRUITradeTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+        static NSString *CellIdentifier = @"DepthCell";
+        NRUIDepthTableViewCell *cell;
+        if (SYSTEM_VERSION_LESS_THAN(@"6.0"))
+        {
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil) {
+                cell = [[NRUIDepthTableViewCell alloc]
+                        initWithStyle:UITableViewCellStyleDefault
+                        reuseIdentifier:CellIdentifier];
+            }
+        }
+        else
+        {
+            cell = (NRUIDepthTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+        }
+        
+        double askVol = [self.depthArray[indexPath.row][@"ask"][1] doubleValue];
+        double bidVol = [self.depthArray[indexPath.row][@"bid"][1] doubleValue];
+        cell.sellPriceLabel.text = [NSString stringWithFormat:@"%.2f",[self.depthArray[indexPath.row][@"ask"][0] doubleValue]];
+        cell.sellVolLabel.text = [NSString stringWithFormat:@"%.2f",askVol];
+        cell.buyPriceLabel.text = [NSString stringWithFormat:@"%.2f",[self.depthArray[indexPath.row][@"bid"][0] doubleValue]];
+        cell.buyVolLabel.text = [NSString stringWithFormat:@"%.2f",bidVol];
+        [cell setSellBarValue:askVol BuyBarValue:bidVol];
+        
+        return cell;
     }
-    
-    cell.priceLabel.text = [NSString stringWithFormat:@"%.2f",[self.tradeArray[indexPath.row][@"price"] doubleValue]];
-    cell.volLabel.text = [NSString stringWithFormat:@"%.3f",[self.tradeArray[indexPath.row][@"amount"] doubleValue]];
-    NSString *t = self.tradeArray[indexPath.row][@"date"];
-    
-    NSDate *d = [NSDate dateWithTimeIntervalSince1970:[t doubleValue]];
-    NSDateFormatter *formateter = [[NSDateFormatter alloc] init];
-    [formateter setDateFormat:@"HH:mm:ss"];
-    NSString *time = [formateter stringFromDate:d];
-    cell.timeStampLabel.text = time;
-    if ([self.tradeArray[indexPath.row][@"type"] isEqualToString:@"buy"])
-    {
-        cell.priceLabel.textColor = [UIColor redColor];
-        //cell.backgroundView.backgroundColor = [UIColor redColor];
-    }
-    else if ([self.tradeArray[indexPath.row][@"type"] isEqualToString:@"sell"])
-        cell.priceLabel.textColor = [UIColor greenColor];
-    else
-        cell.priceLabel.textColor = [UIColor blackColor];
-
-    return cell;
 }
 
 #pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 }
-
 
 - (void)viewDidUnload {
     [self setCover_BTCTRADE:nil];
