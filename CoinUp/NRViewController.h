@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "NRCoinUpBoard.h"
+#import "DataPuller.h"
+#import "CorePlot-CocoaTouch.h"
 
-
-@interface NRViewController : UIViewController<NRCoinUpBoard,UITableViewDataSource,UITableViewDelegate>
+@interface NRViewController : UIViewController<NRCoinUpBoard,UITableViewDataSource,UITableViewDelegate,DataPullerDelegate,CPTPlotDataSource,CPTPlotSpaceDelegate,CPTScatterPlotDelegate>
 
 
 @end

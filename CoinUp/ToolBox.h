@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DataPuller.h"
 
 #define TLSWAP(_t,_x,_y) do{\
 _t temp;\
@@ -29,5 +30,6 @@ _y = temp;\
 +(CGSize)getApplicationFrameSize;
 + (UIColor *)colorWithHex:(long)hexColor alpha:(float)opacity;
 + (NSString *)DestPathDocuments:(NSString *)filename;
++ (NSURL*)getKLineURLForPlatform:(COINPLATFORMTYPE)platfom ForTimeInterval:(NRCPKLINETIMEINTERVAL)timeInterval;
 
 @end

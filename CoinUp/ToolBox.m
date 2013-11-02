@@ -35,4 +35,32 @@
     return [NSString stringWithFormat:@"%@/%@",[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0],filename];
 }
 
++ (NSURL*)getKLineURLForPlatform:(COINPLATFORMTYPE)platfom ForTimeInterval:(NRCPKLINETIMEINTERVAL)timeInterval
+{
+    NSInteger timeIntervalInSeconds;
+    switch (timeInterval) {
+        case NRCPKLINETIMEINTERVAL24H:
+            timeIntervalInSeconds = 86400;
+            break;
+        case NRCPKLINETIMEINTERVAL1H:
+        case NRCPKLINETIMEINTERVAL30M:
+        case NRCPKLINETIMEINTERVAL15M:
+            timeIntervalInSeconds = 900;
+            break;
+        default:
+            break;
+    }
+    
+    NSString *platform_URL = @"";
+    switch (platfom) {
+        case OKCOIN:
+            platform_URL = @"okcoinBTCCNY";
+            break;
+            
+        default:
+            break;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"http://info.btc123.com/data/%@/%d/bars.json",platform_URL,timeIntervalInSeconds]];
+}
+
 @end
