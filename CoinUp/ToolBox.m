@@ -35,7 +35,7 @@
     return [NSString stringWithFormat:@"%@/%@",[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0],filename];
 }
 
-+ (NSURL*)getKLineURLForPlatform:(COINPLATFORMTYPE)platfom ForTimeInterval:(NRCPKLINETIMEINTERVAL)timeInterval
++ (NSURL*)getKLineURLForPlatform:(COINPLATFORMTYPE)platform ForTimeInterval:(NRCPKLINETIMEINTERVAL)timeInterval
 {
     NSInteger timeIntervalInSeconds;
     switch (timeInterval) {
@@ -52,15 +52,61 @@
     }
     
     NSString *platform_URL = @"";
-    switch (platfom) {
+    switch (platform) {
         case OKCOIN:
             platform_URL = @"okcoinBTCCNY";
             break;
-            
+        case CHBTC:
+            platform_URL = @"chbtcBTCCNY";
+            break;
+        case BTCCHINA:
+            platform_URL = @"btccCNY";
+            break;
+        case MTGOX:
+            platform_URL = @"USD";
+            break;
+        case FXBTC:
+            platform_URL = @"fxbtcBTCCNY";
+            break;
+        case HUOBI:
+            platform_URL = @"huobiBTCCNY";
+            break;
+        case BTCTRADE:
+            platform_URL = @"btctradeBTCCNY";
+            break;
+        case BTC100:
+            platform_URL = @"btc100BTCCNY";
+            break;
+        case BITSTAMP:
+            return [NSURL URLWithString:[NSString stringWithFormat:@"http://k.btc123.com:8080/period?step=%d&sid=1313fb2f&symbol=bitstampbtcusd&nonce=1383468696227",timeIntervalInSeconds]];
         default:
             break;
     }
     return [NSURL URLWithString:[NSString stringWithFormat:@"http://info.btc123.com/data/%@/%d/bars.json",platform_URL,timeIntervalInSeconds]];
+}
+
++ (NSInteger)getMoneyDivisionForPlatform:(COINPLATFORMTYPE)platform
+{
+    switch (platform) {
+        case BITSTAMP:
+            return 1;
+        case FXBTC:
+            return 10000;
+        case MTGOX:
+            return 100000;
+        default:
+            return 100;
+    }
+}
+
++ (NSInteger)getVolDivisionForPlatform:(COINPLATFORMTYPE)platform
+{
+    switch (platform) {
+        case BITSTAMP:
+            return 1;
+        default:
+        return 100000000;
+    }
 }
 
 @end

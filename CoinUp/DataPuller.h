@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger, NRCPKLINETIMEINTERVAL) {
     NSURLConnection *connection;
 }
 
-@property (nonatomic, weak) id<DataPullerDelegate> delegate;
+@property (nonatomic, weak) id<DataPullerDelegate,NRCoinUpBoard> delegate;
 @property (nonatomic) COINPLATFORMTYPE platform;
 @property (nonatomic, retain) NSDate *startDate;
 @property (nonatomic, retain) NSDate *endDate;

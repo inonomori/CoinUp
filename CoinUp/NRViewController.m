@@ -74,6 +74,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *minLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *graphVolLabel;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *graphSegmentedController;
 
 @property (nonatomic) NSInteger changedCounter; //sorry, i have no idea how to solve reset xy range problem.
 
@@ -209,6 +210,15 @@
 
 - (void)setGraphDataLabelForDataAtIndex:(NSUInteger)index
 {
+    NSInteger moneyDivision = [ToolBox getMoneyDivisionForPlatform:self.platformType];
+    NSInteger volDivision = [ToolBox getVolDivisionForPlatform:self.platformType];
+    
+    NSInteger json_volIndex = (self.platformType == BITSTAMP)?7:5;
+    NSInteger json_openIndex = (self.platformType == BITSTAMP)?3:1;
+    NSInteger json_closeIndex = 4;
+    NSInteger json_maxIndex = (self.platformType == BITSTAMP)?5:2;
+    NSInteger json_minIndex = (self.platformType == BITSTAMP)?6:3;
+    
     if (self.dataPuller.filteredFinancialData != nil && self.dataPuller.filteredFinancialData.count > index)
     {
         NSDate *d = [NSDate dateWithTimeIntervalSince1970:[self.dataPuller.filteredFinancialData[index][0] doubleValue]];
@@ -217,11 +227,11 @@
         NSString *time = [formateter stringFromDate:d];
         
         self.dateLabel.text = time;
-        self.openLabel.text = [NSString stringWithFormat:@"%.2f",[self.dataPuller.filteredFinancialData[index][1] doubleValue]/100];
-        self.maxLabel.text = [NSString stringWithFormat:@"%.2f",[self.dataPuller.filteredFinancialData[index][2] doubleValue]/100];
-        self.minLabel.text = [NSString stringWithFormat:@"%.2f",[self.dataPuller.filteredFinancialData[index][3] doubleValue]/100];
-        self.closeLabel.text = [NSString stringWithFormat:@"%.2f",[self.dataPuller.filteredFinancialData[index][4] doubleValue]/100];
-        self.graphVolLabel.text = [NSString stringWithFormat:@"%.3f",[self.dataPuller.filteredFinancialData[index][5] doubleValue]/100000000];
+        self.openLabel.text = [NSString stringWithFormat:@"%.2f",[self.dataPuller.filteredFinancialData[index][json_openIndex] doubleValue]/moneyDivision];
+        self.maxLabel.text = [NSString stringWithFormat:@"%.2f",[self.dataPuller.filteredFinancialData[index][json_maxIndex] doubleValue]/moneyDivision];
+        self.minLabel.text = [NSString stringWithFormat:@"%.2f",[self.dataPuller.filteredFinancialData[index][json_minIndex] doubleValue]/moneyDivision];
+        self.closeLabel.text = [NSString stringWithFormat:@"%.2f",[self.dataPuller.filteredFinancialData[index][json_closeIndex] doubleValue]/moneyDivision];
+        self.graphVolLabel.text = [NSString stringWithFormat:@"%.3f",[self.dataPuller.filteredFinancialData[index][json_volIndex] doubleValue]/volDivision];
     }
 }
 
@@ -232,6 +242,7 @@
     [self.tableView reloadData];
     CGRect frame = self.InfoWindow.frame;
     self.platformType = sender.tag;
+    [self SegmentControlValueChanged:self.graphSegmentedController];  //force to send value change message to let the app draw the graph immediantly.
     
     if (self.CoverView.hidden)
     {
@@ -379,10 +390,11 @@
         NSDate *start = [NSDate dateWithTimeIntervalSinceNow:-60.0 * 60.0 * timeoffset]; // 4 weeks ago
         NSDate *end = [NSDate date];
         
-        DataPuller *dp = [[DataPuller alloc] initWithPlatform:OKCOIN targetStartDate:start targetEndDate:(NSDate *)end TimeInterval:sender.selectedSegmentIndex];
+        DataPuller *dp = [[DataPuller alloc] initWithPlatform:self.platformType targetStartDate:start targetEndDate:(NSDate *)end TimeInterval:sender.selectedSegmentIndex];
         
         self.dataPuller = dp;
-        [dp setDelegate:self];
+        if (dp)
+            [dp setDelegate:self];
     }
 }
 
@@ -608,13 +620,13 @@
     self.selectedCoordination = 0;
 
     // Data puller
-    NSDate *start         = [NSDate dateWithTimeIntervalSinceNow:-60.0 * 60.0 * 24.0 * 42]; // 4 weeks ago
-    NSDate *end           = [NSDate date];
+//    NSDate *start         = [NSDate dateWithTimeIntervalSinceNow:-60.0 * 60.0 * 24.0 * 42]; // 4 weeks ago
+//    NSDate *end           = [NSDate date];
 
-    DataPuller *dp = [[DataPuller alloc] initWithPlatform:OKCOIN targetStartDate:start targetEndDate:(NSDate *)end TimeInterval:NRCPKLINETIMEINTERVAL24H];
+//    DataPuller *dp = [[DataPuller alloc] initWithPlatform:OKCOIN targetStartDate:start targetEndDate:(NSDate *)end TimeInterval:NRCPKLINETIMEINTERVAL24H];
 
-    self.dataPuller = dp;
-    [dp setDelegate:self];
+    self.dataPuller = nil; //dp;
+   // [dp setDelegate:self];
 }
 
 - (void)applyTouchPlotColor
@@ -757,13 +769,21 @@
     
     NSUInteger numFields = plot.numberOfFields;
     
-    if ( [plot.identifier isEqual:@"Volume Plot"] ) {
+    if ([plot.identifier isEqual:@"Volume Plot"])
         numFields = 2;
-    }
     
     NSMutableData *data = [[NSMutableData alloc] initWithLength:indexRange.length * numFields * ( useDoubles ? sizeof(double) : sizeof(NSDecimal) )];
     
     const NSUInteger maxIndex = NSMaxRange(indexRange);
+    
+    NSInteger json_volIndex = (self.platformType == BITSTAMP)?7:5;
+    NSInteger json_openIndex = (self.platformType == BITSTAMP)?3:1;
+    NSInteger json_closeIndex = 4;
+    NSInteger json_maxIndex = (self.platformType == BITSTAMP)?5:2;
+    NSInteger json_minIndex = (self.platformType == BITSTAMP)?6:3;
+
+    NSInteger moneyDivision = [ToolBox getMoneyDivisionForPlatform:self.platformType];
+    NSInteger volDivision = [ToolBox getVolDivisionForPlatform:self.platformType];
     
     if ( [plot.identifier isEqual:@"Data Source Plot"] ) {
         double *nextValue = data.mutableBytes;
@@ -779,8 +799,7 @@
                         break;
                         
                     case CPTScatterPlotFieldY:
-                        value = [NSNumber numberWithDouble:[financialData[i][4] doubleValue]/100];//[fData objectForKey:@"close"];
-                        NSAssert(value, @"Close value was nil");
+                        value = [NSNumber numberWithDouble:[financialData[i][json_closeIndex] doubleValue]/moneyDivision];//[fData objectForKey:@"close"];                         NSAssert(value, @"Close value was nil");
                         *nextValue++ = [value doubleValue];
                         break;
                         
@@ -805,7 +824,7 @@
                         break;
                         
                     case CPTBarPlotFieldBarTip:
-                        value = [NSNumber numberWithDouble:[financialData[i][5] doubleValue]/100000000];//[fData objectForKey:@"volume"];
+                        value = [NSNumber numberWithDouble:[financialData[i][json_volIndex] doubleValue]/volDivision];//[fData objectForKey:@"volume"];
                         NSAssert(value, @"Volume value was nil");
                         *nextValue++ = [value doubleValue];
                         break;
@@ -831,25 +850,25 @@
                         break;
                         
                     case CPTTradingRangePlotFieldOpen:
-                        value = [NSNumber numberWithDouble:[financialData[i][1] doubleValue]/100];//[fData objectForKey:@"open"];
+                        value = [NSNumber numberWithDouble:[financialData[i][json_openIndex] doubleValue]/moneyDivision];//[fData objectForKey:@"open"];
                         NSAssert(value, @"Open value was nil");
                         *nextValue++ = [value decimalValue];
                         break;
                         
                     case CPTTradingRangePlotFieldHigh:
-                        value = [NSNumber numberWithDouble:[financialData[i][2] doubleValue]/100];
+                        value = [NSNumber numberWithDouble:[financialData[i][json_maxIndex] doubleValue]/moneyDivision];
                         NSAssert(value, @"High value was nil");
                         *nextValue++ = [value decimalValue];
                         break;
                         
                     case CPTTradingRangePlotFieldLow:
-                        value = [NSNumber numberWithDouble:[financialData[i][3] doubleValue]/100];
+                        value = [NSNumber numberWithDouble:[financialData[i][json_minIndex] doubleValue]/moneyDivision];
                         NSAssert(value, @"Low value was nil");
                         *nextValue++ = [value decimalValue];
                         break;
                         
                     case CPTTradingRangePlotFieldClose:
-                        value = [NSNumber numberWithDouble:[financialData[i][4] doubleValue]/100];
+                        value = [NSNumber numberWithDouble:[financialData[i][json_closeIndex] doubleValue]/moneyDivision];
                         NSAssert(value, @"Close value was nil");
                         *nextValue++ = [value decimalValue];
                         break;
@@ -877,17 +896,17 @@
                     case CPTScatterPlotFieldY:
                         switch (i) {
                             case 0:
-                                value = [NSNumber numberWithInt:0];
+                                value = [NSNumber numberWithDouble:([self.dataPuller.overallLow doubleValue])];
                                 *nextValue++ = [value decimalValue];
                                 break;
                             case 2:
-                                value = [NSNumber numberWithInt:100];
+                                value = [NSNumber numberWithInt:0];
                                 *nextValue++ = [value decimalValue];
                                 break;
                             default:
                                 value = [NSNumber numberWithInt:0];
                                 if (financialData.count > 30)
-                                    value = [NSNumber numberWithDouble:[financialData[self.selectedCoordination][4] doubleValue]/100];
+                                    value = [NSNumber numberWithDouble:[financialData[self.selectedCoordination][json_closeIndex] doubleValue]/moneyDivision];
                                 *nextValue++ = [value decimalValue];
                                 break;
                         }

@@ -30,6 +30,8 @@ _y = temp;\
 +(CGSize)getApplicationFrameSize;
 + (UIColor *)colorWithHex:(long)hexColor alpha:(float)opacity;
 + (NSString *)DestPathDocuments:(NSString *)filename;
-+ (NSURL*)getKLineURLForPlatform:(COINPLATFORMTYPE)platfom ForTimeInterval:(NRCPKLINETIMEINTERVAL)timeInterval;
++ (NSURL*)getKLineURLForPlatform:(COINPLATFORMTYPE)platform ForTimeInterval:(NRCPKLINETIMEINTERVAL)timeInterval;
++ (NSInteger)getVolDivisionForPlatform:(COINPLATFORMTYPE)platform;
++ (NSInteger)getMoneyDivisionForPlatform:(COINPLATFORMTYPE)platform;
 
 @end

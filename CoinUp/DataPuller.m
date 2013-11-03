@@ -63,7 +63,12 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
 {
     startDate = [NSDate dateWithTimeIntervalSince1970:[self.financialData[0][0] doubleValue]];
     self.endDate = [NSDate dateWithTimeIntervalSince1970:[self.financialData[self.financialData.count-1][0] doubleValue]];
-    
+//    NSInteger json_openIndex = ([self.delegate currentPlatformType] == BITSTAMP)?3:1;
+//    NSInteger json_closeIndex = 4;
+    NSInteger json_maxIndex = ([self.delegate currentPlatformType] == BITSTAMP)?5:2;
+    NSInteger json_minIndex = ([self.delegate currentPlatformType] == BITSTAMP)?6:3;
+    NSInteger json_volIndex = ([self.delegate currentPlatformType] == BITSTAMP)?7:5;
+
     NSInteger lowIndex = 0;
     NSInteger highIndex = self.financialData.count-1;
     NSInteger index;
@@ -154,14 +159,18 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
     NSMutableArray *volArray = [NSMutableArray arrayWithCapacity:200];
     for (NSArray *item in self.filteredFinancialData)
     {
-        [tempArray addObject:item[2]];
-        [tempArray addObject:item[3]];
-        [volArray addObject:item[5]];
+        [tempArray addObject:item[json_maxIndex]];
+        [tempArray addObject:item[json_minIndex]];
+        [volArray addObject:item[json_volIndex]];
     }
-    self.overallHigh = [NSNumber numberWithDouble:[[tempArray valueForKeyPath:@"@max.self"] doubleValue]/100];
-    self.overallLow =  [NSNumber numberWithDouble:[[tempArray valueForKeyPath:@"@min.self"] doubleValue]/100];
-    self.overallVolumeHigh = [NSNumber numberWithDouble:[[volArray valueForKeyPath:@"@max.self"] doubleValue]/100000000];
-    self.overallVolumeLow = [NSNumber numberWithDouble:[[volArray valueForKeyPath:@"@min.self"] doubleValue]/100000000];
+    
+    NSInteger moneyDivision = [ToolBox getMoneyDivisionForPlatform:[self.delegate currentPlatformType]];
+    NSInteger volDivision = [ToolBox getVolDivisionForPlatform:[self.delegate currentPlatformType]];
+    
+    self.overallHigh = [NSNumber numberWithDouble:[[tempArray valueForKeyPath:@"@max.self"] doubleValue]/moneyDivision];
+    self.overallLow =  [NSNumber numberWithDouble:[[tempArray valueForKeyPath:@"@min.self"] doubleValue]/moneyDivision];
+    self.overallVolumeHigh = [NSNumber numberWithDouble:[[volArray valueForKeyPath:@"@max.self"] doubleValue]/volDivision];
+    self.overallVolumeLow = [NSNumber numberWithDouble:[[volArray valueForKeyPath:@"@min.self"] doubleValue]/volDivision];
 }
 
 -(NSString *)pathForSymbol:(NSString *)aSymbol
@@ -205,7 +214,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
         NSData *jsonData = [NSData dataWithContentsOfURL:url];
         NSArray *cachedArray;
         if (jsonData != nil)
-            cachedArray = [[[JSONDecoder alloc] init] objectWithData:jsonData][@"bars"];
+            cachedArray = ([self.delegate currentPlatformType] == BITSTAMP)?[[[JSONDecoder alloc] init] objectWithData:jsonData]:[[[JSONDecoder alloc] init] objectWithData:jsonData][@"bars"];
         dispatch_async(dispatch_get_main_queue(), ^{
             weakSelf.financialData = (jsonData != nil)?cachedArray:nil;
             [weakSelf setAllAttributes];
