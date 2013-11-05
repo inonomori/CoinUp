@@ -125,8 +125,6 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
     }
     
     
-    
-    
     NSMutableArray *filteredArray = [NSMutableArray arrayWithCapacity:h-l+1];
     
     NSInteger interval;
@@ -208,16 +206,54 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
 {
     NSURL *url = [ToolBox getKLineURLForPlatform:self.platform ForTimeInterval:self.timeInterval];
     
+    if (self.platform == BITSTAMP)
+    {
+        NSInteger timeIntervalInSeconds = [ToolBox getTimeInterval:self.timeInterval];
+        
+        NSString *sid = [self.delegate getBitStampSID];
+        unsigned long long timeStamp = [self.delegate getBitStampTimeStamp];
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"http://k.btc123.com:8080/period?step=%d&sid=%@&symbol=bitstampbtcusd&nonce=%llu",timeIntervalInSeconds,sid,timeStamp]];
+        //NSLog(@"url = %@",url);
+    }
+    
     __weak DataPuller *weakSelf = self;
     dispatch_queue_t downloadQueue = dispatch_queue_create("KLineDownloadQueue", NULL);
 	dispatch_async(downloadQueue, ^{
         NSData *jsonData = [NSData dataWithContentsOfURL:url];
-        NSArray *cachedArray;
-        if (jsonData != nil)
-            cachedArray = ([self.delegate currentPlatformType] == BITSTAMP)?[[[JSONDecoder alloc] init] objectWithData:jsonData]:[[[JSONDecoder alloc] init] objectWithData:jsonData][@"bars"];
+        NSLog(@"data downloaded");
+        NSArray *cachedArray = nil;
+        if (jsonData != nil && weakSelf.platform != NOPLATFORM)
+        {
+            NSError *jsonError;
+            if (weakSelf.platform == BITSTAMP)
+            {
+                cachedArray = [[[JSONDecoder alloc] init] objectWithData:jsonData error:&jsonError];
+                if (jsonError)
+                {
+                    [weakSelf.delegate updateBITSTAMPSID];
+                    NSLog(@"%@",jsonError);
+                    cachedArray = nil;
+                }
+            }
+            else
+            {
+                NSDictionary *jsonDic = [[[JSONDecoder alloc] init] objectWithData:jsonData error:&jsonError];
+                if (jsonError)
+                {
+                    NSLog(@"%@",jsonError);
+                    cachedArray = nil;
+                }
+                else
+                {
+                    cachedArray = jsonDic[@"bars"];
+                }
+            }
+        }
+        NSLog(@"json parsed");
+
         dispatch_async(dispatch_get_main_queue(), ^{
             weakSelf.financialData = (jsonData != nil)?cachedArray:nil;
-            [weakSelf setAllAttributes];
+            [weakSelf  setAllAttributes];
             [weakSelf.delegate dataPullerDidFinishFetch:weakSelf];
         });
         

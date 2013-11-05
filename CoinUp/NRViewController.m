@@ -76,6 +76,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *graphVolLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *graphSegmentedController;
 
+@property (nonatomic, strong) NSString *bitstampSID;
+@property (nonatomic) unsigned long long bitstampTimeStamp;
+
 @property (nonatomic) NSInteger changedCounter; //sorry, i have no idea how to solve reset xy range problem.
 
 @end
@@ -92,6 +95,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     self.changedCounter = 0;  //do not allow change range
     [self setupGraphicPlots];
     self.platformType = NOPLATFORM;
@@ -145,12 +149,12 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self updateBITSTAMPSID];
     self.scrollViewInfoWindow.contentSize = CGSizeMake(SCREENWIDTH*3, self.scrollViewInfoWindow.frame.size.height);
 }
 
@@ -208,6 +212,16 @@
     [self.depthTableView reloadData];
 }
 
+- (NSString*)getBitStampSID
+{
+    return self.bitstampSID;
+}
+
+- (unsigned long long)getBitStampTimeStamp
+{
+    return self.bitstampTimeStamp;
+}
+
 - (void)setGraphDataLabelForDataAtIndex:(NSUInteger)index
 {
     NSInteger moneyDivision = [ToolBox getMoneyDivisionForPlatform:self.platformType];
@@ -238,11 +252,29 @@
 #pragma mark - InfoWindow Control
 - (IBAction)ButtonTouched:(UIButton *)sender
 {
+    BOOL isDataNotEmpty = (self.dataPuller != nil);
+    self.dataPuller = nil;
+    [self.graph reloadData];
     self.tradeArray = nil;
+    self.depthArray = nil;
     [self.tableView reloadData];
+    [self.depthTableView reloadData];
     CGRect frame = self.InfoWindow.frame;
     self.platformType = sender.tag;
     [self SegmentControlValueChanged:self.graphSegmentedController];  //force to send value change message to let the app draw the graph immediantly.
+    
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
+    if (isDataNotEmpty)
+    {
+        plotSpace.allowsUserInteraction = NO;
+        self.changedCounter = 1;
+//        self.changedCounter = 2; //allow change for Y only
+    }
+    else
+    {
+        plotSpace.allowsUserInteraction = YES;
+        self.changedCounter = 0; //first launch, no plot change, it just created
+    }
     
     if (self.CoverView.hidden)
     {
@@ -260,7 +292,7 @@
                          completion:nil
          ];
     }
-    NSLog(@"%f",SCREENHEIGHT);
+//    NSLog(@"%f",SCREENHEIGHT);
 
     if (frame.origin.y == SCREENHEIGHT)
     {
@@ -950,7 +982,7 @@
     NSNumber *low    = self.dataPuller.overallLow;
     NSNumber *length = [NSNumber numberWithDouble:([high doubleValue] - [low doubleValue])];
     
-    NSLog(@"high = %@, low = %@, length = %@", high, low, length);
+//    NSLog(@"high = %@, low = %@, length = %@", high, low, length);
     
     NSNumber *lengthDisplacementValue = [NSNumber numberWithDouble:[length doubleValue] * 0.33];
     NSNumber *lowDisplayLocation = [NSNumber numberWithDouble:([low doubleValue] - [lengthDisplacementValue doubleValue])];
@@ -1004,6 +1036,23 @@
     
     [self.graph reloadData];
     [self setGraphDataLabelForDataAtIndex:self.selectedCoordination];
+}
+
+#pragma mark - DataPullerDelegateMethos
+- (void)updateBITSTAMPSID
+{
+    NSString *regulaStr = @"(?<=sid\\s=\\s\")\\w*(?=\")";
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regulaStr
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:nil];
+    NSString *sourceCode = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://k.btc123.com/markets/bitstamp/btcusd"] encoding:NSASCIIStringEncoding error:nil];
+    NSArray *arrayOfAllMatches = [regex matchesInString:sourceCode options:0 range:NSMakeRange(0, [sourceCode length])];
+    
+    self.bitstampTimeStamp = (unsigned long long)[[NSDate date] timeIntervalSince1970]*1000;
+    
+    NSTextCheckingResult *match = arrayOfAllMatches[0];
+    self.bitstampSID = [sourceCode substringWithRange:match.range];
+    NSLog(@"sid = %@",self.bitstampSID);
 }
 
 

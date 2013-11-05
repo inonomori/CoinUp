@@ -37,19 +37,7 @@
 
 + (NSURL*)getKLineURLForPlatform:(COINPLATFORMTYPE)platform ForTimeInterval:(NRCPKLINETIMEINTERVAL)timeInterval
 {
-    NSInteger timeIntervalInSeconds;
-    switch (timeInterval) {
-        case NRCPKLINETIMEINTERVAL24H:
-            timeIntervalInSeconds = 86400;
-            break;
-        case NRCPKLINETIMEINTERVAL1H:
-        case NRCPKLINETIMEINTERVAL30M:
-        case NRCPKLINETIMEINTERVAL15M:
-            timeIntervalInSeconds = 900;
-            break;
-        default:
-            break;
-    }
+    NSInteger timeIntervalInSeconds = [self getTimeInterval:timeInterval];
     
     NSString *platform_URL = @"";
     switch (platform) {
@@ -78,7 +66,9 @@
             platform_URL = @"btc100BTCCNY";
             break;
         case BITSTAMP:
-            return [NSURL URLWithString:[NSString stringWithFormat:@"http://k.btc123.com:8080/period?step=%d&sid=1313fb2f&symbol=bitstampbtcusd&nonce=1383468696227",timeIntervalInSeconds]];
+        {
+            return nil; // we will get BITSTAMP's URL in DataPuller. Because to construct its URL, it requires SID which we can only get from NRViewController
+        }
         default:
             break;
     }
@@ -107,6 +97,25 @@
         default:
         return 100000000;
     }
+}
+
++ (NSInteger)getTimeInterval:(NRCPKLINETIMEINTERVAL)timeInterval
+{
+    NSInteger timeIntervalInSeconds = 0;
+    switch (timeInterval) {
+        case NRCPKLINETIMEINTERVAL24H:
+            timeIntervalInSeconds = 86400;
+            break;
+        case NRCPKLINETIMEINTERVAL1H:
+        case NRCPKLINETIMEINTERVAL30M:
+        case NRCPKLINETIMEINTERVAL15M:
+            timeIntervalInSeconds = 900;
+            break;
+        default:
+            break;
+    }
+    
+    return timeIntervalInSeconds;
 }
 
 @end

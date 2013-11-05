@@ -10,7 +10,6 @@
 		680CBB9218226FCE007FA794 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 680CBB9118226FCE007FA794 /* libCorePlot-CocoaTouch.a */; };
 		680CBB941822700F007FA794 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 680CBB931822700E007FA794 /* QuartzCore.framework */; };
 		680CBB971822717B007FA794 /* DataPuller.m in Sources */ = {isa = PBXBuildFile; fileRef = 680CBB961822717B007FA794 /* DataPuller.m */; };
-		680CBB991822740A007FA794 /* bars.json in Resources */ = {isa = PBXBuildFile; fileRef = 680CBB981822740A007FA794 /* bars.json */; };
 		682DB7C7181B98450021F509 /* NRUITradeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 682DB7C6181B98450021F509 /* NRUITradeTableViewCell.m */; };
 		683050351819FE5500BCEFE1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 683050341819FE5500BCEFE1 /* UIKit.framework */; };
 		683050371819FE5500BCEFE1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 683050361819FE5500BCEFE1 /* Foundation.framework */; };
@@ -133,7 +132,6 @@
 		680CBB931822700E007FA794 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		680CBB951822717B007FA794 /* DataPuller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataPuller.h; sourceTree = "<group>"; };
 		680CBB961822717B007FA794 /* DataPuller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataPuller.m; sourceTree = "<group>"; };
-		680CBB981822740A007FA794 /* bars.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bars.json; sourceTree = "<group>"; };
 		682DB7C5181B98450021F509 /* NRUITradeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRUITradeTableViewCell.h; sourceTree = "<group>"; };
 		682DB7C6181B98450021F509 /* NRUITradeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRUITradeTableViewCell.m; sourceTree = "<group>"; };
 		683050311819FE5500BCEFE1 /* CoinUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -396,7 +394,6 @@
 		6830503B1819FE5500BCEFE1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				680CBB981822740A007FA794 /* bars.json */,
 				68FE9D35181CB4C800B1A2CB /* UI */,
 				68863089181CE925003DAF5D /* icon-60@2x.png */,
 				68464CF6181B52C100E446E7 /* Icon-72.png */,
@@ -513,7 +510,6 @@
 				68464D01181B52C100E446E7 /* Icon-Small-50@2x.png in Resources */,
 				6886308A181CE925003DAF5D /* icon-60@2x.png in Resources */,
 				68464D02181B52C100E446E7 /* Icon-Small.png in Resources */,
-				680CBB991822740A007FA794 /* bars.json in Resources */,
 				68464D03181B52C100E446E7 /* Icon-Small@2x.png in Resources */,
 				6886308C181CE995003DAF5D /* icon-Small40@2x.png in Resources */,
 				68464D07181B52E200E446E7 /* Icon@2x.png in Resources */,

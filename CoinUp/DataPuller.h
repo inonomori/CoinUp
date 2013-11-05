@@ -13,9 +13,10 @@ typedef NS_ENUM(NSInteger, NRCPKLINETIMEINTERVAL) {
 
 @protocol DataPullerDelegate
 
-@optional
-
--(void)dataPullerDidFinishFetch:(DataPuller*)dp;
+- (void)updateBITSTAMPSID;
+- (void)dataPullerDidFinishFetch:(DataPuller*)dp;
+- (NSString*)getBitStampSID;
+- (unsigned long long)getBitStampTimeStamp;
 
 @end
 

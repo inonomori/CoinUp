@@ -33,5 +33,6 @@ _y = temp;\
 + (NSURL*)getKLineURLForPlatform:(COINPLATFORMTYPE)platform ForTimeInterval:(NRCPKLINETIMEINTERVAL)timeInterval;
 + (NSInteger)getVolDivisionForPlatform:(COINPLATFORMTYPE)platform;
 + (NSInteger)getMoneyDivisionForPlatform:(COINPLATFORMTYPE)platform;
++ (NSInteger)getTimeInterval:(NRCPKLINETIMEINTERVAL)timeInterval;
 
 @end
