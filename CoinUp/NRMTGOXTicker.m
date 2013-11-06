@@ -112,7 +112,6 @@
             [self depthJsonParser:nil];
         
 	});
-	dispatch_release(downloadQueue);
 }
 
 - (void)start
@@ -146,7 +145,6 @@
         dispatch_async(dispatch_get_main_queue(), ^{    self.tradeArray = [resultMutableArray copy];
         });
     });
-    dispatch_release(downloadQueue);
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath

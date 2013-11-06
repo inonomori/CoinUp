@@ -112,7 +112,6 @@
         else
             [self depthJsonParser:nil];
 	});
-	dispatch_release(downloadQueue);
 }
 
 - (void)start

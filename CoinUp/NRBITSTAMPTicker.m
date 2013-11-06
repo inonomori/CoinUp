@@ -112,7 +112,6 @@
             [self depthJsonParser:nil];
         
 	});
-	dispatch_release(downloadQueue);
 }
 
 - (void)tradeArrayParser:(NSArray*)array
@@ -137,7 +136,6 @@
             self.tradeArray = [resultMutableArray copy];
         });
     });
-    dispatch_release(downloadQueue);
 }
 
 - (void)depthJsonParser:(NSDictionary*)dic
@@ -163,7 +161,6 @@
             self.depthArray = [resultMutableArray copy];
         });
     });
-    dispatch_release(downloadQueue);
 }
 
 - (void)start

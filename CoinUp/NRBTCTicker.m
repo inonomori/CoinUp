@@ -40,7 +40,6 @@
         });
         
     });
-    dispatch_release(downloadQueue);
 }
 
 - (void)depthJsonParser:(NSDictionary*)dic
@@ -66,7 +65,6 @@
             self.depthArray = [resultMutableArray copy];
         });
     });
-    dispatch_release(downloadQueue);
 }
 
 @end

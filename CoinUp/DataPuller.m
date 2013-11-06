@@ -258,6 +258,5 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
         });
         
 	});
-	dispatch_release(downloadQueue);
 }
 @end

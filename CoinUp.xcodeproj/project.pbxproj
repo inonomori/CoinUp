@@ -639,10 +639,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoinUp/CoinUp-Prefix.pch";
 				INFOPLIST_FILE = "CoinUp/CoinUp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/zhefuwang/Developer/CoinUp/CoinUp/Libraries/CorePlot,
+					"$(SRCROOT)/CoinUp/Libraries/CorePlot\n",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -659,10 +659,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoinUp/CoinUp-Prefix.pch";
 				INFOPLIST_FILE = "CoinUp/CoinUp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/zhefuwang/Developer/CoinUp/CoinUp/Libraries/CorePlot,
+					"$(SRCROOT)/CoinUp/Libraries/CorePlot\n",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
