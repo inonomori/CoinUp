@@ -7,12 +7,33 @@
 //
 
 #import "NRAppDelegate.h"
+#import "FSPopDialogViewController.h"
+
+@interface NRAppDelegate()
+
+@property (nonatomic, strong) FSPopDialogViewController *PopDialogViewControlller;
+
+@end
 
 @implementation NRAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    if (![prefs objectForKey:@"pushToken"])
+    {
+        NSLog(@"initiating remoteNotificationAreActive");
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    }
+    
+    if ([UIApplication sharedApplication].enabledRemoteNotificationTypes == UIRemoteNotificationTypeNone)
+    {
+        NSLog(@"disabled remote push notification");
+    }
+    
+    //handle push notification if app is not running
+    [[launchOptions valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey] description];
+    
     return YES;
 }
 							
@@ -41,6 +62,52 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    NSString *token = [NSString stringWithFormat:@"%@", deviceToken];
+    token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
+    token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
+    token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSLog(@"My token is: %@", token);
+
+    [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"pushToken"];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    //TODO: show an alert that inform user to enable push service
+    NSLog(@"Failed to get token, error: %@",error);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    //self.window.rootViewController
+    UIViewController *vc;
+    
+    if ([self.window.rootViewController isKindOfClass:[UINavigationController class]])
+    {
+        UINavigationController *nv = (UINavigationController*)self.window.rootViewController;
+        vc = [nv.viewControllers lastObject];
+    }
+    else if ([self.window.rootViewController isKindOfClass:[UIViewController class]])
+    {
+        vc = self.window.rootViewController;
+    }
+    
+    NSLog(@"receive a message");
+    self.PopDialogViewControlller = [[FSPopDialogViewController alloc] init];
+    self.PopDialogViewControlller.delegate = vc;
+    self.PopDialogViewControlller.popDialogStyle = FSPopDialogStyleFromBottom;
+    self.PopDialogViewControlller.disappearDialogStyle = FSPopDialogStyleFromBottom;
+    self.PopDialogViewControlller.size = CGSizeMake(300,180);
+    self.PopDialogViewControlller.dialogViewTitle = @"提 醒";
+    self.PopDialogViewControlller.question = userInfo[@"aps"][@"alert"];
+    self.PopDialogViewControlller.okButtonTitle = @"确 定";
+    [self.PopDialogViewControlller appear];
+    
+    //TODO: remove a user setting from server
 }
 
 @end

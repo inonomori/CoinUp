@@ -9,11 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "DataPuller.h"
 
-#define TLSWAP(_t,_x,_y) do{\
-_t temp;\
-temp = _x;\
-_x = _y;\
-_y = temp;\
+#define TLSWAP(A,B) do{\
+__typeof__(A) __tmp = (A);\
+A = B;\
+B = __tmp;\
 }while(0)
 
 #define SCREENWIDTH [ToolBox getApplicationFrameSize].width

@@ -59,7 +59,7 @@
         NSInteger count = (askArray.count > bidArray.count)?bidArray.count:askArray.count;
         for (int i = 0; i < count; ++i)
         {
-            [resultMutableArray addObject:@{@"ask":askArray[askArray.count-i-1],@"bid":bidArray[i]}];
+            [resultMutableArray addObject:@{@"ask":askArray[count - i - 1],@"bid":bidArray[i]}];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             self.depthArray = [resultMutableArray copy];

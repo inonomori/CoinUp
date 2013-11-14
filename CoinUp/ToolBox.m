@@ -17,7 +17,7 @@
         size = [UIScreen mainScreen].bounds.size;
     UIInterfaceOrientation deviceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
     if (deviceOrientation == UIInterfaceOrientationLandscapeLeft || deviceOrientation == UIInterfaceOrientationLandscapeRight){
-        TLSWAP(CGFloat, size.width, size.height);
+        TLSWAP(size.width, size.height);
     }
     return size;
 }

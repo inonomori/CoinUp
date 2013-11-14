@@ -48,7 +48,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *LastLabel_OKCOIN;
 @property (weak, nonatomic) IBOutlet UILabel *LastLabel_BTCTRADE;
 @property (weak, nonatomic) IBOutlet UILabel *LastLabel_MTGOX;
-@property (weak, nonatomic) IBOutlet UILabel *LastLabel_BITSTAMP;
+@property (weak, nonatomic) IBOutlet UILabel *LastLabel_BITSTAMP;  //YES, I do not want to use IBOutletCollection
 @property (weak, nonatomic) IBOutlet UILabel *LastLabel_CHBTC;
 @property (weak, nonatomic) IBOutlet UILabel *LastLabel_BTCCHINA;
 @property (weak, nonatomic) IBOutlet UILabel *LastLabel_HUOBI;
@@ -79,7 +79,7 @@
 @property (nonatomic, strong) NSString *bitstampSID;
 @property (nonatomic) unsigned long long bitstampTimeStamp;
 
-@property (nonatomic) NSInteger changedCounter; //sorry, i have no idea how to solve reset xy range problem.
+@property (nonatomic) NSInteger changedCounter; //sorry, i have no idea how to solve the problem of reset xy range
 
 @end
 
@@ -96,7 +96,7 @@
 {
     [super viewDidLoad];
 
-    self.changedCounter = 0;  //do not allow change range
+    self.changedCounter = 0;  //do not allow to change xy range
     [self setupGraphicPlots];
     self.platformType = NOPLATFORM;
     self.InfoWindow.layer.shadowColor = [[UIColor blackColor] CGColor];
@@ -155,7 +155,7 @@
 {
     [super viewWillAppear:animated];
     [self updateBITSTAMPSID];
-    self.scrollViewInfoWindow.contentSize = CGSizeMake(SCREENWIDTH*3, self.scrollViewInfoWindow.frame.size.height);
+    self.scrollViewInfoWindow.contentSize = CGSizeMake(SCREENWIDTH*4, self.scrollViewInfoWindow.frame.size.height);
 }
 
 - (void)didReceiveMemoryWarning
@@ -292,7 +292,6 @@
                          completion:nil
          ];
     }
-//    NSLog(@"%f",SCREENHEIGHT);
 
     if (frame.origin.y == SCREENHEIGHT)
     {
@@ -348,6 +347,25 @@
                          completion:nil
          ];
     }
+}
+
+- (IBAction)InfoWindowTapHandler:(UITapGestureRecognizer *)sender
+{
+    CGRect frame = self.InfoWindow.frame;
+    if (frame.origin.y != 0)
+    {
+        frame.origin.y = 0;
+        [UIView animateWithDuration:0.3
+                              delay:0
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^{
+                             self.InfoWindow.frame = frame;
+                             self.upArrow.alpha = 0;
+                         }
+                         completion:nil
+         ];
+    }
+
 }
 
 - (void)dismissInfoWindow
@@ -789,7 +807,6 @@
     if ([(NSString*)plot.identifier isEqualToString:kTouchPlot])
         return 3;
     
-    NSLog(@"%d",self.dataPuller.filteredFinancialData.count);
     return self.dataPuller.filteredFinancialData.count;
 }
 

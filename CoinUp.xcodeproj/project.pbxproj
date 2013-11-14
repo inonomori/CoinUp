@@ -28,6 +28,8 @@
 		6830506E181AAC0300BCEFE1 /* NRMTGOXTicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6830506D181AAC0300BCEFE1 /* NRMTGOXTicker.m */; };
 		68305071181AB0E400BCEFE1 /* NRBITSTAMPTicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 68305070181AB0E300BCEFE1 /* NRBITSTAMPTicker.m */; };
 		68305074181AB82E00BCEFE1 /* NRCHBTCTicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 68305073181AB82D00BCEFE1 /* NRCHBTCTicker.m */; };
+		6839E40618349F27005EEF52 /* FSPopDialogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6839E40518349F27005EEF52 /* FSPopDialogViewController.m */; };
+		6839E4091834B715005EEF52 /* FSPopDialogBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6839E4081834B715005EEF52 /* FSPopDialogBackgroundView.m */; };
 		68464CFE181B52C100E446E7 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 68464CF6181B52C100E446E7 /* Icon-72.png */; };
 		68464CFF181B52C100E446E7 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68464CF7181B52C100E446E7 /* Icon-72@2x.png */; };
 		68464D00181B52C100E446E7 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 68464CF8181B52C100E446E7 /* Icon-Small-50.png */; };
@@ -168,6 +170,10 @@
 		6830506F181AB0E300BCEFE1 /* NRBITSTAMPTicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NRBITSTAMPTicker.h; path = CoinUp/NRBITSTAMPTicker.h; sourceTree = "<group>"; };
 		68305070181AB0E300BCEFE1 /* NRBITSTAMPTicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NRBITSTAMPTicker.m; path = CoinUp/NRBITSTAMPTicker.m; sourceTree = "<group>"; };
 		68305073181AB82D00BCEFE1 /* NRCHBTCTicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NRCHBTCTicker.m; path = CoinUp/NRCHBTCTicker.m; sourceTree = "<group>"; };
+		6839E40418349F27005EEF52 /* FSPopDialogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSPopDialogViewController.h; sourceTree = "<group>"; };
+		6839E40518349F27005EEF52 /* FSPopDialogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSPopDialogViewController.m; sourceTree = "<group>"; };
+		6839E4071834B715005EEF52 /* FSPopDialogBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSPopDialogBackgroundView.h; sourceTree = "<group>"; };
+		6839E4081834B715005EEF52 /* FSPopDialogBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSPopDialogBackgroundView.m; sourceTree = "<group>"; };
 		68464CF6181B52C100E446E7 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		68464CF7181B52C100E446E7 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		68464CF8181B52C100E446E7 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
@@ -419,6 +425,7 @@
 		6830505A1819FE9900BCEFE1 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				6839E40318349F27005EEF52 /* FSPopDialog */,
 				680CBB4118226FCE007FA794 /* CorePlot */,
 				6830505B1819FEE100BCEFE1 /* JSONKit */,
 			);
@@ -433,6 +440,18 @@
 			);
 			name = JSONKit;
 			path = CoinUp/Libraries/JSONKit;
+			sourceTree = "<group>";
+		};
+		6839E40318349F27005EEF52 /* FSPopDialog */ = {
+			isa = PBXGroup;
+			children = (
+				6839E40418349F27005EEF52 /* FSPopDialogViewController.h */,
+				6839E40518349F27005EEF52 /* FSPopDialogViewController.m */,
+				6839E4071834B715005EEF52 /* FSPopDialogBackgroundView.h */,
+				6839E4081834B715005EEF52 /* FSPopDialogBackgroundView.m */,
+			);
+			name = FSPopDialog;
+			path = CoinUp/Libraries/FSPopDialog;
 			sourceTree = "<group>";
 		};
 		68FE9D35181CB4C800B1A2CB /* UI */ = {
@@ -535,7 +554,9 @@
 				683050591819FE8B00BCEFE1 /* NROKCoinTicker.m in Sources */,
 				6830505E1819FEE100BCEFE1 /* JSONKit.m in Sources */,
 				68305061181A068E00BCEFE1 /* NRBTCTicker.m in Sources */,
+				6839E40618349F27005EEF52 /* FSPopDialogViewController.m in Sources */,
 				68305064181A06D700BCEFE1 /* NRFXBTCTicker.m in Sources */,
+				6839E4091834B715005EEF52 /* FSPopDialogBackgroundView.m in Sources */,
 				68305068181A3C9100BCEFE1 /* ToolBox.m in Sources */,
 				6830506B181A795600BCEFE1 /* NRBTCTRADETicker.m in Sources */,
 				6830506E181AAC0300BCEFE1 /* NRMTGOXTicker.m in Sources */,
@@ -597,7 +618,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -622,7 +643,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
