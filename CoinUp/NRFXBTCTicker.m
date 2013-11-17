@@ -55,7 +55,7 @@
               options:NSKeyValueObservingOptionOld
               context:NULL];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateInfoWindow) name:@"InfoWindowUpdate" object:nil];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePrinceSetting) name:@"InfoWindowUpdate" object:nil];
     
     return self;
 }

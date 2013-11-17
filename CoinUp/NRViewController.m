@@ -494,6 +494,7 @@
     {
         CGRect rect = CGRectMake(SCREENWIDTH*sender.selectedSegmentIndex, 0, SCREENWIDTH, sender.frame.size.height);
         [self.scrollViewInfoWindow scrollRectToVisible:rect animated:YES];
+        [self.view endEditing:YES];
     }
     else //tag == 20 graph
     {
@@ -1279,9 +1280,10 @@
         }
         else
         {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf showDialogWithContent:@"无法连接服务器" Title:@"错 误"];
-            });
+            NSLog(@"Error102: can not connect to server");
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [weakSelf showDialogWithContent:@"无法连接服务器" Title:@"错 误"];
+//            });
         }
     });
 }
@@ -1360,7 +1362,7 @@
                     {
                         NSLog(@"it's ok, send it to server for high");
                         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-                        NSDictionary *parameters = @{@"token": TOKEN,@"platform":[ToolBox getPlatformNameByPlatformType:self.platformType],@"high":[NSString stringWithFormat:@"%f",[number doubleValue]]};
+                        NSDictionary *parameters = @{@"token": TOKEN,@"platform":[ToolBox getPlatformNameByPlatformType:self.platformType],@"high":[NSString stringWithFormat:@"%.2f",[number doubleValue]]};
                         
                         [manager GET:@"http://115.29.191.191:4321/add" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject)
                         {
@@ -1386,7 +1388,7 @@
                     {
                         NSLog(@"it's ok, send it to server for low");
                         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-                        NSDictionary *parameters = @{@"token": TOKEN,@"platform":[ToolBox getPlatformNameByPlatformType:self.platformType],@"low":[NSString stringWithFormat:@"%f",[number doubleValue]]};
+                        NSDictionary *parameters = @{@"token": TOKEN,@"platform":[ToolBox getPlatformNameByPlatformType:self.platformType],@"low":[NSString stringWithFormat:@"%.2f",[number doubleValue]]};
                         
                         [manager GET:@"http://115.29.191.191:4321/add" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject)
                         {
