@@ -1228,7 +1228,10 @@
             NSDictionary *queryDic = [[[JSONDecoder alloc] init] objectWithData:queryData error:&error];
             if (error)
             {
-                [self showDialogWithContent:@"无法连接服务器" Title:@"错 误"];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf showDialogWithContent:@"无法连接服务器" Title:@"错 误"];
+                });
+                NSLog(@"%@",error);
             }
             else
             {
@@ -1246,13 +1249,14 @@
                     }
                     else
                     {
-                        weakSelf.priceSettingMaxTextField.text = [NSString stringWithFormat:@"%f",highPrice];
+                        weakSelf.priceSettingMaxTextField.text = [NSString stringWithFormat:@"%.2f",highPrice];
                         weakSelf.priceSettingMaxTextField.enabled = NO;
                         weakSelf.priceSettingHighSwitch.on = YES;
                         weakSelf.priceSettingHighSwitch.hidden = NO;
                     }
-                    
-                    [weakSelf.priceSettingLowActivityIndicator stopAnimating];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [weakSelf.priceSettingLowActivityIndicator stopAnimating];
+                    });
                     if (lowPrice - 0 < 0.0001) // UNAVALIABLE
                     {
                         weakSelf.priceSettingLowSwitch.on = NO;
@@ -1262,10 +1266,12 @@
                     }
                     else
                     {
-                        weakSelf.priceSettingMinTextField.text = [NSString stringWithFormat:@"%f",lowPrice];
+                        weakSelf.priceSettingMinTextField.text = [NSString stringWithFormat:@"%.2f",lowPrice];
                         weakSelf.priceSettingMinTextField.enabled = NO;
                         weakSelf.priceSettingLowSwitch.on = YES;
-                        weakSelf.priceSettingLowSwitch.hidden = NO;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            weakSelf.priceSettingLowSwitch.hidden = NO;
+                        });
                     }
                 });
                 
@@ -1273,7 +1279,9 @@
         }
         else
         {
-            [self showDialogWithContent:@"无法连接服务器" Title:@"错 误"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf showDialogWithContent:@"无法连接服务器" Title:@"错 误"];
+            });
         }
     });
 }
@@ -1346,6 +1354,7 @@
                     {
                         NSLog(@"set it higher");
                         [self showDialogWithContent:@"设定值已低于当前价格" Title:@"错 误"];
+                        [sender setOn:NO animated:YES];
                     }
                     else
                     {
@@ -1359,7 +1368,9 @@
                         } failure:^(AFHTTPRequestOperation *operation, NSError *error)
                         {
                             [self showDialogWithContent:@"无法连接服务器" Title:@"错 误"];
-                            NSLog(@"Error: %@", error);
+                            [sender setOn:NO animated:YES];
+                            NSLog(@"Error100: %@", error);
+                            NSLog(@"%@",operation);
                         }];
                     }
                 }
@@ -1369,6 +1380,7 @@
                     {
                         NSLog(@"set it lower");
                         [self showDialogWithContent:@"设定值已高于当前价格" Title:@"错 误"];
+                        [sender setOn:NO animated:YES];
                     }
                     else
                     {
@@ -1382,6 +1394,7 @@
                         } failure:^(AFHTTPRequestOperation *operation, NSError *error)
                         {
                             [self showDialogWithContent:@"无法连接服务器" Title:@"错 误"];
+                            [sender setOn:NO animated:YES];
                             NSLog(@"Error: %@", error);
                         }];
                     }

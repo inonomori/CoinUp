@@ -167,7 +167,7 @@
         [self.delegate setLastPriceNumberWithDoubleNumber:self.last];
     }
 }
-
+    
 - (void)updateInfoWindow
 {
     if ([self.delegate currentPlatformType] == TYPE(PLATFORM))
