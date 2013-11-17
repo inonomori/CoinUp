@@ -21,6 +21,13 @@
 
 @implementation FSPopDialogViewController
 
+- (instancetype)init
+{
+    self = [super init];
+    self.isShow = NO;
+    return self;
+}
+
 - (UIView*)backGroundView
 {
     if (!_backGroundView)
@@ -180,6 +187,7 @@
 
 - (void)okButtonTouched:(UIButton*)sender
 {
+    self.isShow = NO;
     [self disappear];
 }
 
@@ -246,6 +254,11 @@
               }];
          }
      }];
+}
+
+- (void)flash
+{
+    //TODO: flash
 }
 
 - (void)popDialogViewAnimationFromBottom

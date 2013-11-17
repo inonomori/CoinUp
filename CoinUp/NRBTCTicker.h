@@ -28,6 +28,8 @@
 @property (nonatomic, strong) NSArray *tradeArray;
 @property (nonatomic, strong) NSArray *depthArray;
 
+@property (nonatomic) BOOL useTickerToUpdateUI;
+
 @property (nonatomic, weak) id<NRCoinUpBoard> delegate;
 
 - (void)tradeArrayParser:(NSArray*)array;

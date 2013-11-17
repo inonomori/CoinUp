@@ -49,6 +49,7 @@
 		68A7CF76181FA0140097E809 /* NRUIDepthTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A7CF75181FA0140097E809 /* NRUIDepthTableViewCell.m */; };
 		68FE9D38181CB4D200B1A2CB /* upArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 68FE9D36181CB4D200B1A2CB /* upArrow.png */; };
 		68FE9D39181CB4D200B1A2CB /* upArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68FE9D37181CB4D200B1A2CB /* upArrow@2x.png */; };
+		6F3FFF6EECA2450FBEC29B09 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90EBD547FE7E497B897973A8 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -200,6 +201,8 @@
 		68A7CF75181FA0140097E809 /* NRUIDepthTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRUIDepthTableViewCell.m; sourceTree = "<group>"; };
 		68FE9D36181CB4D200B1A2CB /* upArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = upArrow.png; path = UI/upArrow.png; sourceTree = "<group>"; };
 		68FE9D37181CB4D200B1A2CB /* upArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "upArrow@2x.png"; path = "UI/upArrow@2x.png"; sourceTree = "<group>"; };
+		866127A2661244BAB89F4D7A /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		90EBD547FE7E497B897973A8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +215,7 @@
 				683050371819FE5500BCEFE1 /* Foundation.framework in Frameworks */,
 				683050391819FE5500BCEFE1 /* CoreGraphics.framework in Frameworks */,
 				680CBB9218226FCE007FA794 /* libCorePlot-CocoaTouch.a in Frameworks */,
+				6F3FFF6EECA2450FBEC29B09 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,6 +357,7 @@
 				6830503A1819FE5500BCEFE1 /* CoinUp */,
 				683050331819FE5500BCEFE1 /* Frameworks */,
 				683050321819FE5500BCEFE1 /* Products */,
+				866127A2661244BAB89F4D7A /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -371,6 +376,7 @@
 				683050341819FE5500BCEFE1 /* UIKit.framework */,
 				683050361819FE5500BCEFE1 /* Foundation.framework */,
 				683050381819FE5500BCEFE1 /* CoreGraphics.framework */,
+				90EBD547FE7E497B897973A8 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -470,9 +476,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 683050541819FE5500BCEFE1 /* Build configuration list for PBXNativeTarget "CoinUp" */;
 			buildPhases = (
+				8D82929FC55B4F4DBEB74B62 /* Check Pods Manifest.lock */,
 				6830502D1819FE5500BCEFE1 /* Sources */,
 				6830502E1819FE5500BCEFE1 /* Frameworks */,
 				6830502F1819FE5500BCEFE1 /* Resources */,
+				6F1F3EBC5D2D4E769ECD4864 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -541,6 +549,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6F1F3EBC5D2D4E769ECD4864 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8D82929FC55B4F4DBEB74B62 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6830502D1819FE5500BCEFE1 /* Sources */ = {
@@ -654,13 +695,14 @@
 		};
 		683050551819FE5500BCEFE1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 866127A2661244BAB89F4D7A /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoinUp/CoinUp-Prefix.pch";
 				INFOPLIST_FILE = "CoinUp/CoinUp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/CoinUp/Libraries/CorePlot\n",
@@ -674,13 +716,14 @@
 		};
 		683050561819FE5500BCEFE1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 866127A2661244BAB89F4D7A /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoinUp/CoinUp-Prefix.pch";
 				INFOPLIST_FILE = "CoinUp/CoinUp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/CoinUp/Libraries/CorePlot\n",

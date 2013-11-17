@@ -8,6 +8,7 @@
 
 #import "NRAppDelegate.h"
 #import "FSPopDialogViewController.h"
+#import "NRViewController.h"
 
 @interface NRAppDelegate()
 
@@ -16,6 +17,13 @@
 @end
 
 @implementation NRAppDelegate
+
+- (FSPopDialogViewController*)PopDialogViewControlller
+{
+    if (!_PopDialogViewControlller)
+        _PopDialogViewControlller = [[FSPopDialogViewController alloc] init];
+    return _PopDialogViewControlller;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -77,7 +85,6 @@
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
-    //TODO: show an alert that inform user to enable push service
     NSLog(@"Failed to get token, error: %@",error);
 }
 
@@ -97,17 +104,29 @@
     }
     
     NSLog(@"receive a message");
-    self.PopDialogViewControlller = [[FSPopDialogViewController alloc] init];
-    self.PopDialogViewControlller.delegate = vc;
-    self.PopDialogViewControlller.popDialogStyle = FSPopDialogStyleFromBottom;
-    self.PopDialogViewControlller.disappearDialogStyle = FSPopDialogStyleFromBottom;
-    self.PopDialogViewControlller.size = CGSizeMake(300,180);
-    self.PopDialogViewControlller.dialogViewTitle = @"提 醒";
-    self.PopDialogViewControlller.question = userInfo[@"aps"][@"alert"];
-    self.PopDialogViewControlller.okButtonTitle = @"确 定";
-    [self.PopDialogViewControlller appear];
+    if (self.PopDialogViewControlller.isShow == NO)
+    {
+        self.PopDialogViewControlller.delegate = vc;
+        self.PopDialogViewControlller.popDialogStyle = FSPopDialogStyleFromBottom;
+        self.PopDialogViewControlller.disappearDialogStyle = FSPopDialogStyleFromBottom;
+        self.PopDialogViewControlller.size = CGSizeMake(300,180);
+        self.PopDialogViewControlller.dialogViewTitle = @"提 醒";
+        self.PopDialogViewControlller.question = userInfo[@"aps"][@"alert"];
+        self.PopDialogViewControlller.okButtonTitle = @"确 定";
+        self.PopDialogViewControlller.isShow = YES;
+        [self.PopDialogViewControlller appear];
+    }
+    else //Update popwindow
+    {
+        self.PopDialogViewControlller.question = userInfo[@"aps"][@"alert"];
+        self.PopDialogViewControlller.isShow = YES;
+        [self.PopDialogViewControlller flash];
+    }
     
-    //TODO: remove a user setting from server
+    if ([vc isKindOfClass:[NRViewController class]])
+    {
+        //TODO: update pricesetting view
+    }
 }
 
 @end

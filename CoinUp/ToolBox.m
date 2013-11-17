@@ -7,6 +7,7 @@
 //
 
 #import "ToolBox.h"
+#import "NRCoinUpBoard.h"
 
 @implementation ToolBox
 
@@ -116,6 +117,11 @@
     }
     
     return timeIntervalInSeconds;
+}
+
++ (NSString*)getPlatformNameByPlatformType:(COINPLATFORMTYPE)type
+{
+    return @[@"NOPLATFORM",@"FXBTC",@"OKCOIN",@"BTCTRADE",@"MTGOX",@"BITSTAMP",@"CHBTC",@"BTCCHINA",@"HUOBI",@"BTC100"][type];
 }
 
 @end

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
+        <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
     <scenes>
@@ -64,7 +64,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view tag="300" contentMode="scaleToFill" id="iQt-3e-JpO" userLabel="BITSTAMP">
-                                        <rect key="frame" x="161" y="5" width="155.99999997420952" height="80"/>
+                                        <rect key="frame" x="161" y="5" width="155.99999997420957" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="BitStamp" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ngY-rl-WiW">
@@ -105,7 +105,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view tag="300" contentMode="scaleToFill" id="ZUH-HU-Mq2" userLabel="CHBTC">
-                                        <rect key="frame" x="3" y="114" width="156.00000453749425" height="80"/>
+                                        <rect key="frame" x="3" y="114" width="156.00001096074959" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="ChBTC" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wdJ-qL-QxU">
@@ -473,8 +473,8 @@
                                         <rect key="frame" x="150" y="1" width="21" height="11"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <segmentedControl opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="Mbt-Aa-hg9">
-                                        <rect key="frame" x="32" y="119" width="256" height="29"/>
+                                    <segmentedControl opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Mbt-Aa-hg9">
+                                        <rect key="frame" x="32" y="118" width="256" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <segments>
                                             <segment title="最近交易"/>
@@ -487,11 +487,11 @@
                                         </connections>
                                     </segmentedControl>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="PcW-ZP-OV0">
-                                        <rect key="frame" x="0.0" y="155" width="320" height="413"/>
+                                        <rect key="frame" x="0.0" y="155" width="320" height="414"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" id="oUd-Sl-aUE">
-                                                <rect key="frame" x="0.0" y="0.0" width="1280" height="412"/>
+                                                <rect key="frame" x="0.0" y="1" width="1280" height="412"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="成交时间                   价格                   数量" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vi0-b5-26S">
@@ -626,12 +626,12 @@
                                                         </connections>
                                                     </tableView>
                                                     <view contentMode="scaleToFill" id="0bb-rA-BSH" customClass="CPTGraphHostingView">
-                                                        <rect key="frame" x="640" y="0.0" width="320" height="302"/>
+                                                        <rect key="frame" x="640" y="0.0" width="320" height="303"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                     </view>
-                                                    <segmentedControl opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="JlF-dw-bgw">
-                                                        <rect key="frame" x="680" y="315" width="241" height="29"/>
+                                                    <segmentedControl opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="JlF-dw-bgw">
+                                                        <rect key="frame" x="680" y="314" width="241" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <segments>
                                                             <segment title="日线"/>
@@ -644,21 +644,21 @@
                                                         </connections>
                                                     </segmentedControl>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="开盘价：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8TW-Vi-5qV">
-                                                        <rect key="frame" x="648" y="371" width="68" height="21"/>
+                                                        <rect key="frame" x="648" y="370" width="68" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                         <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NA" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="a0Z-LR-xaL" userLabel="Label - Max">
-                                                        <rect key="frame" x="858" y="371" width="95" height="21"/>
+                                                        <rect key="frame" x="858" y="370" width="95" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                         <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最高价：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8A0-aa-c4c">
-                                                        <rect key="frame" x="804" y="371" width="68" height="21"/>
+                                                        <rect key="frame" x="804" y="370" width="68" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                         <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -679,7 +679,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NA" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sZd-n3-Ygb" userLabel="Label - Open">
-                                                        <rect key="frame" x="701" y="371" width="95" height="21"/>
+                                                        <rect key="frame" x="701" y="370" width="95" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                         <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -720,13 +720,79 @@
                                                         <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="developing" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uUr-6o-jfj">
-                                                        <rect key="frame" x="1081" y="235" width="85" height="21"/>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="平台当前价格不可查" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6ye-kt-ZKc">
+                                                        <rect key="frame" x="968" y="12" width="301" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="8a4-lT-Um7" userLabel="priceSettingScrollView">
+                                                        <rect key="frame" x="968" y="41" width="301" height="241"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <subviews>
+                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="O4T-sa-g5L" userLabel="highTextfield">
+                                                                <rect key="frame" x="88" y="93" width="124" height="30"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                                <connections>
+                                                                    <action selector="priceSettingTextFieldDidBeginEditing:" destination="2" eventType="editingDidBegin" id="bAo-S0-Mjm"/>
+                                                                    <action selector="priceSettingTextFieldDidEndEditing:" destination="2" eventType="editingDidEnd" id="RGs-O0-4zl"/>
+                                                                    <action selector="priceSettingTextFieldDidEndOnExit:" destination="2" eventType="editingDidEndOnExit" id="Erc-Hw-yHL"/>
+                                                                </connections>
+                                                            </textField>
+                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="f8c-vm-3QJ" userLabel="lowTextfield">
+                                                                <rect key="frame" x="88" y="172" width="124" height="30"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                                <connections>
+                                                                    <action selector="priceSettingTextFieldDidBeginEditing:" destination="2" eventType="editingDidBegin" id="rHT-aD-er0"/>
+                                                                    <action selector="priceSettingTextFieldDidEndEditing:" destination="2" eventType="editingDidEnd" id="LLg-bp-yrC"/>
+                                                                    <action selector="priceSettingTextFieldDidEndOnExit:" destination="2" eventType="editingDidEndOnExit" id="skQ-XV-79m"/>
+                                                                </connections>
+                                                            </textField>
+                                                            <switch opaque="NO" tag="6600" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="MD6-JY-6P5" userLabel="highSwitch">
+                                                                <rect key="frame" x="232" y="93" width="51" height="31"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <connections>
+                                                                    <action selector="priceSettingSwitchValueChanged:" destination="2" eventType="valueChanged" id="ptt-Yc-y4U"/>
+                                                                </connections>
+                                                            </switch>
+                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="超过" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bha-cf-QGS">
+                                                                <rect key="frame" x="20" y="97" width="34" height="21"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="低于" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7Hk-Er-D6x">
+                                                                <rect key="frame" x="20" y="176" width="34" height="21"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <switch opaque="NO" tag="6610" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="Psa-13-goB" userLabel="lowSwitch">
+                                                                <rect key="frame" x="232" y="172" width="51" height="31"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <connections>
+                                                                    <action selector="priceSettingSwitchValueChanged:" destination="2" eventType="valueChanged" id="nrF-FU-zd1"/>
+                                                                </connections>
+                                                            </switch>
+                                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="vlY-UW-SdK" userLabel="highActivityIndicator">
+                                                                <rect key="frame" x="246" y="99" width="20" height="20"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            </activityIndicatorView>
+                                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="0wp-eb-qPN" userLabel="lowActivityIndicator">
+                                                                <rect key="frame" x="246" y="178" width="20" height="20"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            </activityIndicatorView>
+                                                        </subviews>
+                                                        <gestureRecognizers/>
+                                                        <connections>
+                                                            <outletCollection property="gestureRecognizers" destination="jU6-kS-whT" appends="YES" id="BR0-Aw-r66"/>
+                                                        </connections>
+                                                    </scrollView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             </view>
@@ -778,6 +844,14 @@
                         <outlet property="maxLabel" destination="a0Z-LR-xaL" id="dYi-wx-VQ4"/>
                         <outlet property="minLabel" destination="ORT-Ms-OzN" id="XRC-Kj-rCd"/>
                         <outlet property="openLabel" destination="sZd-n3-Ygb" id="ZlD-Oy-qOn"/>
+                        <outlet property="priceSettingCurrentPriceLabel" destination="6ye-kt-ZKc" id="M5e-uI-3mq"/>
+                        <outlet property="priceSettingHighActivityIndicator" destination="vlY-UW-SdK" id="YQq-20-TCt"/>
+                        <outlet property="priceSettingHighSwitch" destination="MD6-JY-6P5" id="Yhv-Vx-3Oe"/>
+                        <outlet property="priceSettingLowActivityIndicator" destination="0wp-eb-qPN" id="Uxd-6y-efm"/>
+                        <outlet property="priceSettingLowSwitch" destination="Psa-13-goB" id="zGS-JJ-rSH"/>
+                        <outlet property="priceSettingMaxTextField" destination="O4T-sa-g5L" id="U3f-IP-4EM"/>
+                        <outlet property="priceSettingMinTextField" destination="f8c-vm-3QJ" id="50J-R7-nv6"/>
+                        <outlet property="priceSettingScrollView" destination="8a4-lT-Um7" id="80C-2R-sZw"/>
                         <outlet property="scrollViewInfoWindow" destination="PcW-ZP-OV0" id="mHJ-Kg-P6g"/>
                         <outlet property="sell1PriceLabel" destination="6en-ia-Noy" id="eeI-jn-kZE"/>
                         <outlet property="tableView" destination="ijF-qs-afD" id="GPQ-lT-z4P"/>
@@ -799,6 +873,11 @@
                 <tapGestureRecognizer id="zAy-fw-Xdx">
                     <connections>
                         <action selector="InfoWindowTapHandler:" destination="2" id="Tb6-O0-fFG"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="jU6-kS-whT">
+                    <connections>
+                        <action selector="tapOutsideOfTextfield:" destination="2" id="Xwm-6s-taz"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

@@ -211,8 +211,13 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
         NSInteger timeIntervalInSeconds = [ToolBox getTimeInterval:self.timeInterval];
         
         NSString *sid = [self.delegate getBitStampSID];
-        unsigned long long timeStamp = [self.delegate getBitStampTimeStamp];
-        url = [NSURL URLWithString:[NSString stringWithFormat:@"http://k.btc123.com:8080/period?step=%d&sid=%@&symbol=bitstampbtcusd&nonce=%llu",timeIntervalInSeconds,sid,timeStamp]];
+        if (sid)
+        {
+            unsigned long long timeStamp = [self.delegate getBitStampTimeStamp];
+            url = [NSURL URLWithString:[NSString stringWithFormat:@"http://k.btc123.com:8080/period?step=%d&sid=%@&symbol=bitstampbtcusd&nonce=%llu",timeIntervalInSeconds,sid,timeStamp]];
+        }
+        else
+            url = nil;
     }
     
     __weak DataPuller *weakSelf = self;

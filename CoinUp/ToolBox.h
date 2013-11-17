@@ -33,5 +33,6 @@ B = __tmp;\
 + (NSInteger)getVolDivisionForPlatform:(COINPLATFORMTYPE)platform;
 + (NSInteger)getMoneyDivisionForPlatform:(COINPLATFORMTYPE)platform;
 + (NSInteger)getTimeInterval:(NRCPKLINETIMEINTERVAL)timeInterval;
++ (NSString*)getPlatformNameByPlatformType:(COINPLATFORMTYPE)type;
 
 @end

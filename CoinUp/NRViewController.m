@@ -10,6 +10,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import <AFNetworking.h>
 #import "NRViewController.h"
 #import "NROKCoinTicker.h"
 #import "NRFXBTCTicker.h"
@@ -24,11 +25,24 @@
 #import "NRUITradeTableViewCell.h"
 #import "NRUIDepthTableViewCell.h"
 #import "NRCoinUpBoard.h"
+#import "JSONKit.h"
+#import "FSPopDialogViewController.h"
 
 #define OHCP_LABEL_IS_ON NO
+#define TOKEN [[NSUserDefaults standardUserDefaults] objectForKey:@"pushToken"]
 #define kTouchPlot @"TOUCH PLOT"
 
 @interface NRViewController ()
+
+@property (nonatomic, strong) NRFXBTCTicker *FXBTCticker;
+@property (nonatomic, strong) NROKCoinTicker *okcoinTicker;
+@property (nonatomic, strong) NRBTCTRADETicker *btcTradeTicker;
+@property (nonatomic, strong) NRMTGOXTicker *mtGoxTicker;
+@property (nonatomic, strong) NRBitStampTicker *bitStampTicker;
+@property (nonatomic, strong) NRCHBTCTicker *CHBTCTicker;
+@property (nonatomic, strong) NRBTCCHINATicker *BTCChinaTicker;
+@property (nonatomic, strong) NRHUOBITicker *HuoBiTicker;
+@property (nonatomic, strong) NRBTC100Ticker *btc100Ticker;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollViewInfoWindow;
 @property (nonatomic, strong) NSArray *tradeArray;
@@ -75,10 +89,22 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *graphVolLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *graphSegmentedController;
+@property (weak, nonatomic) IBOutlet UIScrollView *priceSettingScrollView;
+@property (weak, nonatomic) IBOutlet UITextField *priceSettingMaxTextField;
+@property (weak, nonatomic) IBOutlet UITextField *priceSettingMinTextField;
+@property (weak, nonatomic) IBOutlet UILabel *priceSettingCurrentPriceLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *priceSettingHighActivityIndicator;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *priceSettingLowActivityIndicator;
+@property (weak, nonatomic) IBOutlet UISwitch *priceSettingHighSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *priceSettingLowSwitch;
+@property (nonatomic, strong) FSPopDialogViewController *popDiagram;
+@property (nonatomic) BOOL isNotificationWarningShowedAlready;
+@property (nonatomic, strong) NSTimer *UIUpdateTimer;
 
 @property (nonatomic, strong) NSString *bitstampSID;
 @property (nonatomic) unsigned long long bitstampTimeStamp;
 
+@property (nonatomic, strong) NSNumber *lastPriceNumber;
 @property (nonatomic) NSInteger changedCounter; //sorry, i have no idea how to solve the problem of reset xy range
 
 @end
@@ -92,10 +118,21 @@
     return _tradeArray;
 }
 
+- (FSPopDialogViewController*)popDiagram
+{
+    if (!_popDiagram)
+    {
+        _popDiagram = [[FSPopDialogViewController alloc] init];
+        _popDiagram.delegate = self;
+    }
+    return _popDiagram;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    self.isNotificationWarningShowedAlready = NO;
     self.changedCounter = 0;  //do not allow to change xy range
     [self setupGraphicPlots];
     self.platformType = NOPLATFORM;
@@ -107,42 +144,57 @@
     self.InfoWindow.layer.shadowOpacity = 0.5;
     
     
-    NRFXBTCTicker *FXBTCticker = [[NRFXBTCTicker alloc] init];
-    FXBTCticker.delegate = self;
-    [FXBTCticker start];
+    self.FXBTCticker= [[NRFXBTCTicker alloc] init];
+    self.FXBTCticker.delegate = self;
+    self.FXBTCticker.useTickerToUpdateUI = NO;
+    [self.FXBTCticker start];
     
-    NROKCoinTicker *okcoinTicker = [[NROKCoinTicker alloc] init];
-    okcoinTicker.delegate = self;
-    [okcoinTicker start];
+    self.okcoinTicker = [[NROKCoinTicker alloc] init];
+    self.okcoinTicker.delegate = self;
+    self.okcoinTicker.useTickerToUpdateUI = NO;
+    [self.okcoinTicker start];
     
-    NRBTCTRADETicker *btcTradeTicker = [[NRBTCTRADETicker alloc] init];
-    btcTradeTicker.delegate = self;
-    [btcTradeTicker start];
+    self.btcTradeTicker = [[NRBTCTRADETicker alloc] init];
+    self.btcTradeTicker.delegate = self;
+    self.btcTradeTicker.useTickerToUpdateUI = NO;
+    [self.btcTradeTicker start];
     
-    NRMTGOXTicker *mtGoxTicker = [[NRMTGOXTicker alloc] init];
-    mtGoxTicker.delegate = self;
-    [mtGoxTicker start];
+    self.mtGoxTicker = [[NRMTGOXTicker alloc] init];
+    self.mtGoxTicker.delegate = self;
+    self.mtGoxTicker.useTickerToUpdateUI = NO;
+    [self.mtGoxTicker start];
     
-    NRBitStampTicker *bitStampTicker = [[NRBitStampTicker alloc] init];
-    bitStampTicker.delegate = self;
-    [bitStampTicker start];
+    self.bitStampTicker = [[NRBitStampTicker alloc] init];
+    self.bitStampTicker.delegate = self;
+    self.bitStampTicker.useTickerToUpdateUI = NO;
+    [self.bitStampTicker start];
     
-    NRCHBTCTicker *CHBTCTicker = [[NRCHBTCTicker alloc] init];
-    CHBTCTicker.delegate = self;
-    [CHBTCTicker start];
+    self.CHBTCTicker = [[NRCHBTCTicker alloc] init];
+    self.CHBTCTicker.delegate = self;
+    self.CHBTCTicker.useTickerToUpdateUI = NO;
+    [self.CHBTCTicker start];
     
-    NRBTCCHINATicker *BTCChinaTicker = [[NRBTCCHINATicker alloc] init];
-    BTCChinaTicker.delegate = self;
-    [BTCChinaTicker start];
+    self.BTCChinaTicker = [[NRBTCCHINATicker alloc] init];
+    self.BTCChinaTicker.delegate = self;
+    self.BTCChinaTicker.useTickerToUpdateUI = NO;
+    [self.BTCChinaTicker start];
     
-    NRHUOBITicker *HuoBiTicker = [[NRHUOBITicker alloc] init];
-    HuoBiTicker.delegate = self;
-    [HuoBiTicker start];
+    self.HuoBiTicker = [[NRHUOBITicker alloc] init];
+    self.HuoBiTicker.delegate = self;
+    self.HuoBiTicker.useTickerToUpdateUI = NO;
+    [self.HuoBiTicker start];
     
-    NRBTC100Ticker *btc100Ticker = [[NRBTC100Ticker alloc] init];
-    btc100Ticker.delegate = self;
-    [btc100Ticker start];
-
+    self.btc100Ticker = [[NRBTC100Ticker alloc] init];
+    self.btc100Ticker.delegate = self;
+    self.btc100Ticker.useTickerToUpdateUI = NO;
+    [self.btc100Ticker start];
+    
+    [self updateLastPriceForAllPlatform:nil];
+    self.UIUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:10
+                                     target:self
+                                   selector:@selector(updateLastPriceForAllPlatform:)
+                                   userInfo:nil
+                                    repeats:YES];
 
 }
 
@@ -156,11 +208,57 @@
     [super viewWillAppear:animated];
     [self updateBITSTAMPSID];
     self.scrollViewInfoWindow.contentSize = CGSizeMake(SCREENWIDTH*4, self.scrollViewInfoWindow.frame.size.height);
+    self.priceSettingScrollView.contentSize = CGSizeMake(self.priceSettingScrollView.frame.size.width,1500);
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+- (void)updateLastPriceForAllPlatform:(id)userInfo
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    [manager GET:@"http://115.29.191.191:4321/all" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         NSDictionary *resultDic = (NSDictionary*)responseObject;
+         double bitstampPrice = [resultDic[@"bitstamp"] doubleValue];
+         double btc100Price = [resultDic[@"btc100"] doubleValue];
+         double btcchinaPrice = [resultDic[@"btcchina"] doubleValue];
+         double btctradePrice = [resultDic[@"btctrade"] doubleValue];
+         double chbtcPrice = [resultDic[@"chbtc"] doubleValue];
+         double fxbtcPrice = [resultDic[@"fxbtc"] doubleValue];
+         double huobiPrice = [resultDic[@"huobi"] doubleValue];
+         double mtgoxPrice = [resultDic[@"mtgox"] doubleValue];
+         double okcoinPrice = [resultDic[@"okcoin"] doubleValue];
+         
+         self.FXBTCticker.last = fxbtcPrice;
+         self.okcoinTicker.last = okcoinPrice;
+         self.btcTradeTicker.last = btctradePrice;
+         self.mtGoxTicker.last = mtgoxPrice;
+         self.bitStampTicker.last = bitstampPrice;
+         self.CHBTCTicker.last = chbtcPrice;
+         self.BTCChinaTicker.last = btcchinaPrice;
+         self.HuoBiTicker.last = huobiPrice;
+         self.btc100Ticker.last = btc100Price;
+         
+         NSLog(@"JSON: %@", responseObject);
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         [self.UIUpdateTimer invalidate];
+         self.UIUpdateTimer = nil;
+         self.FXBTCticker.useTickerToUpdateUI = YES;
+         self.okcoinTicker.useTickerToUpdateUI = YES;
+         self.btcTradeTicker.useTickerToUpdateUI = YES;
+         self.mtGoxTicker.useTickerToUpdateUI = YES;
+         self.bitStampTicker.useTickerToUpdateUI = YES;
+         self.CHBTCTicker.useTickerToUpdateUI = YES;
+         self.BTCChinaTicker.useTickerToUpdateUI = YES;
+         self.HuoBiTicker.useTickerToUpdateUI = YES;
+         self.btc100Ticker.useTickerToUpdateUI = YES;
+         NSLog(@"Error: %@", error);
+     }];
 }
 
 - (void)updateLabel:(NSString*)text ForName:(NSString*)Name
@@ -174,13 +272,13 @@
     NSString *valueName = [NSString stringWithFormat:@"cover_%@",Name];
     ((UIView*)[self valueForKey:valueName]).backgroundColor = (isGreen)?[UIColor greenColor]:[UIColor redColor];
     ((UIView*)[self valueForKey:valueName]).alpha = 0.8;
-   
+    
     [UIView animateWithDuration:3
                           delay:0
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          ((UIView*)[self valueForKey:valueName]).alpha = 0;
-
+                         
                      }
                      completion:nil
      ];
@@ -268,7 +366,7 @@
     {
         plotSpace.allowsUserInteraction = NO;
         self.changedCounter = 1;
-//        self.changedCounter = 2; //allow change for Y only
+        //        self.changedCounter = 2; //allow change for Y only
     }
     else
     {
@@ -292,7 +390,7 @@
                          completion:nil
          ];
     }
-
+    
     if (frame.origin.y == SCREENHEIGHT)
     {
         frame.origin.y -= 110;
@@ -307,7 +405,7 @@
                          completion:nil
          ];
     }
-    
+    [self InitPriceSetting];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"InfoWindowUpdate" object:nil];
 }
 
@@ -326,9 +424,12 @@
                          }
                          completion:nil
          ];
+        [self.view endEditing:YES];
     }
     else
+    {
         [self dismissInfoWindow];
+    }
 }
 
 - (IBAction)InfoWindowSwipeUpGestureHandler:(UISwipeGestureRecognizer *)sender
@@ -365,7 +466,7 @@
                          completion:nil
          ];
     }
-
+    
 }
 
 - (void)dismissInfoWindow
@@ -391,8 +492,8 @@
 {
     if (sender.tag == 10)
     {
-    CGRect rect = CGRectMake(SCREENWIDTH*sender.selectedSegmentIndex, 0, SCREENWIDTH, sender.frame.size.height);
-    [self.scrollViewInfoWindow scrollRectToVisible:rect animated:YES];
+        CGRect rect = CGRectMake(SCREENWIDTH*sender.selectedSegmentIndex, 0, SCREENWIDTH, sender.frame.size.height);
+        [self.scrollViewInfoWindow scrollRectToVisible:rect animated:YES];
     }
     else //tag == 20 graph
     {
@@ -583,7 +684,7 @@
     LabelStype.color    = [CPTColor darkGrayColor];
     LabelStype.fontSize = 8.0;
     xAxis.titleTextStyle = LabelStype;
-
+    
     
     CPTXYAxis *yAxis = xyAxisSet.yAxis;
     lineStyle = [yAxis.axisLineStyle mutableCopy];
@@ -611,7 +712,7 @@
     blueLineStyle.lineColor = areaColor;
     blueLineStyle.lineWidth = 1.0f;
     dataSourceLinePlot.dataLineStyle = blueLineStyle;
-
+    
     // OHLC plot
     CPTMutableLineStyle *redLineStyle = [CPTMutableLineStyle lineStyle];
     CPTMutableLineStyle *greenLineStyle = [CPTMutableLineStyle lineStyle];
@@ -658,25 +759,25 @@
     volumePlot.identifier     = @"Volume Plot";
     volumePlot.cachePrecision = CPTPlotCachePrecisionDouble;
     [self.graph addPlot:volumePlot toPlotSpace:volumePlotSpace];
-   
+    
     CPTScatterPlot *touchPlot = [[CPTScatterPlot alloc] initWithFrame:CGRectNull];
     touchPlot.identifier = kTouchPlot;
     touchPlot.dataSource = self;
     touchPlot.delegate = self;
     [self.graph addPlot:touchPlot];
     [self applyTouchPlotColor];
-
+    
     
     self.selectedCoordination = 0;
-
+    
     // Data puller
-//    NSDate *start         = [NSDate dateWithTimeIntervalSinceNow:-60.0 * 60.0 * 24.0 * 42]; // 4 weeks ago
-//    NSDate *end           = [NSDate date];
-
-//    DataPuller *dp = [[DataPuller alloc] initWithPlatform:OKCOIN targetStartDate:start targetEndDate:(NSDate *)end TimeInterval:NRCPKLINETIMEINTERVAL24H];
-
+    //    NSDate *start         = [NSDate dateWithTimeIntervalSinceNow:-60.0 * 60.0 * 24.0 * 42]; // 4 weeks ago
+    //    NSDate *end           = [NSDate date];
+    
+    //    DataPuller *dp = [[DataPuller alloc] initWithPlatform:OKCOIN targetStartDate:start targetEndDate:(NSDate *)end TimeInterval:NRCPKLINETIMEINTERVAL24H];
+    
     self.dataPuller = nil; //dp;
-   // [dp setDelegate:self];
+    // [dp setDelegate:self];
 }
 
 - (void)applyTouchPlotColor
@@ -748,8 +849,8 @@
     CGPoint pointInPlotArea = [self.graph convertPoint:point toLayer:self.graph.plotAreaFrame];
     
     NSDecimal newPoint[2];
-   [self.graph.defaultPlotSpace plotPoint:newPoint numberOfCoordinates:2 forPlotAreaViewPoint:pointInPlotArea];
-   //[self.graph.defaultPlotSpace plotPoint:newPoint forPlotAreaViewPoint:pointInPlotArea];
+    [self.graph.defaultPlotSpace plotPoint:newPoint numberOfCoordinates:2 forPlotAreaViewPoint:pointInPlotArea];
+    //[self.graph.defaultPlotSpace plotPoint:newPoint forPlotAreaViewPoint:pointInPlotArea];
     NSDecimalRound(&newPoint[0], &newPoint[0], 0, NSRoundPlain);
     int x = [[NSDecimalNumber decimalNumberWithDecimal:newPoint[0]] intValue];
     
@@ -830,7 +931,7 @@
     NSInteger json_closeIndex = 4;
     NSInteger json_maxIndex = (self.platformType == BITSTAMP)?5:2;
     NSInteger json_minIndex = (self.platformType == BITSTAMP)?6:3;
-
+    
     NSInteger moneyDivision = [ToolBox getMoneyDivisionForPlatform:self.platformType];
     NSInteger volDivision = [ToolBox getVolDivisionForPlatform:self.platformType];
     
@@ -838,7 +939,7 @@
         double *nextValue = data.mutableBytes;
         
         for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-
+            
             NSNumber *value;
             
             for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
@@ -999,7 +1100,7 @@
     NSNumber *low    = self.dataPuller.overallLow;
     NSNumber *length = [NSNumber numberWithDouble:([high doubleValue] - [low doubleValue])];
     
-//    NSLog(@"high = %@, low = %@, length = %@", high, low, length);
+    //    NSLog(@"high = %@, low = %@, length = %@", high, low, length);
     
     NSNumber *lengthDisplacementValue = [NSNumber numberWithDouble:[length doubleValue] * 0.33];
     NSNumber *lowDisplayLocation = [NSNumber numberWithDouble:([low doubleValue] - [lengthDisplacementValue doubleValue])];
@@ -1008,7 +1109,7 @@
     plotSpace.allowsUserInteraction = YES;
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromUnsignedInteger(self.dataPuller.filteredFinancialData.count + 1)];
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:[lowDisplayLocation decimalValue] length:[lengthDisplayLocation decimalValue]];
-
+    
     plotSpace.delegate = self;
     
     CPTScatterPlot *linePlot = (CPTScatterPlot *)[self.graph plotWithIdentifier:@"Data Source Plot"];
@@ -1034,12 +1135,12 @@
     }
     
     animationOperation = [CPTAnimation animate:volumePlotSpace
-                                       property:@"yRange"
-                                  fromPlotRange:[CPTPlotRange plotRangeWithLocation:[volumeLowDisplayLocation decimalValue]
-                                                                             length:CPTDecimalMultiply( [volumeLengthDisplayLocation decimalValue], CPTDecimalFromInteger(10) )]
-                                    toPlotRange:[CPTPlotRange plotRangeWithLocation:[volumeLowDisplayLocation decimalValue]
-                                                                             length:[volumeLengthDisplayLocation decimalValue]]
-                                       duration:2.5];
+                                      property:@"yRange"
+                                 fromPlotRange:[CPTPlotRange plotRangeWithLocation:[volumeLowDisplayLocation decimalValue]
+                                                                            length:CPTDecimalMultiply( [volumeLengthDisplayLocation decimalValue], CPTDecimalFromInteger(10) )]
+                                   toPlotRange:[CPTPlotRange plotRangeWithLocation:[volumeLowDisplayLocation decimalValue]
+                                                                            length:[volumeLengthDisplayLocation decimalValue]]
+                                      duration:2.5];
     
     axisSet.xAxis.orthogonalCoordinateDecimal = [low decimalValue];
     axisSet.yAxis.majorIntervalLength         = CPTDecimalFromDouble(50.0);
@@ -1055,7 +1156,7 @@
     [self setGraphDataLabelForDataAtIndex:self.selectedCoordination];
 }
 
-#pragma mark - DataPullerDelegateMethos
+#pragma mark - DataPullerDelegateMethods
 - (void)updateBITSTAMPSID
 {
     NSString *regulaStr = @"(?<=sid\\s=\\s\")\\w*(?=\")";
@@ -1063,14 +1164,266 @@
                                                                            options:NSRegularExpressionCaseInsensitive
                                                                              error:nil];
     NSString *sourceCode = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://k.btc123.com/markets/bitstamp/btcusd"] encoding:NSASCIIStringEncoding error:nil];
-    NSArray *arrayOfAllMatches = [regex matchesInString:sourceCode options:0 range:NSMakeRange(0, [sourceCode length])];
-    
-    self.bitstampTimeStamp = (unsigned long long)[[NSDate date] timeIntervalSince1970]*1000;
-    
-    NSTextCheckingResult *match = arrayOfAllMatches[0];
-    self.bitstampSID = [sourceCode substringWithRange:match.range];
-    NSLog(@"sid = %@",self.bitstampSID);
+    if (sourceCode)
+    {
+        NSArray *arrayOfAllMatches = [regex matchesInString:sourceCode options:0 range:NSMakeRange(0, [sourceCode length])];
+        
+        self.bitstampTimeStamp = (unsigned long long)[[NSDate date] timeIntervalSince1970]*1000;
+        
+        NSTextCheckingResult *match = arrayOfAllMatches[0];
+        self.bitstampSID = [sourceCode substringWithRange:match.range];
+        NSLog(@"sid = %@",self.bitstampSID);
+    }
+    else
+        self.bitstampSID = nil;
 }
 
+#pragma mark - pricesettings
+- (void)setLastPriceNumberWithDoubleNumber:(double)number
+{
+    self.lastPriceNumber = [NSNumber numberWithDouble:number];
+    if (number != UNAVAILABLE)
+    {
+        self.priceSettingCurrentPriceLabel.text = [NSString stringWithFormat:@"%@ 平台当前价格：%.2f",[ToolBox getPlatformNameByPlatformType:self.platformType],number];
+    }
+    else
+    {
+        self.priceSettingCurrentPriceLabel.text = @"平台当前价格不可查";
+    }
+}
+
+- (void)InitPriceSetting
+{
+    self.priceSettingMaxTextField.enabled = NO;
+    self.priceSettingMinTextField.enabled = NO;
+    self.priceSettingHighSwitch.hidden = YES;
+    self.priceSettingLowSwitch.hidden = YES;
+    [self.priceSettingHighActivityIndicator startAnimating];
+    [self.priceSettingLowActivityIndicator startAnimating];
+    
+    UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+    if (types == UIRemoteNotificationTypeNone)
+    {
+        if (!self.isNotificationWarningShowedAlready)
+        {
+            [self showDialogWithContent:@"请在系统设置中打开 CoinUp 的推送功" Title:@"错 误"];
+            self.isNotificationWarningShowedAlready = YES;
+            return;
+        }
+        return;
+    }
+    
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"pushToken"];
+    NSString *platform = [ToolBox getPlatformNameByPlatformType:self.platformType];
+    NSString *urlString = [NSString stringWithFormat:@"http://115.29.191.191:4321/query?token=%@&platform=%@",token,platform];
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    __weak NRViewController *weakSelf = self;
+    dispatch_queue_t queryQueue = dispatch_queue_create("queryQueue", NULL);
+    dispatch_async(queryQueue, ^{
+        NSData *queryData = [NSData dataWithContentsOfURL:url];
+        if (queryData)
+        {
+            NSError *error;
+            NSDictionary *queryDic = [[[JSONDecoder alloc] init] objectWithData:queryData error:&error];
+            if (error)
+            {
+                [self showDialogWithContent:@"无法连接服务器" Title:@"错 误"];
+            }
+            else
+            {
+                double highPrice = [queryDic[@"high"] doubleValue];
+                double lowPrice = [queryDic[@"low"] doubleValue];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [weakSelf.priceSettingHighActivityIndicator stopAnimating];
+                    if (highPrice - 0 < 0.0001) // UNAVALIABLE
+                    {
+                        weakSelf.priceSettingHighSwitch.on = NO;
+                        weakSelf.priceSettingHighSwitch.hidden = NO;
+                        weakSelf.priceSettingMaxTextField.enabled = YES;
+                        weakSelf.priceSettingMaxTextField.text = @"";
+                    }
+                    else
+                    {
+                        weakSelf.priceSettingMaxTextField.text = [NSString stringWithFormat:@"%f",highPrice];
+                        weakSelf.priceSettingMaxTextField.enabled = NO;
+                        weakSelf.priceSettingHighSwitch.on = YES;
+                        weakSelf.priceSettingHighSwitch.hidden = NO;
+                    }
+                    
+                    [weakSelf.priceSettingLowActivityIndicator stopAnimating];
+                    if (lowPrice - 0 < 0.0001) // UNAVALIABLE
+                    {
+                        weakSelf.priceSettingLowSwitch.on = NO;
+                        weakSelf.priceSettingLowSwitch.hidden = NO;
+                        weakSelf.priceSettingMinTextField.enabled = YES;
+                        weakSelf.priceSettingMinTextField.text = @"";
+                    }
+                    else
+                    {
+                        weakSelf.priceSettingMinTextField.text = [NSString stringWithFormat:@"%f",lowPrice];
+                        weakSelf.priceSettingMinTextField.enabled = NO;
+                        weakSelf.priceSettingLowSwitch.on = YES;
+                        weakSelf.priceSettingLowSwitch.hidden = NO;
+                    }
+                });
+                
+            }
+        }
+        else
+        {
+            [self showDialogWithContent:@"无法连接服务器" Title:@"错 误"];
+        }
+    });
+}
+
+- (IBAction)priceSettingTextFieldDidBeginEditing:(UITextField *)sender
+{
+    self.priceSettingScrollView.contentOffset = CGPointMake(0, sender.frame.origin.y-45);
+}
+
+- (IBAction)priceSettingTextFieldDidEndEditing:(UITextField *)sender
+{
+    self.priceSettingScrollView.contentOffset = CGPointMake(0, 0);
+}
+
+- (IBAction)priceSettingTextFieldDidEndOnExit:(UITextField *)sender
+{
+    [sender resignFirstResponder];
+}
+
+- (IBAction)tapOutsideOfTextfield:(UITapGestureRecognizer *)sender
+{
+    [self.view endEditing:YES];
+}
+
+- (IBAction)priceSettingSwitchValueChanged:(UISwitch *)sender
+{
+    [self.view endEditing:YES];
+    
+    if (sender.on == NO) //OFF
+    {
+        NSLog(@"%@ switch to OFF",sender);
+        if (sender.tag == 6600)//high
+            self.priceSettingMaxTextField.enabled = YES;
+        else//6610,low
+            self.priceSettingMinTextField.enabled = YES;
+        
+        //remove from server
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSString *type = (sender.tag ==6600)?@"high":@"low";
+        NSDictionary *parameters = @{@"token": TOKEN,@"platform":[ToolBox getPlatformNameByPlatformType:self.platformType],@"type":type};
+        
+        [manager GET:@"http://115.29.191.191:4321/delete" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject)
+         {
+             NSLog(@"JSON: %@", responseObject);
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+         {
+             [self showDialogWithContent:@"无法连接服务器" Title:@"错 误"];
+             [sender setOn:YES animated:YES];
+             NSLog(@"Error: %@", error);
+         }];
+    }
+    else // ON
+    {
+        NSLog(@"%@ switch to ON",sender);
+        
+        //check if user input is a valid float number
+        NSNumberFormatter *formatter = [NSNumberFormatter new];
+        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        NSString *textfieldContent = (sender.tag == 6600)?self.priceSettingMaxTextField.text:self.priceSettingMinTextField.text;
+        NSNumber *number = [formatter numberFromString:textfieldContent];
+        if (number != nil) //user input is valid
+        {
+            double userSettingPrice = [number doubleValue];
+            double currentPrice = [self.lastPriceNumber doubleValue];
+            if (fabs(currentPrice - UNAVAILABLE)>0.0001) //AVAILABLE
+            {
+                if (sender.tag == 6600)
+                {
+                    if (userSettingPrice < currentPrice)
+                    {
+                        NSLog(@"set it higher");
+                        [self showDialogWithContent:@"设定值已低于当前价格" Title:@"错 误"];
+                    }
+                    else
+                    {
+                        NSLog(@"it's ok, send it to server for high");
+                        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+                        NSDictionary *parameters = @{@"token": TOKEN,@"platform":[ToolBox getPlatformNameByPlatformType:self.platformType],@"high":[NSString stringWithFormat:@"%f",[number doubleValue]]};
+                        
+                        [manager GET:@"http://115.29.191.191:4321/add" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject)
+                        {
+                            NSLog(@"JSON: %@", responseObject);
+                        } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+                        {
+                            [self showDialogWithContent:@"无法连接服务器" Title:@"错 误"];
+                            NSLog(@"Error: %@", error);
+                        }];
+                    }
+                }
+                else //6610 low
+                {
+                    if (userSettingPrice > currentPrice)
+                    {
+                        NSLog(@"set it lower");
+                        [self showDialogWithContent:@"设定值已高于当前价格" Title:@"错 误"];
+                    }
+                    else
+                    {
+                        NSLog(@"it's ok, send it to server for low");
+                        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+                        NSDictionary *parameters = @{@"token": TOKEN,@"platform":[ToolBox getPlatformNameByPlatformType:self.platformType],@"low":[NSString stringWithFormat:@"%f",[number doubleValue]]};
+                        
+                        [manager GET:@"http://115.29.191.191:4321/add" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject)
+                        {
+                            NSLog(@"JSON: %@", responseObject);
+                        } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+                        {
+                            [self showDialogWithContent:@"无法连接服务器" Title:@"错 误"];
+                            NSLog(@"Error: %@", error);
+                        }];
+                    }
+                }
+            }
+            else //currentPrice unavailble
+            {
+                NSLog(@"currentPrice unavailable, just send to server");
+                NSString *type = (sender.tag == 6600)?@"high":@"low";
+                AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+                NSDictionary *parameters = @{@"token": TOKEN,@"platform":[ToolBox getPlatformNameByPlatformType:self.platformType],type:[NSString stringWithFormat:@"%f",[number doubleValue]]};
+                
+                [manager GET:@"http://115.29.191.191:4321/add" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject)
+                 {
+                     NSLog(@"JSON: %@", responseObject);
+                 } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+                 {
+                     [self showDialogWithContent:@"无法连接服务器" Title:@"错 误"];
+                     NSLog(@"Error: %@", error);
+                 }];
+            }
+        }
+        else
+        {
+            NSLog(@"user input is not a valid number");
+            [self showDialogWithContent:@"请输入有效的价格值" Title:@"错 误"];
+            [sender setOn:NO animated:YES];
+        }
+    }
+}
+
+- (void)showDialogWithContent:(NSString*)content Title:(NSString*)title
+{
+    self.popDiagram.popDialogStyle = FSPopDialogStyleFromBottom;
+    self.popDiagram.disappearDialogStyle = FSPopDialogStyleFromBottom;
+    self.popDiagram.size = CGSizeMake(300,180);
+    self.popDiagram.dialogViewTitle = title;
+    self.popDiagram.question = content;
+    self.popDiagram.okButtonTitle = @"确 定";
+    self.popDiagram.isShow = YES;
+    [self.popDiagram appear];
+
+}
 
 @end

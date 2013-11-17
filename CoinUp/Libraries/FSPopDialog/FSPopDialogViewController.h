@@ -30,8 +30,10 @@ typedef NS_ENUM(NSInteger, FSPopDialogStyle){
 @property (nonatomic, strong) NSString *cancelButtonTitle;
 @property (nonatomic) FSPopDialogStyle popDialogStyle;
 @property (nonatomic) FSPopDialogStyle disappearDialogStyle;
+@property (nonatomic) BOOL isShow;
 
 - (void)appear;
+- (void)flash;
 - (void)disappear;
 
 @end

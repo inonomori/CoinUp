@@ -75,7 +75,8 @@
             if (jsonData)
             {
                 NSDictionary *jsonObject = [[[[JSONDecoder alloc] init] objectWithData:jsonData] objectForKey:@"return"];
-                weakSelf.last = [jsonObject[@"last"][@"value"] doubleValue];
+                if (self.useTickerToUpdateUI)
+                    weakSelf.last = [jsonObject[@"last"][@"value"] doubleValue];
                 weakSelf.high = [jsonObject[@"high"][@"value"] doubleValue];
                 weakSelf.low = [jsonObject[@"low"][@"value"] doubleValue];
                 weakSelf.vol = [jsonObject[@"vol"][@"value"] doubleValue];
@@ -84,7 +85,8 @@
             }
             else
             {
-                weakSelf.last = UNAVAILABLE;
+                if (self.useTickerToUpdateUI)
+                    weakSelf.last = UNAVAILABLE;
                 weakSelf.high = UNAVAILABLE;
                 weakSelf.low = UNAVAILABLE;
                 weakSelf.vol = UNAVAILABLE;
@@ -164,6 +166,8 @@
         else if ([change[@"old"] doubleValue] < self.last)
             [self.delegate flashColorInGreen:YES ForName:NAME(PLATFORM)];
         else{}
+        
+        [self updatePrinceSetting];
     }
     else if (![keyPath isEqualToString:@"tradeArray"] || ![keyPath isEqualToString:@"depthArray"])
         [self updateInfoWindow];
@@ -177,6 +181,14 @@
                 [self.delegate setDepthArrayAndReloadTableView:self.depthArray];
             
         }
+    }
+}
+
+- (void)updatePrinceSetting
+{
+    if ([self.delegate currentPlatformType] == TYPE(PLATFORM))
+    {
+        [self.delegate setLastPriceNumberWithDoubleNumber:self.last];
     }
 }
 
