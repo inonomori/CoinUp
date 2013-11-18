@@ -220,8 +220,9 @@
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    [manager GET:@"http://115.29.191.191:4321/all" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
+    [manager GET:@"http://115.29.191.191:4321/all" parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject)
+    {
          NSDictionary *resultDic = (NSDictionary*)responseObject;
          double bitstampPrice = [resultDic[@"bitstamp"] doubleValue];
          double btc100Price = [resultDic[@"btc100"] doubleValue];
@@ -242,10 +243,9 @@
          self.BTCChinaTicker.last = btcchinaPrice;
          self.HuoBiTicker.last = huobiPrice;
          self.btc100Ticker.last = btc100Price;
-         
-         NSLog(@"JSON: %@", responseObject);
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
+    }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error)
+    {
          [self.UIUpdateTimer invalidate];
          self.UIUpdateTimer = nil;
          self.FXBTCticker.useTickerToUpdateUI = YES;
@@ -258,7 +258,7 @@
          self.HuoBiTicker.useTickerToUpdateUI = YES;
          self.btc100Ticker.useTickerToUpdateUI = YES;
          NSLog(@"Error: %@", error);
-     }];
+    }];
 }
 
 - (void)updateLabel:(NSString*)text ForName:(NSString*)Name
@@ -278,7 +278,6 @@
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          ((UIView*)[self valueForKey:valueName]).alpha = 0;
-                         
                      }
                      completion:nil
      ];

@@ -34,6 +34,7 @@ typedef NS_ENUM(NSInteger, FSPopDialogStyle){
 
 - (void)appear;
 - (void)flash;
+- (void)updateContent;
 - (void)disappear;
 
 @end

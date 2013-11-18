@@ -33,7 +33,6 @@
     if (!_backGroundView)
     {
         _backGroundView = [[FSPopDialogBackgroundView alloc] initWithFrame:CGRectMake(0, 0, [ToolBox getApplicationFrameSize].width, [ToolBox getApplicationFrameSize].height)];
-       // _backGroundView.backgroundColor = [UIColor blackColor];
         _backGroundView.alpha = 0.1;
     }
     return _backGroundView;
@@ -45,7 +44,6 @@
     {
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.contentMode = UIViewContentModeScaleAspectFill;//UIViewContentModeCenter;
-//        _titleLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:1 alpha:0.5f];
         _titleLabel.numberOfLines = 1;
         _titleLabel.adjustsFontSizeToFitWidth=YES;
         _titleLabel.minimumScaleFactor = 0.5;
@@ -159,26 +157,32 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)updateContent
+{
+    self.titleLabel.text = self.dialogViewTitle;
+    self.questionLabel.text = self.question;
+    [self.okButton setTitle:self.okButtonTitle forState:UIControlStateNormal];
+}
+
 - (void)appear
 {
-    
     [self.delegate.view addSubview:self.backGroundView];
     [self.delegate.view addSubview:self.view];
 
     switch (self.popDialogStyle)
     {
         case FSPopDialogStylePop:
-            [self popDialogViewAnimationPop];
+//            [self popDialogViewAnimationPop];
             break;
         case FSPopDialogStyleFromBottom:
             [self popDialogViewAnimationFromBottom];
             break;
         case FSPopDialogStyleFromTop:
-            [self popDialogViewAnimationFromTop];
+//            [self popDialogViewAnimationFromTop];
             break;
         case FSPopDialogStyleFromRight:
         case FSPopDialogStyleFromLeft:
-            [self popDialogViewAnimationFromLeftOrRight];
+//            [self popDialogViewAnimationFromLeftOrRight];
             break;
         default:
             break;
@@ -197,68 +201,95 @@
     [self disappearAnimation];
 }
 
-- (void)popDialogViewAnimationPop
-{
-    [UIView animateWithDuration:0.1
-                          delay:0
-                        options:UIViewAnimationOptionCurveEaseIn
-                     animations:^{
-                         CGRect frame = CGRectMake(([ToolBox getApplicationFrameSize].width-self.size.width)/2-45, ([ToolBox getApplicationFrameSize].height-self.size.height)/2-45, self.size.width+90, self.size.height+90);
-                         self.view.frame = frame;                         self.backGroundView.alpha = 0.25;
-                         self.okButton.frame = CGRectMake(5, frame.size.height-55, frame.size.width/2-7.5, 50);
-                         self.backGroundView.alpha = 0.2;
-                     }
-                     completion:^(BOOL finished)
-     {
-         if (finished)
-         {
-             [UIView animateWithDuration:0.15
-                                   delay:0
-                                 options:UIViewAnimationOptionCurveEaseIn
-                              animations:^{
-                                  CGRect frame = CGRectMake(([ToolBox getApplicationFrameSize].width-self.size.width)/2+40, ([ToolBox getApplicationFrameSize].height-self.size.height)/2+40, self.size.width-80, self.size.height-80);
-                                  self.view.frame = frame;
-                                  self.okButton.frame = CGRectMake(5, frame.size.height-55, frame.size.width/2-7.5, 50);
-                                  
-                                  
-                                  self.backGroundView.alpha = 0.4;
-                                  
-                              }
-                              completion:^(BOOL finished)
-              {
-                  
-                  if (finished)
-                  {
-                      [UIView animateWithDuration:0.15
-                                            delay:0
-                                          options:UIViewAnimationOptionCurveEaseOut
-                                       animations:^{
-                                           CGRect frame = CGRectMake(([ToolBox getApplicationFrameSize].width-self.size.width)/2, ([ToolBox getApplicationFrameSize].height-self.size.height)/2, self.size.width, self.size.height);
-                                           self.backGroundView.alpha = 0.6;
-                                           self.view.frame = frame;
-                                           self.okButton.frame = CGRectMake(5, frame.size.height-55, frame.size.width/2-7.5, 50);
-                                           
-                                       }
-                                       completion:^(BOOL finished)
-                       {
-                           [UIView animateWithDuration:0.05
-                                                 delay:0
-                                               options:UIViewAnimationOptionCurveEaseInOut
-                                            animations:^{
-                                            }
-                                            completion:nil
-                            ];
-                       }
-                       ];
-                  }
-              }];
-         }
-     }];
-}
+//- (void)popDialogViewAnimationPop
+//{
+//    [UIView animateWithDuration:0.1
+//                          delay:0
+//                        options:UIViewAnimationOptionCurveEaseIn
+//                     animations:^{
+//                         CGRect frame = CGRectMake(([ToolBox getApplicationFrameSize].width-self.size.width)/2-45, ([ToolBox getApplicationFrameSize].height-self.size.height)/2-45, self.size.width+90, self.size.height+90);
+//                         self.view.frame = frame;                         self.backGroundView.alpha = 0.25;
+//                         self.okButton.frame = CGRectMake(5, frame.size.height-55, frame.size.width/2-7.5, 50);
+//                         self.backGroundView.alpha = 0.2;
+//                     }
+//                     completion:^(BOOL finished)
+//     {
+//         if (finished)
+//         {
+//             [UIView animateWithDuration:0.15
+//                                   delay:0
+//                                 options:UIViewAnimationOptionCurveEaseIn
+//                              animations:^{
+//                                  CGRect frame = CGRectMake(([ToolBox getApplicationFrameSize].width-self.size.width)/2+40, ([ToolBox getApplicationFrameSize].height-self.size.height)/2+40, self.size.width-80, self.size.height-80);
+//                                  self.view.frame = frame;
+//                                  self.okButton.frame = CGRectMake(5, frame.size.height-55, frame.size.width/2-7.5, 50);
+//                                  
+//                                  
+//                                  self.backGroundView.alpha = 0.4;
+//                                  
+//                              }
+//                              completion:^(BOOL finished)
+//              {
+//                  
+//                  if (finished)
+//                  {
+//                      [UIView animateWithDuration:0.15
+//                                            delay:0
+//                                          options:UIViewAnimationOptionCurveEaseOut
+//                                       animations:^{
+//                                           CGRect frame = CGRectMake(([ToolBox getApplicationFrameSize].width-self.size.width)/2, ([ToolBox getApplicationFrameSize].height-self.size.height)/2, self.size.width, self.size.height);
+//                                           self.backGroundView.alpha = 0.6;
+//                                           self.view.frame = frame;
+//                                           self.okButton.frame = CGRectMake(5, frame.size.height-55, frame.size.width/2-7.5, 50);
+//                                           
+//                                       }
+//                                       completion:^(BOOL finished)
+//                       {
+//                           [UIView animateWithDuration:0.05
+//                                                 delay:0
+//                                               options:UIViewAnimationOptionCurveEaseInOut
+//                                            animations:^{
+//                                            }
+//                                            completion:nil
+//                            ];
+//                       }
+//                       ];
+//                  }
+//              }];
+//         }
+//     }];
+//}
 
 - (void)flash
 {
-    //TODO: flash
+    [UIView animateKeyframesWithDuration:0.6
+                                   delay:0
+                                 options:UIViewKeyframeAnimationOptionBeginFromCurrentState
+                              animations:^
+    {
+        CGRect originalFrame = self.view.frame;
+        [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:0.25 animations:^{
+            CGRect frame = self.view.frame;
+            frame.origin.x = -10;
+            self.view.frame = frame;
+        }];
+        [UIView addKeyframeWithRelativeStartTime:0.25 relativeDuration:0.25 animations:^{
+            CGRect frame = self.view.frame;
+            frame.origin.x = [ToolBox getApplicationFrameSize].width-frame.size.width+10;
+            self.view.frame = frame;
+        }];
+        [UIView addKeyframeWithRelativeStartTime:0.5 relativeDuration:0.25 animations:^{
+            CGRect frame = self.view.frame;
+            frame.origin.x = -5;
+            self.view.frame = frame;
+        }];
+        [UIView addKeyframeWithRelativeStartTime:0.75 relativeDuration:0.25 animations:^{
+            self.view.frame = originalFrame;
+        }];
+    }
+                              completion:^(BOOL finished)
+    {
+    }];
 }
 
 - (void)popDialogViewAnimationFromBottom
@@ -278,85 +309,85 @@
     
 }
 
-- (void)popDialogViewAnimationFromTop
-{
-    CGFloat mid_y = ([ToolBox getApplicationFrameSize].height - self.size.height)/2;
-    [UIView animateWithDuration:0.1
-                          delay:0
-                        options:UIViewAnimationOptionCurveEaseIn
-                     animations:^{
-                         CGRect frame = self.view.frame;
-                         frame.origin.y = mid_y+100;
-                         self.view.frame = frame;
-                         self.backGroundView.alpha+=0.6/4;
-                     }
-                     completion:^(BOOL finished){
-       if (finished)
-       {
-           [UIView animateWithDuration:0.1
-                                 delay:0
-                               options:UIViewAnimationOptionCurveEaseIn
-                            animations:^{
-                                CGRect frame = self.view.frame;
-                                frame.origin.y = mid_y-50;
-                                self.view.frame = frame;
-                                self.backGroundView.alpha+=0.6/4;
-                            }
-                            completion:^(BOOL finished){
-                                if (finished)
-                                {
-                                    [UIView animateWithDuration:0.1
-                                                          delay:0
-                                                        options:UIViewAnimationOptionCurveEaseIn
-                                                     animations:^{
-                                                         CGRect frame = self.view.frame;
-                                                         frame.origin.y = mid_y+25;
-                                                         self.view.frame = frame;
-                                                         self.backGroundView.alpha+=0.6/4;
-                                                     }
-                                                     completion:^(BOOL finished){
-                                                         if (finished)
-                                                         {
-                                                             [UIView animateWithDuration:0.1
-                                                                                   delay:0
-                                                                                 options:UIViewAnimationOptionCurveEaseOut
-                                                                              animations:^{
-                                                                                  CGRect frame = self.view.frame;
-                                                                                  frame.origin.y = mid_y;
-                                                                                  self.view.frame = frame;
-                                                                                  self.backGroundView.alpha+=0.6/4;
-                                                                              }
-                                                                              completion:^(BOOL finished){
-                                                                                  if (finished)
-                                                                                  {
-                                                                                  }
-                                                                              }];
-
-                                                         }
-                                                     }];
-
-                                }
-                            }];
-       }
-    }];
-    
-}
-
-- (void)popDialogViewAnimationFromLeftOrRight
-{
-    CGFloat mid_x = ([ToolBox getApplicationFrameSize].width - self.size.width)/2;
-    [UIView animateWithDuration:0.3
-                          delay:0
-                        options:UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
-                         CGRect frame = self.view.frame;
-                         frame.origin.x = mid_x;
-                         self.view.frame = frame;
-                         self.backGroundView.alpha = 0.6;
-                     }
-                     completion:nil
-     ];
-}
+//- (void)popDialogViewAnimationFromTop
+//{
+//    CGFloat mid_y = ([ToolBox getApplicationFrameSize].height - self.size.height)/2;
+//    [UIView animateWithDuration:0.1
+//                          delay:0
+//                        options:UIViewAnimationOptionCurveEaseIn
+//                     animations:^{
+//                         CGRect frame = self.view.frame;
+//                         frame.origin.y = mid_y+100;
+//                         self.view.frame = frame;
+//                         self.backGroundView.alpha+=0.6/4;
+//                     }
+//                     completion:^(BOOL finished){
+//       if (finished)
+//       {
+//           [UIView animateWithDuration:0.1
+//                                 delay:0
+//                               options:UIViewAnimationOptionCurveEaseIn
+//                            animations:^{
+//                                CGRect frame = self.view.frame;
+//                                frame.origin.y = mid_y-50;
+//                                self.view.frame = frame;
+//                                self.backGroundView.alpha+=0.6/4;
+//                            }
+//                            completion:^(BOOL finished){
+//                                if (finished)
+//                                {
+//                                    [UIView animateWithDuration:0.1
+//                                                          delay:0
+//                                                        options:UIViewAnimationOptionCurveEaseIn
+//                                                     animations:^{
+//                                                         CGRect frame = self.view.frame;
+//                                                         frame.origin.y = mid_y+25;
+//                                                         self.view.frame = frame;
+//                                                         self.backGroundView.alpha+=0.6/4;
+//                                                     }
+//                                                     completion:^(BOOL finished){
+//                                                         if (finished)
+//                                                         {
+//                                                             [UIView animateWithDuration:0.1
+//                                                                                   delay:0
+//                                                                                 options:UIViewAnimationOptionCurveEaseOut
+//                                                                              animations:^{
+//                                                                                  CGRect frame = self.view.frame;
+//                                                                                  frame.origin.y = mid_y;
+//                                                                                  self.view.frame = frame;
+//                                                                                  self.backGroundView.alpha+=0.6/4;
+//                                                                              }
+//                                                                              completion:^(BOOL finished){
+//                                                                                  if (finished)
+//                                                                                  {
+//                                                                                  }
+//                                                                              }];
+//
+//                                                         }
+//                                                     }];
+//
+//                                }
+//                            }];
+//       }
+//    }];
+//    
+//}
+//
+//- (void)popDialogViewAnimationFromLeftOrRight
+//{
+//    CGFloat mid_x = ([ToolBox getApplicationFrameSize].width - self.size.width)/2;
+//    [UIView animateWithDuration:0.3
+//                          delay:0
+//                        options:UIViewAnimationOptionCurveEaseInOut
+//                     animations:^{
+//                         CGRect frame = self.view.frame;
+//                         frame.origin.x = mid_x;
+//                         self.view.frame = frame;
+//                         self.backGroundView.alpha = 0.6;
+//                     }
+//                     completion:nil
+//     ];
+//}
 
 - (void)disappearAnimation
 {

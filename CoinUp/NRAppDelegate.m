@@ -120,6 +120,7 @@
     {
         self.PopDialogViewControlller.question = userInfo[@"aps"][@"alert"];
         self.PopDialogViewControlller.isShow = YES;
+        [self.PopDialogViewControlller updateContent];
         [self.PopDialogViewControlller flash];
     }
     
