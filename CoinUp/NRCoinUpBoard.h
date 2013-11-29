@@ -30,5 +30,6 @@ typedef NS_ENUM(NSInteger, COINPLATFORMTYPE) {
 - (void)setTradeArrayAndReloadTableView:(NSArray*)array;
 - (void)setDepthArrayAndReloadTableView:(NSArray *)depthArray;
 - (void)setLastPriceNumberWithDoubleNumber:(double)number;
+- (void)btc123verify;
 
 @end

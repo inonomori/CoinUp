@@ -28,6 +28,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSLog(@"token = %@",[prefs objectForKey:@"pushToken"]);
     if (![prefs objectForKey:@"pushToken"])
     {
         NSLog(@"initiating remoteNotificationAreActive");
@@ -44,7 +45,7 @@
     
     return YES;
 }
-							
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -110,9 +111,9 @@
         self.PopDialogViewControlller.popDialogStyle = FSPopDialogStyleFromBottom;
         self.PopDialogViewControlller.disappearDialogStyle = FSPopDialogStyleFromBottom;
         self.PopDialogViewControlller.size = CGSizeMake(300,180);
-        self.PopDialogViewControlller.dialogViewTitle = @"提 醒";
+        self.PopDialogViewControlller.dialogViewTitle = NSLocalizedString(@"notification", nil);
         self.PopDialogViewControlller.question = userInfo[@"aps"][@"alert"];
-        self.PopDialogViewControlller.okButtonTitle = @"确 定";
+        self.PopDialogViewControlller.okButtonTitle = NSLocalizedString(@"OK", nil);
         self.PopDialogViewControlller.isShow = YES;
         [self.PopDialogViewControlller appear];
     }

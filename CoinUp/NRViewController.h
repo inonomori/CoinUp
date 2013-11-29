@@ -13,5 +13,6 @@
 
 @interface NRViewController : UIViewController<NRCoinUpBoard,UITableViewDataSource,UITableViewDelegate,DataPullerDelegate,CPTPlotDataSource,CPTPlotSpaceDelegate,CPTScatterPlotDelegate>
 
+- (void)dismissModalViewController;
 
 @end

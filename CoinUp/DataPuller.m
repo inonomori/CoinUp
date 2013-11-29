@@ -214,7 +214,16 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
         if (sid)
         {
             unsigned long long timeStamp = [self.delegate getBitStampTimeStamp];
-            url = [NSURL URLWithString:[NSString stringWithFormat:@"http://k.btc123.com:8080/period?step=%d&sid=%@&symbol=bitstampbtcusd&nonce=%llu",timeIntervalInSeconds,sid,timeStamp]];
+            @try {
+                url = [NSURL URLWithString:[NSString stringWithFormat:@"http://k.btc123.com:8080/period?step=%d&sid=%@&symbol=bitstampbtcusd&nonce=%llu",timeIntervalInSeconds,sid,timeStamp]];
+            }
+            @catch (NSException *exception) {
+                [self.delegate updateBITSTAMPSID];
+                url = nil;
+            }
+            @finally {
+                
+            }
         }
         else
             url = nil;
@@ -234,6 +243,21 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
                 cachedArray = [[[JSONDecoder alloc] init] objectWithData:jsonData error:&jsonError];
                 if (jsonError)
                 {
+                    NSString *regulaStr = @"你必须完成此认证后才能访问";
+                    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regulaStr
+                                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                                             error:nil];
+                    NSString *sourceCode = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+                    if (sourceCode)
+                    {
+                        NSArray *arrayOfAllMatches = [regex matchesInString:sourceCode options:0 range:NSMakeRange(0, [sourceCode length])];
+                        
+                        if (arrayOfAllMatches.count != 0)
+                        {
+                            [self.delegate btc123verify];
+                        }
+                    }
+
                     [weakSelf.delegate updateBITSTAMPSID];
                     NSLog(@"%@",jsonError);
                     cachedArray = nil;

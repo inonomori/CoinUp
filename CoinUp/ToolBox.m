@@ -124,4 +124,14 @@
     return @[@"NOPLATFORM",@"FXBTC",@"OKCOIN",@"BTCTRADE",@"MTGOX",@"BITSTAMP",@"CHBTC",@"BTCCHINA",@"HUOBI",@"BTC100"][type];
 }
 
++ (NSString*)getCurrentLanguage
+{
+    NSLocale *locale = [NSLocale currentLocale];
+    NSString *language = [locale displayNameForKey:NSLocaleIdentifier
+                               value:[locale localeIdentifier]];
+    if ([language isEqualToString:@"Chinese (China)"])
+        return @"CH";
+    return @"EN";
+}
+
 @end

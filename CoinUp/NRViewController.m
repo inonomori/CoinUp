@@ -27,7 +27,9 @@
 #import "NRCoinUpBoard.h"
 #import "JSONKit.h"
 #import "FSPopDialogViewController.h"
+#import "NRVerifyViewController.h"
 
+#define NRLSTR(_x) NSLocalizedString(_x,nil)
 #define OHCP_LABEL_IS_ON NO
 #define TOKEN [[NSUserDefaults standardUserDefaults] objectForKey:@"pushToken"]
 #define kTouchPlot @"TOUCH PLOT"
@@ -246,6 +248,7 @@
     }
          failure:^(AFHTTPRequestOperation *operation, NSError *error)
     {
+        [self showDialogWithContent:NRLSTR(@"pleaseToTapOnePlatformToRefreshPrice") Title:NRLSTR(@"title_warning")];
          [self.UIUpdateTimer invalidate];
          self.UIUpdateTimer = nil;
          self.FXBTCticker.useTickerToUpdateUI = YES;
@@ -334,7 +337,7 @@
     {
         NSDate *d = [NSDate dateWithTimeIntervalSince1970:[self.dataPuller.filteredFinancialData[index][0] doubleValue]];
         NSDateFormatter *formateter = [[NSDateFormatter alloc] init];
-        [formateter setDateFormat:@"yyyy年MM月dd日HH:mm"];
+        [formateter setDateFormat:NRLSTR(@"YYMMDD")];
         NSString *time = [formateter stringFromDate:d];
         
         self.dateLabel.text = time;
@@ -390,7 +393,7 @@
          ];
     }
     
-    if (frame.origin.y == SCREENHEIGHT)
+    if (frame.origin.y >= SCREENHEIGHT)
     {
         frame.origin.y -= 110;
         [UIView animateWithDuration:0.3
@@ -508,7 +511,7 @@
                 timeoffset = 42*24; //42 days, 6 weeks
                 CPTXYAxisSet *xyAxisSet        = (id)self.graph.axisSet;
                 CPTXYAxis *xAxis               = xyAxisSet.xAxis;
-                xAxis.title = @"6周";
+                xAxis.title = NRLSTR(@"6weeks");
             }
                 break;
             case 1:
@@ -516,7 +519,7 @@
                 timeoffset = 3*24;  // 3 days
                 CPTXYAxisSet *xyAxisSet        = (id)self.graph.axisSet;
                 CPTXYAxis *xAxis               = xyAxisSet.xAxis;
-                xAxis.title = @"3日";
+                xAxis.title = NRLSTR(@"3days");
             }
                 break;
             case 2:
@@ -524,7 +527,7 @@
                 timeoffset = 24;  // a day
                 CPTXYAxisSet *xyAxisSet        = (id)self.graph.axisSet;
                 CPTXYAxis *xAxis               = xyAxisSet.xAxis;
-                xAxis.title = @"24时";
+                xAxis.title = NRLSTR(@"24hours");
             }
                 break;
             case 3:
@@ -532,7 +535,7 @@
                 timeoffset = 12;  //half a day
                 CPTXYAxisSet *xyAxisSet        = (id)self.graph.axisSet;
                 CPTXYAxis *xAxis               = xyAxisSet.xAxis;
-                xAxis.title = @"12时";
+                xAxis.title = NRLSTR(@"12hours");
             }
                 break;
             default:
@@ -1184,11 +1187,11 @@
     self.lastPriceNumber = [NSNumber numberWithDouble:number];
     if (number != UNAVAILABLE)
     {
-        self.priceSettingCurrentPriceLabel.text = [NSString stringWithFormat:@"%@ 平台当前价格：%.2f",[ToolBox getPlatformNameByPlatformType:self.platformType],number];
+        self.priceSettingCurrentPriceLabel.text = [NSString stringWithFormat:NRLSTR(@"Formate_currentPrice"),[ToolBox getPlatformNameByPlatformType:self.platformType],number];
     }
     else
     {
-        self.priceSettingCurrentPriceLabel.text = @"平台当前价格不可查";
+        self.priceSettingCurrentPriceLabel.text = NRLSTR(@"canNotGetCurrentPriceForThisPlatform");
     }
 }
 
@@ -1206,7 +1209,7 @@
     {
         if (!self.isNotificationWarningShowedAlready)
         {
-            [self showDialogWithContent:@"请在系统设置中打开 CoinUp 的推送功" Title:@"错 误"];
+            [self showDialogWithContent:NRLSTR(@"askToEnablePushNotification") Title:NRLSTR(@"title_error")];
             self.isNotificationWarningShowedAlready = YES;
             return;
         }
@@ -1229,7 +1232,7 @@
             if (error)
             {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf showDialogWithContent:@"无法连接服务器" Title:@"错 误"];
+                    [weakSelf showDialogWithContent:NRLSTR(@"canNotConnectToTheServer") Title:NRLSTR(@"title_error")];
                 });
                 NSLog(@"%@",error);
             }
@@ -1329,7 +1332,7 @@
              NSLog(@"JSON: %@", responseObject);
          } failure:^(AFHTTPRequestOperation *operation, NSError *error)
          {
-             [self showDialogWithContent:@"无法连接服务器" Title:@"错 误"];
+             [self showDialogWithContent:NSLocalizedString(@"canNotConnectToTheServer",nil) Title:NSLocalizedString(@"title_error", nil)];
              [sender setOn:YES animated:YES];
              NSLog(@"Error: %@", error);
          }];
@@ -1354,21 +1357,22 @@
                     if (userSettingPrice < currentPrice)
                     {
                         NSLog(@"set it higher");
-                        [self showDialogWithContent:@"设定值已低于当前价格" Title:@"错 误"];
+                        [self showDialogWithContent:NRLSTR(@"inputPriceBelowCurrentPrice") Title:NRLSTR(@"title_error")];
                         [sender setOn:NO animated:YES];
                     }
                     else
                     {
                         NSLog(@"it's ok, send it to server for high");
                         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-                        NSDictionary *parameters = @{@"token": TOKEN,@"platform":[ToolBox getPlatformNameByPlatformType:self.platformType],@"high":[NSString stringWithFormat:@"%.2f",[number doubleValue]]};
+                        NSString *language = [ToolBox getCurrentLanguage];
+                        NSDictionary *parameters = @{@"token": TOKEN,@"language":language,@"platform":[ToolBox getPlatformNameByPlatformType:self.platformType],@"high":[NSString stringWithFormat:@"%.2f",[number doubleValue]]};
                         
                         [manager GET:@"http://115.29.191.191:4321/add" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject)
                         {
                             NSLog(@"JSON: %@", responseObject);
                         } failure:^(AFHTTPRequestOperation *operation, NSError *error)
                         {
-                            [self showDialogWithContent:@"无法连接服务器" Title:@"错 误"];
+                            [self showDialogWithContent:NRLSTR(@"canNotConnectToTheServer") Title:NRLSTR(@"title_error")];
                             [sender setOn:NO animated:YES];
                             NSLog(@"Error100: %@", error);
                             NSLog(@"%@",operation);
@@ -1380,21 +1384,22 @@
                     if (userSettingPrice > currentPrice)
                     {
                         NSLog(@"set it lower");
-                        [self showDialogWithContent:@"设定值已高于当前价格" Title:@"错 误"];
+                        [self showDialogWithContent:NRLSTR(@"inputPriceHigherCurrentPrice") Title:NRLSTR(@"title_error")];
                         [sender setOn:NO animated:YES];
                     }
                     else
                     {
                         NSLog(@"it's ok, send it to server for low");
                         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-                        NSDictionary *parameters = @{@"token": TOKEN,@"platform":[ToolBox getPlatformNameByPlatformType:self.platformType],@"low":[NSString stringWithFormat:@"%.2f",[number doubleValue]]};
+                        NSString *language = [ToolBox getCurrentLanguage];
+                        NSDictionary *parameters = @{@"token": TOKEN,@"language":language,@"platform":[ToolBox getPlatformNameByPlatformType:self.platformType],@"low":[NSString stringWithFormat:@"%.2f",[number doubleValue]]};
                         
                         [manager GET:@"http://115.29.191.191:4321/add" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject)
                         {
                             NSLog(@"JSON: %@", responseObject);
                         } failure:^(AFHTTPRequestOperation *operation, NSError *error)
                         {
-                            [self showDialogWithContent:@"无法连接服务器" Title:@"错 误"];
+                            [self showDialogWithContent:NRLSTR(@"canNotConnectToTheServer") Title:NRLSTR(@"title_error")];
                             [sender setOn:NO animated:YES];
                             NSLog(@"Error: %@", error);
                         }];
@@ -1413,7 +1418,7 @@
                      NSLog(@"JSON: %@", responseObject);
                  } failure:^(AFHTTPRequestOperation *operation, NSError *error)
                  {
-                     [self showDialogWithContent:@"无法连接服务器" Title:@"错 误"];
+                     [self showDialogWithContent:NSLocalizedString(@"canNotConnectToTheServer",nil) Title:NRLSTR(@"title_error")];
                      NSLog(@"Error: %@", error);
                  }];
             }
@@ -1421,7 +1426,7 @@
         else
         {
             NSLog(@"user input is not a valid number");
-            [self showDialogWithContent:@"请输入有效的价格值" Title:@"错 误"];
+            [self showDialogWithContent:NSLocalizedString(@"pleaseInputAValidNumber", nil) Title:NSLocalizedString(@"title_error", nil)];
             [sender setOn:NO animated:YES];
         }
     }
@@ -1434,10 +1439,30 @@
     self.popDiagram.size = CGSizeMake(300,180);
     self.popDiagram.dialogViewTitle = title;
     self.popDiagram.question = content;
-    self.popDiagram.okButtonTitle = @"确 定";
+    self.popDiagram.okButtonTitle = NRLSTR(@"OK");
     self.popDiagram.isShow = YES;
     [self.popDiagram appear];
 
+}
+
+- (void)btc123verify
+{
+    [self dismissInfoWindow];
+    [self performSegueWithIdentifier:@"verifyModalSegue" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"verifyModalSegue"])
+    {
+        NRVerifyViewController *vc = (NRVerifyViewController*)segue.destinationViewController;
+        vc.delegate = self;
+    }
+}
+
+- (void)dismissModalViewController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

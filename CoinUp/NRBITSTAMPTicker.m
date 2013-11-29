@@ -63,57 +63,88 @@
 
 - (void)update:(id)userInfo
 {
-    __block NSData *jsonData;
-    __block NSData *TradeJsonData;
-    __block NSData *DepthJsonData;
-    __weak NRBitStampTicker* weakSelf = self;
+    if ([self.delegate currentPlatformType] == TYPE(PLATFORM))
+    {
+        __weak NRBitStampTicker* weakSelf = self;
+        
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:TICKER_URL] cachePolicy: NSURLRequestUseProtocolCachePolicy timeoutInterval:8.0];
+        [NSURLConnection sendAsynchronousRequest:request
+                                           queue:[NSOperationQueue mainQueue]
+                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+         {
+             if (data && !error)
+             {
+                 NSError *jsonError;
+                 NSDictionary *jsonObject = [[[JSONDecoder alloc] init] objectWithData:data error:&jsonError];
+                 if (!jsonError)
+                 {
+                     if (weakSelf.useTickerToUpdateUI)
+                         weakSelf.last = [jsonObject[@"last"] doubleValue];
+                     weakSelf.high = [jsonObject[@"high"] doubleValue];
+                     weakSelf.low = [jsonObject[@"low"] doubleValue];
+                     weakSelf.vol = [jsonObject[@"volume"] doubleValue];
+                     weakSelf.ask = [jsonObject[@"ask"] doubleValue];
+                     weakSelf.bid = [jsonObject[@"bid"] doubleValue];
+                 }
+                 else
+                 {
+                     if (weakSelf.useTickerToUpdateUI)
+                         weakSelf.last = UNAVAILABLE;
+                     weakSelf.high = UNAVAILABLE;
+                     weakSelf.low = UNAVAILABLE;
+                     weakSelf.vol = UNAVAILABLE;
+                     weakSelf.ask = UNAVAILABLE;
+                     weakSelf.bid = UNAVAILABLE;
+                 }
+             }
+             else
+             {
+                 if (weakSelf.useTickerToUpdateUI)
+                     weakSelf.last = UNAVAILABLE;
+                 weakSelf.high = UNAVAILABLE;
+                 weakSelf.low = UNAVAILABLE;
+                 weakSelf.vol = UNAVAILABLE;
+                 weakSelf.ask = UNAVAILABLE;
+                 weakSelf.bid = UNAVAILABLE;
+             }
+         }];
     
-    dispatch_queue_t downloadQueue = dispatch_queue_create("Queue", NULL);
-	dispatch_async(downloadQueue, ^{
-        jsonData = [NSData dataWithContentsOfURL:[NSURL URLWithString:TICKER_URL]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (jsonData)
-            {
-                NSDictionary *jsonObject = [[[JSONDecoder alloc] init] objectWithData:jsonData];
-                if (self.useTickerToUpdateUI)
-                    weakSelf.last = [jsonObject[@"last"] doubleValue];
-                weakSelf.high = [jsonObject[@"high"] doubleValue];
-                weakSelf.low = [jsonObject[@"low"] doubleValue];
-                weakSelf.vol = [jsonObject[@"volume"] doubleValue];
-                weakSelf.ask = [jsonObject[@"ask"] doubleValue];
-                weakSelf.bid = [jsonObject[@"bid"] doubleValue];
-            }
-            else
-            {
-                if (self.useTickerToUpdateUI)
-                    weakSelf.last = UNAVAILABLE;
-                weakSelf.high = UNAVAILABLE;
-                weakSelf.low = UNAVAILABLE;
-                weakSelf.vol = UNAVAILABLE;
-                weakSelf.ask = UNAVAILABLE;
-                weakSelf.bid = UNAVAILABLE;
-            }
-        });
+    request = [NSURLRequest requestWithURL:[NSURL URLWithString:TRADE_URL] cachePolicy: NSURLRequestUseProtocolCachePolicy timeoutInterval:8.0];
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+     {
+         if (data && !error)
+         {
+             NSError *jsonError;
+             NSArray* jsonResultArray = [[[JSONDecoder alloc] init] objectWithData:data error:&jsonError];
+             if (!jsonError)
+                 [weakSelf tradeArrayParser:jsonResultArray];
+             else
+                 [weakSelf tradeArrayParser:nil];
+         }
+         else
+             [weakSelf tradeArrayParser:nil];
+     }];
         
-        TradeJsonData = [NSData dataWithContentsOfURL:[NSURL URLWithString:TRADE_URL]];
-        if (TradeJsonData)
-        {
-            NSArray* jsonResultArray = [[[JSONDecoder alloc] init] objectWithData:TradeJsonData];
-            [self tradeArrayParser:jsonResultArray];
-        }
-        else
-            [self tradeArrayParser:nil];
-        
-        DepthJsonData = [NSData dataWithContentsOfURL:[NSURL URLWithString:DEPTH_URL]];
-        if (DepthJsonData)
-        {
-            NSDictionary *jsonResult = [[[JSONDecoder alloc] init] objectWithData:DepthJsonData];
-            [self depthJsonParser:jsonResult];
-        }
-        else
-            [self depthJsonParser:nil];
-        
-	});
+        request = [NSURLRequest requestWithURL:[NSURL URLWithString:DEPTH_URL] cachePolicy: NSURLRequestUseProtocolCachePolicy timeoutInterval:8.0];
+        [NSURLConnection sendAsynchronousRequest:request
+                                           queue:[NSOperationQueue mainQueue]
+                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+         {
+             if (data && !error)
+             {
+                 NSError *jsonError;
+                 NSDictionary *jsonResult = [[[JSONDecoder alloc] init] objectWithData:data error:&jsonError];
+                 if (!jsonError)
+                     [weakSelf depthJsonParser:jsonResult];
+                 else
+                     [weakSelf depthJsonParser:nil];
+             }
+             else
+                 [weakSelf depthJsonParser:nil];
+         }];
+    }
 }
 
 - (void)tradeArrayParser:(NSArray*)array

@@ -1,0 +1,25 @@
+/* 
+  Localizable.strings
+  CoinUp
+
+  Created by Zhefu Wang on 13-11-28.
+  Copyright (c) 2013年 Nonomori. All rights reserved.
+*/
+"canNotConnectToTheServer" = "无法连接服务器";
+"title_error" = "错 误";
+"OK" = "确 定";
+"pleaseEndterTheSecondVerifyCode" = " 请输入验证码(2/2):";
+"pleaseInputAValidNumber" = "请输入有效的价格值";
+"askToEnablePushNotification" = "请在系统设置中打开 CoinUp 的推送功能";
+"canNotGetCurrentPriceForThisPlatform" = "平台当前价格不可查";
+"Formate_currentPrice" = "%@ 平台当前价格：%.2f";
+"title_warning" = "提  示";
+"notification" = "提 醒";
+"pleaseToTapOnePlatformToRefreshPrice" = "网络状况差或当前无法获取所有平台价格。请点击平台名进行单个平台价格刷新。";
+"YYMMDD" = "yyyy年MM月dd日HH:mm";
+"6weeks" = "6周";
+"3days" = "3日";
+"24hours" = "24时";
+"12hours" = "12时";
+"inputPriceBelowCurrentPrice" = "设定值已低于当前价格";
+"inputPriceHigherCurrentPrice" = "设定值已高于当前价格";

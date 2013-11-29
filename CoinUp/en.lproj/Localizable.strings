@@ -1,0 +1,25 @@
+/* 
+  Localizable.strings
+  CoinUp
+
+  Created by Zhefu Wang on 13-11-28.
+  Copyright (c) 2013年 Nonomori. All rights reserved.
+*/
+"canNotConnectToTheServer" = "Can not connect to the server";
+"title_error" = "Error";
+"OK" = "OK";
+"pleaseEndterTheSecondVerifyCode" = " Please enter the verification code(2/2):";
+"pleaseInputAValidNumber" = "Please Input a Valid Number";
+"askToEnablePushNotification" = "Please enable push notification for CoinUp in settings";
+"canNotGetCurrentPriceForThisPlatform" = "Fail to get current price";
+"Formate_currentPrice" = "%@ last price：%.2f";
+"title_warning" = "Warning";
+"notification" = "Notification";
+"pleaseToTapOnePlatformToRefreshPrice" = "Connection failed. Please tap on a single platform to refresh its data.";
+"YYMMDD" = "yyyy-MM-dd-HH:mm";
+"6weeks" = "6w";
+"3days" = "3d";
+"24hours" = "1d";
+"12hours" = "12h";
+"inputPriceBelowCurrentPrice" = "Input value already below the last price";
+"inputPriceHigherCurrentPrice" = "Input value already higher than the last price";
