@@ -349,6 +349,11 @@
     }
 }
 
+- (IBAction)SwitchButtonTouched:(UIButton *)sender
+{
+    [self.delegate switchToViewControllerWithIdentifier:@"LTCViewController" Animation:UIViewAnimationOptionTransitionFlipFromLeft AdditionalInitBlock:nil];
+}
+
 #pragma mark - InfoWindow Control
 - (IBAction)ButtonTouched:(UIButton *)sender
 {
@@ -1172,10 +1177,18 @@
         NSArray *arrayOfAllMatches = [regex matchesInString:sourceCode options:0 range:NSMakeRange(0, [sourceCode length])];
         
         self.bitstampTimeStamp = (unsigned long long)[[NSDate date] timeIntervalSince1970]*1000;
-        
-        NSTextCheckingResult *match = arrayOfAllMatches[0];
-        self.bitstampSID = [sourceCode substringWithRange:match.range];
-        NSLog(@"sid = %@",self.bitstampSID);
+
+        if (arrayOfAllMatches.count > 0)
+        {
+            NSTextCheckingResult *match = arrayOfAllMatches[0];
+            self.bitstampSID = [sourceCode substringWithRange:match.range];
+            NSLog(@"sid = %@",self.bitstampSID);
+        }
+        else
+        {
+            self.bitstampSID = nil;
+            return;
+        }
     }
     else
         self.bitstampSID = nil;
@@ -1292,7 +1305,15 @@
 
 - (IBAction)priceSettingTextFieldDidBeginEditing:(UITextField *)sender
 {
-    self.priceSettingScrollView.contentOffset = CGPointMake(0, sender.frame.origin.y-45);
+    int offset = 0;
+    NSLog(@"%f",[UIScreen mainScreen].bounds.size.height);//480  568
+    if ([UIScreen mainScreen].bounds.size.height - 480 < 0.0001) //3.5inch
+        offset = 10;
+    else if ([UIScreen mainScreen].bounds.size.height - 568 < 0.0001) //4inch
+        offset = 45;
+    else //iPad
+        offset = 0;
+    self.priceSettingScrollView.contentOffset = CGPointMake(0, sender.frame.origin.y-offset);
 }
 
 - (IBAction)priceSettingTextFieldDidEndEditing:(UITextField *)sender
@@ -1317,11 +1338,6 @@
     if (sender.on == NO) //OFF
     {
         NSLog(@"%@ switch to OFF",sender);
-        if (sender.tag == 6600)//high
-            self.priceSettingMaxTextField.enabled = YES;
-        else//6610,low
-            self.priceSettingMinTextField.enabled = YES;
-        
         //remove from server
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         NSString *type = (sender.tag ==6600)?@"high":@"low";
@@ -1330,6 +1346,11 @@
         [manager GET:@"http://115.29.191.191:4321/delete" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject)
          {
              NSLog(@"JSON: %@", responseObject);
+             if (sender.tag == 6600)//high
+                 self.priceSettingMaxTextField.enabled = YES;
+             else//6610,low
+                 self.priceSettingMinTextField.enabled = YES;
+
          } failure:^(AFHTTPRequestOperation *operation, NSError *error)
          {
              [self showDialogWithContent:NSLocalizedString(@"canNotConnectToTheServer",nil) Title:NSLocalizedString(@"title_error", nil)];
@@ -1369,6 +1390,10 @@
                         
                         [manager GET:@"http://115.29.191.191:4321/add" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject)
                         {
+                            if (sender.tag == 6600)
+                                [self.priceSettingMaxTextField setEnabled:NO];
+                            else
+                                [self.priceSettingMinTextField setEnabled:NO];
                             NSLog(@"JSON: %@", responseObject);
                         } failure:^(AFHTTPRequestOperation *operation, NSError *error)
                         {

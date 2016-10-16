@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "NRCoinUpBoard.h"
+#import "NRSwitchViewController.h"
 #import "DataPuller.h"
 #import "CorePlot-CocoaTouch.h"
 
-@interface NRViewController : UIViewController<NRCoinUpBoard,UITableViewDataSource,UITableViewDelegate,DataPullerDelegate,CPTPlotDataSource,CPTPlotSpaceDelegate,CPTScatterPlotDelegate>
+@interface NRViewController : NRSwitchViewController<NRCoinUpBoard,UITableViewDataSource,UITableViewDelegate,DataPullerDelegate,CPTPlotDataSource,CPTPlotSpaceDelegate,CPTScatterPlotDelegate>
 
 - (void)dismissModalViewController;
 

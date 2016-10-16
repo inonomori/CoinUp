@@ -121,7 +121,7 @@
 
 + (NSString*)getPlatformNameByPlatformType:(COINPLATFORMTYPE)type
 {
-    return @[@"NOPLATFORM",@"FXBTC",@"OKCOIN",@"BTCTRADE",@"MTGOX",@"BITSTAMP",@"CHBTC",@"BTCCHINA",@"HUOBI",@"BTC100"][type];
+    return @[@"NOPLATFORM",@"FXBTC",@"OKCOIN",@"BTCTRADE",@"MTGOX",@"BITSTAMP",@"CHBTC",@"BTCCHINA",@"HUOBI",@"BTC100",@"BTCE"][type];
 }
 
 + (NSString*)getCurrentLanguage

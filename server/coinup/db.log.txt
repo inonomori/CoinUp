@@ -1,0 +1,14 @@
+2013-11-16 18:08:24,974 - tornado.access - INFO - 200 GET /all (127.0.0.1) 0.00ms
+2013-11-16 18:08:27,301 - tornado.access - INFO - 304 GET /all (127.0.0.1) 0.00ms
+2013-11-16 18:08:28,457 - tornado.access - INFO - 304 GET /all (127.0.0.1) 0.00ms
+2013-11-16 18:08:29,253 - tornado.access - INFO - 304 GET /all (127.0.0.1) 0.00ms
+2013-11-16 18:08:30,051 - tornado.access - INFO - 304 GET /all (127.0.0.1) 0.00ms
+2013-11-16 18:08:31,018 - tornado.access - INFO - 304 GET /all (127.0.0.1) 0.00ms
+2013-11-16 18:08:41,664 - tornado.access - INFO - 200 GET /all (127.0.0.1) 0.00ms
+2013-11-16 18:08:50,914 - tornado.access - INFO - 200 GET /all (127.0.0.1) 0.00ms
+2013-11-16 18:08:52,302 - tornado.access - INFO - 304 GET /all (127.0.0.1) 0.00ms
+2013-11-16 18:09:02,816 - tornado.access - INFO - 200 GET /getprice?platform=okcoin (127.0.0.1) 0.00ms
+2013-11-16 18:09:06,373 - tornado.access - INFO - 200 GET /getprice?platform=123 (127.0.0.1) 0.00ms
+2013-11-16 18:09:12,663 - tornado.access - INFO - 200 GET /getprice?platform=btcchina (127.0.0.1) 0.00ms
+2013-11-16 18:10:06,949 - tornado.access - INFO - 200 GET /getprice?platform=btcchina (127.0.0.1) 0.00ms
+2013-11-16 18:10:08,587 - tornado.access - INFO - 304 GET /getprice?platform=btcchina (127.0.0.1) 15.60ms

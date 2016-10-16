@@ -203,6 +203,31 @@
     });
 }
 
+- (void)depthJsonParser:(NSDictionary*)dic
+{
+    if (dic == nil)
+    {
+        self.depthArray = nil;
+        return;
+    }
+    
+    dispatch_queue_t downloadQueue = dispatch_queue_create("Queue", NULL);
+	dispatch_async(downloadQueue, ^{
+        
+        NSArray *askArray = dic[@"asks"];
+        NSArray *bidArray = dic[@"bids"];
+        NSMutableArray *resultMutableArray = [NSMutableArray arrayWithCapacity:50];
+        NSInteger count = (askArray.count > bidArray.count)?bidArray.count:askArray.count;
+        for (int i = count - 1; i >= 0; --i)
+        {
+            [resultMutableArray addObject:@{@"ask":askArray[count - i - 1],@"bid":bidArray[i]}];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.depthArray = [resultMutableArray copy];
+        });
+    });
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary *)change

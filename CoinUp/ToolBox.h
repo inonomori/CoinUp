@@ -15,6 +15,10 @@ A = B;\
 B = __tmp;\
 }while(0)
 
+#define STRING(x) #x
+#define NAME(x) @STRING(x)
+#define TYPE(x) x
+
 #define SCREENWIDTH [ToolBox getApplicationFrameSize].width
 #define SCREENHEIGHT [ToolBox getApplicationFrameSize].height
 

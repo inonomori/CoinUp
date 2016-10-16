@@ -8,10 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "NRCoinUpBoard.h"
-
-#define STRING(x) #x
-#define NAME(x) @STRING(x)
-#define TYPE(x) x
+#import "ToolBox.h"
 
 #define UNAVAILABLE 0
 #define WAITINGTIME 10

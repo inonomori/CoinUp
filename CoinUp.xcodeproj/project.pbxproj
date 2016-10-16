@@ -50,6 +50,9 @@
 		6886308C181CE995003DAF5D /* icon-Small40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6886308B181CE995003DAF5D /* icon-Small40@2x.png */; };
 		68A7CF76181FA0140097E809 /* NRUIDepthTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A7CF75181FA0140097E809 /* NRUIDepthTableViewCell.m */; };
 		68BEFD6C18470DD2000E0F7A /* NRVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BEFD6B18470DD2000E0F7A /* NRVerifyViewController.m */; };
+		68DEDCC5184EAE2E0059E927 /* NRMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DEDCC4184EAE2E0059E927 /* NRMainViewController.m */; };
+		68DEDCC8184EB00D0059E927 /* NRSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DEDCC7184EB00D0059E927 /* NRSwitchViewController.m */; };
+		68DEDCCB184EB10B0059E927 /* NRLTCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DEDCCA184EB10B0059E927 /* NRLTCViewController.m */; };
 		68FE9D38181CB4D200B1A2CB /* upArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 68FE9D36181CB4D200B1A2CB /* upArrow.png */; };
 		68FE9D39181CB4D200B1A2CB /* upArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68FE9D37181CB4D200B1A2CB /* upArrow@2x.png */; };
 		6F3FFF6EECA2450FBEC29B09 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90EBD547FE7E497B897973A8 /* libPods.a */; };
@@ -206,6 +209,12 @@
 		68BEFD681846E31E000E0F7A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		68BEFD6A18470DD2000E0F7A /* NRVerifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRVerifyViewController.h; sourceTree = "<group>"; };
 		68BEFD6B18470DD2000E0F7A /* NRVerifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRVerifyViewController.m; sourceTree = "<group>"; };
+		68DEDCC3184EAE2E0059E927 /* NRMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRMainViewController.h; sourceTree = "<group>"; };
+		68DEDCC4184EAE2E0059E927 /* NRMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRMainViewController.m; sourceTree = "<group>"; };
+		68DEDCC6184EB00D0059E927 /* NRSwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRSwitchViewController.h; sourceTree = "<group>"; };
+		68DEDCC7184EB00D0059E927 /* NRSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRSwitchViewController.m; sourceTree = "<group>"; };
+		68DEDCC9184EB10B0059E927 /* NRLTCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRLTCViewController.h; sourceTree = "<group>"; };
+		68DEDCCA184EB10B0059E927 /* NRLTCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRLTCViewController.m; sourceTree = "<group>"; };
 		68FE9D36181CB4D200B1A2CB /* upArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = upArrow.png; path = UI/upArrow.png; sourceTree = "<group>"; };
 		68FE9D37181CB4D200B1A2CB /* upArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "upArrow@2x.png"; path = "UI/upArrow@2x.png"; sourceTree = "<group>"; };
 		866127A2661244BAB89F4D7A /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -395,8 +404,6 @@
 				683050431819FE5500BCEFE1 /* NRAppDelegate.h */,
 				683050441819FE5500BCEFE1 /* NRAppDelegate.m */,
 				6830504C1819FE5500BCEFE1 /* MainStoryboard.storyboard */,
-				6830504F1819FE5500BCEFE1 /* NRViewController.h */,
-				683050501819FE5500BCEFE1 /* NRViewController.m */,
 				680CBB951822717B007FA794 /* DataPuller.h */,
 				680CBB961822717B007FA794 /* DataPuller.m */,
 				682DB7C5181B98450021F509 /* NRUITradeTableViewCell.h */,
@@ -405,6 +412,14 @@
 				68A7CF75181FA0140097E809 /* NRUIDepthTableViewCell.m */,
 				68BEFD6A18470DD2000E0F7A /* NRVerifyViewController.h */,
 				68BEFD6B18470DD2000E0F7A /* NRVerifyViewController.m */,
+				68DEDCC3184EAE2E0059E927 /* NRMainViewController.h */,
+				68DEDCC4184EAE2E0059E927 /* NRMainViewController.m */,
+				68DEDCC6184EB00D0059E927 /* NRSwitchViewController.h */,
+				68DEDCC7184EB00D0059E927 /* NRSwitchViewController.m */,
+				6830504F1819FE5500BCEFE1 /* NRViewController.h */,
+				683050501819FE5500BCEFE1 /* NRViewController.m */,
+				68DEDCC9184EB10B0059E927 /* NRLTCViewController.h */,
+				68DEDCCA184EB10B0059E927 /* NRLTCViewController.m */,
 				6830503B1819FE5500BCEFE1 /* Supporting Files */,
 			);
 			path = CoinUp;
@@ -619,11 +634,14 @@
 				68A7CF76181FA0140097E809 /* NRUIDepthTableViewCell.m in Sources */,
 				683050411819FE5500BCEFE1 /* main.m in Sources */,
 				683050451819FE5500BCEFE1 /* NRAppDelegate.m in Sources */,
+				68DEDCC8184EB00D0059E927 /* NRSwitchViewController.m in Sources */,
+				68DEDCC5184EAE2E0059E927 /* NRMainViewController.m in Sources */,
 				683050511819FE5500BCEFE1 /* NRViewController.m in Sources */,
 				683050591819FE8B00BCEFE1 /* NROKCoinTicker.m in Sources */,
 				6830505E1819FEE100BCEFE1 /* JSONKit.m in Sources */,
 				68305061181A068E00BCEFE1 /* NRBTCTicker.m in Sources */,
 				6839E40618349F27005EEF52 /* FSPopDialogViewController.m in Sources */,
+				68DEDCCB184EB10B0059E927 /* NRLTCViewController.m in Sources */,
 				68305064181A06D700BCEFE1 /* NRFXBTCTicker.m in Sources */,
 				6839E4091834B715005EEF52 /* FSPopDialogBackgroundView.m in Sources */,
 				68305068181A3C9100BCEFE1 /* ToolBox.m in Sources */,
